@@ -455,7 +455,19 @@ public final class Constants {
 
     public static final class LEDConstants {
         public static final int LED_1_PwmID = 9;
-
         public static final int LED_1_Length = 28;
     }
+
+    public static final class ElevatorConstants{
+        public static final int Motor1ID = 0;
+        public static final int Motor2ID = 1;
+        public static final double ConversionConstant = 0.0;
+    }
+
+    public static final class AlgeeIntakeConstants{
+        public static final int MotorID = 0;
+        public static final double ConversionConstant = 0.0;
+    }
+
+
 }
