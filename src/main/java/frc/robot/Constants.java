@@ -461,6 +461,16 @@ public final class Constants {
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
+        public static final int CURRENT_THRESHOLD = 35;
+        public static final double CURRENT_THRESHOLD_TIME = 0.1;
+
+        public static final double Radius = 1;
+
+
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+        public static final double Tolerance = 0;
     }
 
     public static final class AlgaeIntakeConstants{
@@ -482,6 +492,10 @@ public final class Constants {
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
+    }
+    public static final class AlgeeArmConstants{
+        public static final int MotorID = 0;
+        public static final double EncoderConversion = 0.0;
     }
 
 
