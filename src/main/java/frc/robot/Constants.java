@@ -332,30 +332,24 @@ public final class Constants {
     }
 
     public static final class ClimberConstants {
-        public static final int LeftLiftMotorID = 18;
-        public static final int RightLiftMotorID = 19;
+        public static final int MotorID = 0;
 
-         public static final boolean LeftLiftMotorInverted = true;
-        public static final boolean RightLiftMotorInverted = true;
+         public static final boolean MotorInverted = false;
 
-        public static final NeutralModeValue LeftLiftMotorMode = NeutralModeValue.Brake;
-        public static final NeutralModeValue RightLiftMotorMode = NeutralModeValue.Brake;
+        public static final NeutralModeValue LiftMotorMode = NeutralModeValue.Brake;
         
         public static final double MaxLiftSpeed = 4.0;
 
-        public static final double LP = 1.3;
-        public static final double LI = 0.0023;
-        public static final double LD = 0.00147;
-        public static final double RP = 2.4;
-        public static final double RI = 0.0069;
-        public static final double RD = 0.00294;
+        public static final double kP = 1.3;
+        public static final double kI = 0.0023;
+        public static final double kD = 0.00147;
 
-        public static boolean LiftLimitEnable = true;
-        public static final double LiftPIDTolerance = .5;
-        public static final double LeftLiftPosInValue = -41.7;
-        public static final double LeftLiftPosOutValue = 0;   
-        public static final double RightLiftPosInValue = -13;
-        public static final double RightLiftPosOutValue = 0;     
+        // public static boolean LiftLimitEnable = true;
+        // public static final double LiftPIDTolerance = .5;
+        // public static final double LeftLiftPosInValue = -41.7;
+        // public static final double LeftLiftPosOutValue = 0;   
+        // public static final double RightLiftPosInValue = -13;
+        // public static final double RightLiftPosOutValue = 0;     
 
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;
