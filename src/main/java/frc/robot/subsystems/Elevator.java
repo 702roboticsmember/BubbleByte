@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -29,6 +30,12 @@ public class Elevator extends SubsystemBase {
     //Add current limits to constants??
     CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
     MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
+    HardwareLimitSwitchConfigs limitConfigs = new HardwareLimitSwitchConfigs();
+
+    limitConfigs.ForwardLimitAutosetPositionEnable = Constants.ElevatorConstants.LimitEnable;
+    limitConfigs.ForwardLimitAutosetPositionValue = Constants.ElevatorConstants.ForwardLimit;
+    limitConfigs.ReverseLimitAutosetPositionEnable = Constants.ElevatorConstants.LimitEnable;
+    limitConfigs.ReverseLimitAutosetPositionValue = Constants.ElevatorConstants.ReverseLimit;
 
     currentConfigs.StatorCurrentLimit = Constants.ElevatorConstants.STATOR_CURRENT_LIMIT;
     currentConfigs.StatorCurrentLimitEnable = Constants.ElevatorConstants.ENABLE_STATOR_CURRENT_LIMIT;
@@ -40,7 +47,11 @@ public class Elevator extends SubsystemBase {
 
     
     elevmotor1.getConfigurator().apply(currentConfigs);
+    elevmotor2.getConfigurator().apply(currentConfigs);
+    elevmotor1.getConfigurator().apply(motorConfigs);
     elevmotor2.getConfigurator().apply(motorConfigs);
+    elevmotor1.getConfigurator().apply(limitConfigs);
+    elevmotor2.getConfigurator().apply(limitConfigs);
     
     //elevmotor1.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
     //elevmotor1.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);

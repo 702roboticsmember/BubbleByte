@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -17,6 +18,12 @@ public class AlgaeArmSubsystem extends SubsystemBase {
         TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
         CurrentLimitsConfigs configs = new CurrentLimitsConfigs();
         MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
+        HardwareLimitSwitchConfigs limitConfigs = new HardwareLimitSwitchConfigs();
+
+        limitConfigs.ForwardLimitAutosetPositionEnable = Constants.AlgaeArmConstants.LimitEnable;
+        limitConfigs.ForwardLimitAutosetPositionValue = Constants.AlgaeArmConstants.ForwardLimit;
+        limitConfigs.ReverseLimitAutosetPositionEnable = Constants.AlgaeArmConstants.LimitEnable;
+        limitConfigs.ReverseLimitAutosetPositionValue = Constants.AlgaeArmConstants.ReverseLimit;
         
         configs.StatorCurrentLimit = Constants.AlgaeArmConstants.STATOR_CURRENT_LIMIT;
         configs.SupplyCurrentLimit = Constants.AlgaeArmConstants.CURRENT_LIMIT;

@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -25,6 +26,12 @@ public class ClimbSubsystem extends SubsystemBase {
     TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
     CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
     MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
+    HardwareLimitSwitchConfigs limitConfigs = new HardwareLimitSwitchConfigs();
+
+    limitConfigs.ForwardLimitAutosetPositionEnable = Constants.ClimberConstants.LimitEnable;
+    limitConfigs.ForwardLimitAutosetPositionValue = Constants.ClimberConstants.ForwardLimit;
+    limitConfigs.ReverseLimitAutosetPositionEnable = Constants.ClimberConstants.LimitEnable;
+    limitConfigs.ReverseLimitAutosetPositionValue = Constants.ClimberConstants.ReverseLimit;
     
     currentConfigs.StatorCurrentLimit = Constants.ClimberConstants.STATOR_CURRENT_LIMIT;
     currentConfigs.SupplyCurrentLimit = Constants.ClimberConstants.CURRENT_LIMIT;
@@ -36,6 +43,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     talonFXConfigurator.apply(currentConfigs);
     talonFXConfigurator.apply(motorConfigs);
+    talonFXConfigurator.apply(limitConfigs);
   }
 
   @Override
