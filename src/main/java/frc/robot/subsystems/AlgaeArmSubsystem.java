@@ -34,6 +34,8 @@ public class AlgaeArmSubsystem extends SubsystemBase {
         motorConfigs.NeutralMode = Constants.AlgaeArmConstants.MotorMode;
         
         talonFXConfigurator.apply(configs);
+        talonFXConfigurator.apply(motorConfigs);
+        talonFXConfigurator.apply(limitConfigs);
     }
     @Override
     public void periodic() {

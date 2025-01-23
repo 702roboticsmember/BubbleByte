@@ -2,36 +2,25 @@ package frc.robot;
 
 
 
-import java.util.function.BooleanSupplier;
-
-
-import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.Constants.Direction;
-import frc.robot.Constants.ShooterSpeeds;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
+import frc.robot.commands.AlignCommand;
+import frc.robot.commands.AutoFollowCommand;
+import frc.robot.commands.TeleopSwerve;
+import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.Swerve;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -44,22 +33,23 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
     private final XboxController driver = new XboxController(0);
+    private final XboxController codriver = new XboxController(1);
 
-    /**
-     * Stows the arm mechanism
-     */
-
-    
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
+    /* Driver Buttons */
+    private final JoystickButton zeroGyro = new JoystickButton(codriver, XboxController.Button.kY.value);
     private final JoystickButton fastMode = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton slowMode = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton align = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton follow = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-
     //private final JoystickButton AutoAmp = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    
+    /* CoDriver Buttons */
+    private final JoystickButton aButton = new JoystickButton(codriver, XboxController.Button.kA.value);
+    private final JoystickButton bButton = new JoystickButton(codriver, XboxController.Button.kB.value);
+    private final JoystickButton xButton = new JoystickButton(codriver, XboxController.Button.kX.value);
+    private final JoystickButton yButton = new JoystickButton(codriver, XboxController.Button.kY.value);
 
     
-
 
     // private final POVButton increaseTopSpeed = new POVButton(master, Direction.UP.direction);
     // private final POVButton decreaseTopSpeed = new POVButton(master, Direction.DOWN.direction);
@@ -73,19 +63,20 @@ public class RobotContainer {
     private final SendableChooser<Command> autoChooser;
     private final SendableChooser<Command> teamChooser;
 
-    // private static final Orchestra orchestra = new Orchestra("mario.chrp");
+    //private static final Orchestra orchestra = new Orchestra("mario.chrp");
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final LimelightSubsystem l_LimelightSubsystem = new LimelightSubsystem();
 
-   
-
     /**
      * The container for the robot. Contains subsystems, IO devices, and commands.
      */
 
-     public Command AutoPickUp_Driver(double x, double z, double ry) {
+    /* Commands */
+    
+
+     public Command Align_Driver(double x, double z, double ry) {
         return new AlignCommand(() -> l_LimelightSubsystem.getTargetPos(0),
                         () -> l_LimelightSubsystem.getTargetPos(2),
                         () -> l_LimelightSubsystem.getTargetPos(4),
@@ -124,7 +115,7 @@ public class RobotContainer {
             field.getObject("path").setPoses(poses);
         });
 
-        NamedCommands.registerCommand("align", AutoPickUp_Driver(0, .75, 0));
+        NamedCommands.registerCommand("align", Align_Driver(0, .75, 0));
 
       
         s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, 
@@ -177,7 +168,7 @@ public class RobotContainer {
         fastMode.onTrue(new InstantCommand(() -> RobotContainer.power = 1));
 
         align.whileTrue(new SequentialCommandGroup(
-                 new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AutoPickUp_Driver(0, .75, 0)));
+                 new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), Align_Driver(0, .75, 0)));
 
         align.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
         follow.whileTrue(new SequentialCommandGroup(
