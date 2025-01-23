@@ -34,7 +34,7 @@ public class Elevator extends SubsystemBase {
     
     elevmotor1.getConfigurator().apply(currentlimits);
     elevmotor2.getConfigurator().apply(currentlimits);
-    // Probably not needed but just in case:
+    
     //elevmotor1.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
     //elevmotor1.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);
     //elevmotor1.config_kD(0, Constants.kElevatorD, Constants.TimeoutMs);
