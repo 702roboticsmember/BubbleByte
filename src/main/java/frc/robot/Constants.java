@@ -1,12 +1,12 @@
 package frc.robot;
 
+import static frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.Falcon500;
+
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.pathplanner.lib.config.PIDConstants;
-import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-import com.pathplanner.lib.config.ModuleConfig;
 
 //import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 //import com.pathplanner.lib.util.PIDConstants;
@@ -18,8 +18,6 @@ import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSTalonFXSwerveConstants;
 import frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.driveRatios;
 import frc.lib.util.SwerveModuleConstants;
-
-import static frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.*;
 
 public final class Constants {
     public static final double CONTROLLER_DEADBAND = 0.1;
@@ -496,6 +494,10 @@ public final class Constants {
     public static final class AlgeeArmConstants{
         public static final int MotorID = 0;
         public static final double EncoderConversion = 0.0;
+        public static final int STATOR_CURRENT_LIMIT = 35;
+        public static final int CURRENT_LIMIT = 30;
+        public static final boolean ENABLE_CURRENT_LIMIT = true;
+        public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
     }
 
 

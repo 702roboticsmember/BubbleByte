@@ -33,14 +33,14 @@ public class Elevator extends SubsystemBase {
     .withSupplyCurrentLimit(Constants.ElevatorConstants.CURRENT_LIMIT)
     .withSupplyCurrentLimitEnable(Constants.ElevatorConstants.ENABLE_CURRENT_LIMIT); 
     
-    // Probably not needed but just in case:
-    //elevmotor1.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
-    //elevmotor1.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);
-    //elevmotor1.config_kD(0, Constants.kElevatorD, Constants.TimeoutMs);
+    //Probably not needed but just in case:
+    // elevmotor1.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
+    // elevmotor1.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);
+    // elevmotor1.config_kD(0, Constants.kElevatorD, Constants.TimeoutMs);
     
-    //elevmotor2.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
-    //elevmotor2.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);
-    //elevmotor2.config_kD(0, Constants.kElevatorD, Constants.TimeoutMs);
+    // elevmotor2.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
+    // elevmotor2.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);
+    // elevmotor2.config_kD(0, Constants.kElevatorD, Constants.TimeoutMs);
   }
 
   public void ResetElevatorPos() {
