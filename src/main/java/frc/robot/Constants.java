@@ -353,11 +353,11 @@ public final class Constants {
 
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;
-        public static final int CURRENT_THRESHOLD = 35;
-        public static final double CURRENT_THRESHOLD_TIME = 0.1;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
 
+        // public static final int CURRENT_THRESHOLD = 35;
+        // public static final double CURRENT_THRESHOLD_TIME = 0.1;
     }
 
 
@@ -456,11 +456,32 @@ public final class Constants {
         public static final int Motor1ID = 0;
         public static final int Motor2ID = 1;
         public static final double ConversionConstant = 0.0;
+
+        public static final int STATOR_CURRENT_LIMIT = 35;
+        public static final int CURRENT_LIMIT = 30;
+        public static final boolean ENABLE_CURRENT_LIMIT = true;
+        public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
     }
 
-    public static final class AlgeeIntakeConstants{
+    public static final class AlgaeIntakeConstants{
         public static final int MotorID = 0;
         public static final double ConversionConstant = 0.0;
+
+        public static final int STATOR_CURRENT_LIMIT = 35;
+        public static final int CURRENT_LIMIT = 30;
+        public static final boolean ENABLE_CURRENT_LIMIT = true;
+        public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
+    }
+
+    public static final class CoralIntakeConstants {
+        public static final int LeftMotorID = 0;
+        public static final int RightMotorID = 0;
+        public static final double ConversionConstant = 0.0;
+
+        public static final int STATOR_CURRENT_LIMIT = 35;
+        public static final int CURRENT_LIMIT = 30;
+        public static final boolean ENABLE_CURRENT_LIMIT = true;
+        public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
     }
 
 

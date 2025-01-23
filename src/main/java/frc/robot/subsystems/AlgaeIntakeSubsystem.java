@@ -10,16 +10,15 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.AlgaeIntakeConstants;
 import frc.robot.Constants.ClimberConstants;
 
-public class ClimbSubsystem extends SubsystemBase {
-  private ClimberConstants constants = new ClimberConstants();
+public class AlgaeIntakeSubsystem extends SubsystemBase {
+  private AlgaeIntakeConstants constants = new AlgaeIntakeConstants();
   private TalonFX Motor = new TalonFX(constants.MotorID);
 
   /** Creates a new ClimbSubsystem. */
-  public ClimbSubsystem() {
-    Motor.setInverted(constants.MotorInverted);
+  public AlgaeIntakeSubsystem() {
 
     TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
     CurrentLimitsConfigs configs = new CurrentLimitsConfigs();
@@ -34,7 +33,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("ClimbPose", getDegrees());
+    //SmartDashboard.putNumber("ClimbPose", getDegrees());
     // This method will be called once per scheduler run
   }
 
@@ -42,11 +41,11 @@ public class ClimbSubsystem extends SubsystemBase {
     Motor.set(speed);
   }
 
-  public double getRawPose() {
-    return Motor.getPosition().getValueAsDouble();
-  }
+  // public double getRawPose() {
+  //   return Motor.getPosition().getValueAsDouble();
+  // }
 
-  public double getDegrees() {
-    return getRawPose()*360;
-  }
+  // public double getDegrees() {
+  //   return getRawPose()*360;
+  // }
 }
