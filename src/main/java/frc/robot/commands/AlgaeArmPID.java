@@ -10,22 +10,23 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.ClimberConstants;
+import frc.robot.subsystems.AlgaeArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ClimbPID extends Command {
+public class AlgaeArmPID extends Command {
   
-  private ClimbSubsystem c_ClimbSubsystem;
+  private AlgaeArmSubsystem a_AlgaeArmSubsystem;
   private PIDController pid = new PIDController(
       Constants.ClimberConstants.kP, 
       Constants.ClimberConstants.kI, 
       Constants.ClimberConstants.kD);
   /** Creates a new ClimbPID. */
-  public ClimbPID(ClimbSubsystem climb, double Setpoint) {
-    this.c_ClimbSubsystem = climb;
+  public AlgaeArmPID(AlgaeArmSubsystem subsytem, double Setpoint) {
+    this.a_AlgaeArmSubsystem = subsytem;
     this.pid.setSetpoint(Setpoint);
     this.pid.setTolerance(Constants.ClimberConstants.Tolerance);
-    addRequirements(c_ClimbSubsystem);
+    addRequirements(a_AlgaeArmSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -36,16 +37,16 @@ public class ClimbPID extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double pose = c_ClimbSubsystem.getAngle();
+    double pose = a_AlgaeArmSubsystem.getAngle();
     double calculated = pid.calculate(pose);
-    c_ClimbSubsystem.setSpeed(calculated);
+    a_AlgaeArmSubsystem.setSpeed(calculated);
     SmartDashboard.putNumber("ClimbPID", calculated);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    c_ClimbSubsystem.setSpeed(0);
+    a_AlgaeArmSubsystem.setSpeed(0);
   }
 
   // Returns true when the command should end.

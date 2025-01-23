@@ -20,6 +20,9 @@ public class CoralIntakeSubsystem extends SubsystemBase {
 
   /** Creates a new ClimbSubsystem. */
   public CoralIntakeSubsystem() {
+    LeftMotor.setInverted(Constants.CoralIntakeConstants.LeftMotorInverted);
+    RightMotor.setInverted(Constants.CoralIntakeConstants.RightMotorInverted);
+    
 
     // TalonFXConfigurator LeftConfig = LeftMotor.se
     // CurrentLimitsConfigs configs = new CurrentLimitsConfigs();
@@ -45,11 +48,4 @@ public class CoralIntakeSubsystem extends SubsystemBase {
     RightMotor.set(-speed);
   }
 
-  // public double getRawPose() {
-  //   return Motor.getPosition().getValueAsDouble();
-  // }
-
-  // public double getDegrees() {
-  //   return getRawPose()*360;
-  // }
 }

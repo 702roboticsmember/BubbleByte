@@ -5,8 +5,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,29 +16,31 @@ import frc.robot.Constants;
 import frc.robot.Constants.ClimberConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
-  private ClimberConstants constants = new ClimberConstants();
-  private TalonFX Motor = new TalonFX(constants.MotorID);
+  
+  private TalonFX Motor = new TalonFX(Constants.ClimberConstants.MotorID);
 
   /** Creates a new ClimbSubsystem. */
   public ClimbSubsystem() {
-    Motor.setInverted(constants.MotorInverted);
-
-    TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
-    CurrentLimitsConfigs configs = new CurrentLimitsConfigs();
-
-    configs.StatorCurrentLimit = constants.STATOR_CURRENT_LIMIT;
-    configs.SupplyCurrentLimit = constants.CURRENT_LIMIT;
-    configs.StatorCurrentLimitEnable = constants.ENABLE_STATOR_CURRENT_LIMIT;
-    configs.SupplyCurrentLimitEnable = constants.ENABLE_CURRENT_LIMIT;
-
     
+    TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
+    CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
+    MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
+    
+    currentConfigs.StatorCurrentLimit = Constants.ClimberConstants.STATOR_CURRENT_LIMIT;
+    currentConfigs.SupplyCurrentLimit = Constants.ClimberConstants.CURRENT_LIMIT;
+    currentConfigs.StatorCurrentLimitEnable = Constants.ClimberConstants.ENABLE_STATOR_CURRENT_LIMIT;
+    currentConfigs.SupplyCurrentLimitEnable = Constants.ClimberConstants.ENABLE_CURRENT_LIMIT;
+    
+    motorConfigs.Inverted = Constants.ClimberConstants.MotorInverted;
+    motorConfigs.NeutralMode = Constants.ClimberConstants.LiftMotorMode;
 
-    talonFXConfigurator.apply(configs);
+    talonFXConfigurator.apply(currentConfigs);
+    talonFXConfigurator.apply(motorConfigs);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("ClimbPose", getDegrees());
+    SmartDashboard.putNumber("ClimbPose", getAngle());
     // This method will be called once per scheduler run
   }
 
@@ -48,7 +52,11 @@ public class ClimbSubsystem extends SubsystemBase {
     return Motor.getPosition().getValueAsDouble();
   }
 
-  public double getDegrees() {
-    return getRawPose()*360;
+  public double tickToDeg(double tick){
+    return tick * 360;
+}
+
+  public double getAngle() {
+    return tickToDeg(getRawPose());
   }
 }

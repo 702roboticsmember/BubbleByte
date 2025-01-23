@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 //might be removed idk just putting this here
@@ -26,14 +27,16 @@ public class Elevator extends SubsystemBase {
   public Elevator() {
     // Elevator PID :D Will most likely be moved to Elevator PID later and errors will be fixed trust
     //Add current limits to constants??
-    CurrentLimitsConfigs currentlimits = new CurrentLimitsConfigs()
-    .withStatorCurrentLimit(Constants.ElevatorConstants.STATOR_CURRENT_LIMIT)
-    .withStatorCurrentLimitEnable(Constants.ElevatorConstants.ENABLE_STATOR_CURRENT_LIMIT)
-    .withSupplyCurrentLimit(Constants.ElevatorConstants.CURRENT_LIMIT)
-    .withSupplyCurrentLimitEnable(Constants.ElevatorConstants.ENABLE_CURRENT_LIMIT); 
+    CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
+    MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
+
+    currentConfigs.StatorCurrentLimit = Constants.ElevatorConstants.STATOR_CURRENT_LIMIT;
+    currentConfigs.StatorCurrentLimitEnable = Constants.ElevatorConstants.ENABLE_STATOR_CURRENT_LIMIT;
+    currentConfigs.SupplyCurrentLimit = Constants.ElevatorConstants.CURRENT_LIMIT;
+    currentConfigs.SupplyCurrentLimitEnable = Constants.ElevatorConstants.ENABLE_CURRENT_LIMIT; 
     
-    elevmotor1.getConfigurator().apply(currentlimits);
-    elevmotor2.getConfigurator().apply(currentlimits);
+    elevmotor1.getConfigurator().apply(currentConfigs);
+    elevmotor2.getConfigurator().apply(currentConfigs);
     
     //elevmotor1.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
     //elevmotor1.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);
@@ -48,10 +51,7 @@ public class Elevator extends SubsystemBase {
     // elevmotor2.config_kD(0, Constants.kElevatorD, Constants.TimeoutMs);
   }
 
-  public void ResetElevatorPos() {
-      elevmotor1.set(0);
-      elevmotor2.set(0);
-  }
+
 
   public double TickToDeg(double tick) {
       return tick * 360;

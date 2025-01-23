@@ -332,8 +332,7 @@ public final class Constants {
     public static final class ClimberConstants {
         public static final int MotorID = 0;
 
-         public static final boolean MotorInverted = false;
-
+        public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue LiftMotorMode = NeutralModeValue.Brake;
         
         public static final double MaxLiftSpeed = 4.0;
@@ -341,6 +340,8 @@ public final class Constants {
         public static final double kP = 1.3;
         public static final double kI = 0.0023;
         public static final double kD = 0.00147;
+
+        public static final double Tolerance = 0.1;
 
         // public static boolean LiftLimitEnable = true;
         // public static final double LiftPIDTolerance = .5;
@@ -485,6 +486,8 @@ public final class Constants {
         public static final int LeftMotorID = 0;
         public static final int RightMotorID = 0;
         public static final double ConversionConstant = 0.0;
+        public static final boolean LeftMotorInverted = true;
+        public static final boolean RightMotorInverted = false;
 
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;

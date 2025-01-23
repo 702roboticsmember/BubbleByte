@@ -20,12 +20,12 @@ public class ElevatorPID extends Command {
     Constants.ElevatorConstants.kD
   );
 
-  Elevator elevatorsubsystem;
+  Elevator e_ElevatorSubsytem;
 
   /** Creates a new ElevatorPID. */
   public ElevatorPID(Elevator a_Elevator, double setpoint) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.elevatorsubsystem = a_Elevator;
+    this.e_ElevatorSubsytem = a_Elevator;
     ElevatorPID.setSetpoint(setpoint);
     ElevatorPID.setTolerance(Constants.ElevatorConstants.Tolerance);
     addRequirements(a_Elevator);
@@ -38,14 +38,14 @@ public class ElevatorPID extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double value = ElevatorPID.calculate(elevatorsubsystem.getRaw());
-    elevatorsubsystem.set(value);
+    double value = ElevatorPID.calculate(e_ElevatorSubsytem.getElevatorHeight());
+    e_ElevatorSubsytem.set(value);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    elevatorsubsystem.set(0);
+    e_ElevatorSubsytem.set(0);
   }
 
   // Returns true when the command should end.

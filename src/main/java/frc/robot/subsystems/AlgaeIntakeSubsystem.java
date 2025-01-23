@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -22,6 +23,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     
     TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
     CurrentLimitsConfigs configs = new CurrentLimitsConfigs();
+    MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
 
     configs.StatorCurrentLimit = Constants.AlgaeIntakeConstants.STATOR_CURRENT_LIMIT;
     configs.SupplyCurrentLimit = Constants.AlgaeIntakeConstants.CURRENT_LIMIT;
