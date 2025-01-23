@@ -10,23 +10,23 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.AlgaeIntakeConstants;
 import frc.robot.Constants.ClimberConstants;
 
 public class AlgaeIntakeSubsystem extends SubsystemBase {
-  private AlgaeIntakeConstants constants = new AlgaeIntakeConstants();
-  private TalonFX Motor = new TalonFX(constants.MotorID);
+  private TalonFX Motor = new TalonFX(Constants.AlgaeIntakeConstants.MotorID);
 
   /** Creates a new ClimbSubsystem. */
   public AlgaeIntakeSubsystem() {
-
+    
     TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
     CurrentLimitsConfigs configs = new CurrentLimitsConfigs();
 
-    configs.StatorCurrentLimit = constants.STATOR_CURRENT_LIMIT;
-    configs.SupplyCurrentLimit = constants.CURRENT_LIMIT;
-    configs.StatorCurrentLimitEnable = constants.ENABLE_STATOR_CURRENT_LIMIT;
-    configs.SupplyCurrentLimitEnable = constants.ENABLE_CURRENT_LIMIT;
+    configs.StatorCurrentLimit = Constants.AlgaeIntakeConstants.STATOR_CURRENT_LIMIT;
+    configs.SupplyCurrentLimit = Constants.AlgaeIntakeConstants.CURRENT_LIMIT;
+    configs.StatorCurrentLimitEnable = Constants.AlgaeIntakeConstants.ENABLE_STATOR_CURRENT_LIMIT;
+    configs.SupplyCurrentLimitEnable = Constants.AlgaeIntakeConstants.ENABLE_CURRENT_LIMIT;
 
     talonFXConfigurator.apply(configs);
   }

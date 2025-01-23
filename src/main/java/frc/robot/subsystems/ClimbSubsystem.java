@@ -29,6 +29,8 @@ public class ClimbSubsystem extends SubsystemBase {
     configs.StatorCurrentLimitEnable = constants.ENABLE_STATOR_CURRENT_LIMIT;
     configs.SupplyCurrentLimitEnable = constants.ENABLE_CURRENT_LIMIT;
 
+    
+
     talonFXConfigurator.apply(configs);
   }
 

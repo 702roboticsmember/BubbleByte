@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
-  
   public TalonFX elevmotor1 = new TalonFX(Constants.ElevatorConstants.Motor1ID);
   public TalonFX elevmotor2 = new TalonFX(Constants.ElevatorConstants.Motor2ID);
       
@@ -33,14 +32,20 @@ public class Elevator extends SubsystemBase {
     .withSupplyCurrentLimit(Constants.ElevatorConstants.CURRENT_LIMIT)
     .withSupplyCurrentLimitEnable(Constants.ElevatorConstants.ENABLE_CURRENT_LIMIT); 
     
+    elevmotor1.getConfigurator().apply(currentlimits);
+    elevmotor2.getConfigurator().apply(currentlimits);
     // Probably not needed but just in case:
     //elevmotor1.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
     //elevmotor1.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);
     //elevmotor1.config_kD(0, Constants.kElevatorD, Constants.TimeoutMs);
+    //Probably not needed but just in case:
+    // elevmotor1.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
+    // elevmotor1.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);
+    // elevmotor1.config_kD(0, Constants.kElevatorD, Constants.TimeoutMs);
     
-    //elevmotor2.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
-    //elevmotor2.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);
-    //elevmotor2.config_kD(0, Constants.kElevatorD, Constants.TimeoutMs);
+    // elevmotor2.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
+    // elevmotor2.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);
+    // elevmotor2.config_kD(0, Constants.kElevatorD, Constants.TimeoutMs);
   }
 
   public void ResetElevatorPos() {
