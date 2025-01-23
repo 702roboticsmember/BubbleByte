@@ -34,9 +34,13 @@ public class Elevator extends SubsystemBase {
     currentConfigs.StatorCurrentLimitEnable = Constants.ElevatorConstants.ENABLE_STATOR_CURRENT_LIMIT;
     currentConfigs.SupplyCurrentLimit = Constants.ElevatorConstants.CURRENT_LIMIT;
     currentConfigs.SupplyCurrentLimitEnable = Constants.ElevatorConstants.ENABLE_CURRENT_LIMIT; 
+
+    motorConfigs.Inverted = Constants.ElevatorConstants.MotorInverted;
+    motorConfigs.NeutralMode = Constants.ElevatorConstants.MotorMode;
+
     
     elevmotor1.getConfigurator().apply(currentConfigs);
-    elevmotor2.getConfigurator().apply(currentConfigs);
+    elevmotor2.getConfigurator().apply(motorConfigs);
     
     //elevmotor1.config_kP(0, Constants.kElevatorP, Constants.TimeoutMs);
     //elevmotor1.config_kI(0, Constants.kElevatorI, Constants.TimeoutMs);

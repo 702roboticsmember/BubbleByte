@@ -30,7 +30,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     configs.StatorCurrentLimitEnable = Constants.AlgaeIntakeConstants.ENABLE_STATOR_CURRENT_LIMIT;
     configs.SupplyCurrentLimitEnable = Constants.AlgaeIntakeConstants.ENABLE_CURRENT_LIMIT;
 
+    motorConfigs.Inverted = Constants.AlgaeIntakeConstants.MotorInverted;
+    motorConfigs.NeutralMode = Constants.AlgaeIntakeConstants.MotorMode;
+
     talonFXConfigurator.apply(configs);
+    talonFXConfigurator.apply(motorConfigs);
   }
 
   @Override

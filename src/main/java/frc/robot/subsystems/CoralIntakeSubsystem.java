@@ -22,6 +22,8 @@ public class CoralIntakeSubsystem extends SubsystemBase {
   public CoralIntakeSubsystem() {
     LeftMotor.setInverted(Constants.CoralIntakeConstants.LeftMotorInverted);
     RightMotor.setInverted(Constants.CoralIntakeConstants.RightMotorInverted);
+
+    
     
 
     // TalonFXConfigurator LeftConfig = LeftMotor.se
@@ -45,7 +47,7 @@ public class CoralIntakeSubsystem extends SubsystemBase {
 
   public void setSpeed(double speed) {
     LeftMotor.set(speed);
-    RightMotor.set(-speed);
+    RightMotor.set(speed);
   }
 
 }

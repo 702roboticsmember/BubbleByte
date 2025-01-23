@@ -10,18 +10,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class AlgaeArmSubsystem extends SubsystemBase {
-    Constants.AlgeeArmConstants constants = new Constants.AlgeeArmConstants();
-    TalonFX Motor = new TalonFX(Constants.AlgeeArmConstants.MotorID);
+    Constants.AlgaeArmConstants constants = new Constants.AlgaeArmConstants();
+    TalonFX Motor = new TalonFX(Constants.AlgaeArmConstants.MotorID);
 
     public AlgaeArmSubsystem(){
         TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
         CurrentLimitsConfigs configs = new CurrentLimitsConfigs();
         MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
         
-        configs.StatorCurrentLimit = Constants.AlgeeArmConstants.STATOR_CURRENT_LIMIT;
-        configs.SupplyCurrentLimit = Constants.AlgeeArmConstants.CURRENT_LIMIT;
-        configs.StatorCurrentLimitEnable = Constants.AlgeeArmConstants.ENABLE_STATOR_CURRENT_LIMIT;
-        configs.SupplyCurrentLimitEnable = Constants.AlgeeArmConstants.ENABLE_CURRENT_LIMIT;
+        configs.StatorCurrentLimit = Constants.AlgaeArmConstants.STATOR_CURRENT_LIMIT;
+        configs.SupplyCurrentLimit = Constants.AlgaeArmConstants.CURRENT_LIMIT;
+        configs.StatorCurrentLimitEnable = Constants.AlgaeArmConstants.ENABLE_STATOR_CURRENT_LIMIT;
+        configs.SupplyCurrentLimitEnable = Constants.AlgaeArmConstants.ENABLE_CURRENT_LIMIT;
+
+        motorConfigs.Inverted = Constants.AlgaeArmConstants.MotorInverted;
+        motorConfigs.NeutralMode = Constants.AlgaeArmConstants.MotorMode;
         
         talonFXConfigurator.apply(configs);
     }

@@ -456,6 +456,9 @@ public final class Constants {
         public static final int Motor2ID = 1;
         public static final double ConversionConstant = 0.0;
 
+        public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
+        public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
+
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
@@ -476,6 +479,9 @@ public final class Constants {
         public static final int MotorID = 0;
         public static final double ConversionConstant = 0.0;
 
+        public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
+        public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
+
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
@@ -488,14 +494,18 @@ public final class Constants {
         public static final double ConversionConstant = 0.0;
         public static final boolean LeftMotorInverted = true;
         public static final boolean RightMotorInverted = false;
+        public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
+        
 
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
     }
-    public static final class AlgeeArmConstants{
+    public static final class AlgaeArmConstants{
         public static final int MotorID = 0;
+        public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
+        public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
         public static final double EncoderConversion = 0.0;
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;
