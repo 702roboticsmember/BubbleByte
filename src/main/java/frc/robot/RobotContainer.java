@@ -49,8 +49,8 @@ public class RobotContainer {
     private final JoystickButton slowMode = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton align = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton follow = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton allignLeft = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton allignRight = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton alignLeft = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton alignRight = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
     
 
@@ -158,7 +158,6 @@ public class RobotContainer {
                         Constants.AlignConstants.leftZ, 
                         Constants.AlignConstants.leftRY, 
                         s_Swerve); 
-
     }
 
     public Command AlgaeOuttake_coDriver(){
@@ -251,6 +250,8 @@ public class RobotContainer {
 
         follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
         NestButton.whileTrue(Nest());
+        alignLeft.onTrue(AlignLeft_Driver());
+        alignRight.onTrue(AlignRight_Driver());
         algaeReefIntakeButton.onTrue(AlgaeReefIntake_coDriver());
         algaeReefIntakeButton.onFalse(AlgaeStow_coDriver());
     }
