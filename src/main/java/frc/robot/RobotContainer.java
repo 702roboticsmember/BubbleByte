@@ -55,7 +55,7 @@ public class RobotContainer {
     /* CoDriver Buttons */
     private final JoystickButton algaeReefIntakeButton = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton bButton = new JoystickButton(codriver, XboxController.Button.kB.value);
-    private final JoystickButton xButton = new JoystickButton(codriver, XboxController.Button.kX.value);
+    private final JoystickButton CoralOuttake = new JoystickButton(codriver, XboxController.Button.kX.value);
     private final JoystickButton NestButton = new JoystickButton(codriver, XboxController.Button.kY.value);
 
     
@@ -123,10 +123,24 @@ public class RobotContainer {
         );
         
     }
+    public Command AlgaeGroundIntake_coDriver(){
+        return new ParallelCommandGroup(
+            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.GroundPose),
+            new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(Constants.AlgaeArmConstants.IntakeSpeed))
+        );
+        
+    }
     public Command AlgaeStow_coDriver(){
         return new SequentialCommandGroup(
             new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(0)),
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.DefaultPose)
+        );
+        
+    }
+    public Command AlgaeOuttake_coDriver(){
+        return new SequentialCommandGroup(
+            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.OuttakePose),
+            new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(Constants.AlgaeArmConstants.OuttakeSpeed))
         );
         
     }
