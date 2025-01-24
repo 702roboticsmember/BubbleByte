@@ -204,6 +204,8 @@ public final class Constants {
 
         public static final double DefaultPose = 0;
 
+        public static final double ClimbingPose = 0;
+
         // public static final int CURRENT_THRESHOLD = 35;
         // public static final double CURRENT_THRESHOLD_TIME = 0.1;
     }

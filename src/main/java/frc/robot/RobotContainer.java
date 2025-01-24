@@ -72,6 +72,7 @@ public class RobotContainer {
 
     public static double power = 1;
     public static boolean robotCentric = false;
+    public static boolean climbing = false;
 
     private final SendableChooser<Command> autoChooser;
     private final SendableChooser<Command> teamChooser;
@@ -111,6 +112,16 @@ public class RobotContainer {
             ()->l_LimelightSubsystem.IsTargetAvailable(), 
             s_Swerve, 
             turn);        
+    }
+
+    public Command ToggleClimb() {
+        if(climbing) {
+            climbing = !climbing;
+            return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.DefaultPose);
+        }
+        climbing = !climbing;
+
+        return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.ClimbingPose);
     }
 
     public Command Nest() {
@@ -260,7 +271,8 @@ public class RobotContainer {
         
         alignLeft.onTrue(AlignLeft_Driver());
         alignRight.onTrue(AlignRight_Driver());
-        
+        algaeReefIntakeButton.onTrue(AlgaeReefIntake_coDriver());
+        algaeReefIntakeButton.onFalse(AlgaeStow_coDriver());
     }
         
 
