@@ -54,7 +54,7 @@ public class RobotContainer {
 
     /* CoDriver Buttons */
     private final JoystickButton algaeReefIntakeButton = new JoystickButton(codriver, XboxController.Button.kA.value);
-    private final JoystickButton bButton = new JoystickButton(codriver, XboxController.Button.kB.value);
+    private final JoystickButton climbButton = new JoystickButton(codriver, XboxController.Button.kB.value);
     private final JoystickButton CoralOuttake = new JoystickButton(codriver, XboxController.Button.kX.value);
     private final JoystickButton NestButton = new JoystickButton(codriver, XboxController.Button.kY.value);
 
@@ -68,6 +68,7 @@ public class RobotContainer {
 
     public static double power = 1;
     public static boolean robotCentric = false;
+    public static boolean climbing = false;
 
     private final SendableChooser<Command> autoChooser;
     private final SendableChooser<Command> teamChooser;
@@ -107,6 +108,16 @@ public class RobotContainer {
             ()->l_LimelightSubsystem.IsTargetAvailable(), 
             s_Swerve, 
             turn);        
+    }
+
+    public Command ToggleClimb() {
+        if(climbing) {
+            climbing = !climbing;
+            return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.DefaultPose);
+        }
+        climbing = !climbing;
+
+        return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.ClimbingPose);
     }
 
     public Command Nest() {
@@ -229,6 +240,8 @@ public class RobotContainer {
         NestButton.whileTrue(Nest());
         algaeReefIntakeButton.onTrue(AlgaeReefIntake_coDriver());
         algaeReefIntakeButton.onFalse(AlgaeStow_coDriver());
+
+        climbButton.onTrue(ToggleClimb());
     }
         
 
