@@ -53,7 +53,7 @@ public class RobotContainer {
     
 
     /* CoDriver Buttons */
-    private final JoystickButton aButton = new JoystickButton(codriver, XboxController.Button.kA.value);
+    private final JoystickButton algaeReefIntakeButton = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton bButton = new JoystickButton(codriver, XboxController.Button.kB.value);
     private final JoystickButton xButton = new JoystickButton(codriver, XboxController.Button.kX.value);
     private final JoystickButton NestButton = new JoystickButton(codriver, XboxController.Button.kY.value);
@@ -115,6 +115,20 @@ public class RobotContainer {
             new ElevatorPID(e_ElevatorSubsytem, Constants.ElevatorConstants.DefaultPose),
             new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.DefaultPose)
         );
+    }
+    public Command AlgaeReefIntake_coDriver(){
+        return new ParallelCommandGroup(
+            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.ReefPose),
+            new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(Constants.AlgaeArmConstants.IntakeSpeed))
+        );
+        
+    }
+    public Command AlgaeStow_coDriver(){
+        return new SequentialCommandGroup(
+            new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(0)),
+            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.DefaultPose)
+        );
+        
     }
 
     public RobotContainer() {
@@ -198,10 +212,9 @@ public class RobotContainer {
             new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AutoFollow_Driver(0.3)));
 
         follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
-
         NestButton.whileTrue(Nest());
-
- 
+        algaeReefIntakeButton.onTrue(AlgaeReefIntake_coDriver());
+        algaeReefIntakeButton.onFalse(AlgaeStow_coDriver());
     }
         
 

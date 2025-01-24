@@ -368,6 +368,9 @@ public final class Constants {
         public static final double ForwardLimit = 0;
         public static final double ReverseLimit = 0;
         public static final double DefaultPose = 0;
+        public static final double IntakeSpeed = 0;
+        public static final double IntakePose = 0;
+        public static final double ReefPose = 0;
     }
 
 
