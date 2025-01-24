@@ -296,28 +296,24 @@ public final class Constants {
     }
 
     public static final class LEDConstants {
-        public static final int LED_1_PwmID = 9;
-        public static final int LED_1_Length = 28;
-    }
 
+        public static final int LED_1_PwmID = 0;
+        public static final int LED_1_Length = 0;
+    }
     public static final class ElevatorConstants{
+
         public static final int Motor1ID = 0;
         public static final int Motor2ID = 1;
         public static final double ConversionConstant = 0.0;
-
         public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
-
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
         public static final int CURRENT_THRESHOLD = 35;
         public static final double CURRENT_THRESHOLD_TIME = 0.1;
-
         public static final double Radius = 1;
-
-
         public static final double kP = 0;
         public static final double kI = 0;
         public static final double kD = 0;
@@ -327,35 +323,32 @@ public final class Constants {
         public static final double ReverseLimit = 0;
         public static final double DefaultPose = 0;
     }
-
     public static final class AlgaeIntakeConstants{
+
         public static final int MotorID = 0;
         public static final double ConversionConstant = 0.0;
-
         public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
-
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
     }
-
     public static final class CoralIntakeConstants {
+
         public static final int LeftMotorID = 0;
         public static final int RightMotorID = 0;
         public static final double ConversionConstant = 0.0;
         public static final boolean LeftMotorInverted = true;
         public static final boolean RightMotorInverted = false;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
-        
-
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
     }
     public static final class AlgaeArmConstants{
+
         public static final int MotorID = 0;
         public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
@@ -371,6 +364,16 @@ public final class Constants {
         public static final double IntakeSpeed = 0;
         public static final double IntakePose = 0;
         public static final double ReefPose = 0;
+    }
+    public static final class AlignConstants{
+
+        public static final double rightRY = 0;
+        public static final double rightX = 0;
+        public static final double rightZ = 0;
+
+        public static final double leftRY = 0;
+        public static final double leftX = 0;
+        public static final double leftZ = 0;
     }
 
 

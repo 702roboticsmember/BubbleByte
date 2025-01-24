@@ -49,7 +49,9 @@ public class RobotContainer {
     private final JoystickButton slowMode = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton align = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton follow = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    //private final JoystickButton AutoAmp = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton allignLeft = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton allignRight = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+
     
 
     /* CoDriver Buttons */
@@ -57,6 +59,7 @@ public class RobotContainer {
     private final JoystickButton bButton = new JoystickButton(codriver, XboxController.Button.kB.value);
     private final JoystickButton xButton = new JoystickButton(codriver, XboxController.Button.kX.value);
     private final JoystickButton NestButton = new JoystickButton(codriver, XboxController.Button.kY.value);
+
 
     
 
@@ -121,15 +124,35 @@ public class RobotContainer {
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.ReefPose),
             new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(Constants.AlgaeArmConstants.IntakeSpeed))
         );
-        
     }
     public Command AlgaeStow_coDriver(){
         return new SequentialCommandGroup(
             new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(0)),
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.DefaultPose)
         );
-        
     }
+    public Command AlignRight_Driver(){
+        return new AlignCommand(() -> l_LimelightSubsystem.getTargetPos(0),
+                        () -> l_LimelightSubsystem.getTargetPos(2),
+                        () -> l_LimelightSubsystem.getTargetPos(4),
+                        () -> l_LimelightSubsystem.IsTargetAvailable(), 
+                        Constants.AlignConstants.rightX,
+                        Constants.AlignConstants.rightZ, 
+                        Constants.AlignConstants.rightRY, 
+                        s_Swerve); 
+    }
+    public Command AlignLeft_Driver(){
+        return new AlignCommand(() -> l_LimelightSubsystem.getTargetPos(0),
+                        () -> l_LimelightSubsystem.getTargetPos(2),
+                        () -> l_LimelightSubsystem.getTargetPos(4),
+                        () -> l_LimelightSubsystem.IsTargetAvailable(), 
+                        Constants.AlignConstants.leftX,
+                        Constants.AlignConstants.leftZ, 
+                        Constants.AlignConstants.leftRY, 
+                        s_Swerve); 
+
+    }
+
 
     public RobotContainer() {
         Field2d field = new Field2d();
