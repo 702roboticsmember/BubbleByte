@@ -26,7 +26,7 @@ import frc.robot.subsystems.AlgaeArmSubsystem;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CoralIntakeSubsystem;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
 
@@ -81,7 +81,7 @@ public class RobotContainer {
     private final AlgaeArmSubsystem a_AlgaeArmSubsystem = new AlgaeArmSubsystem();
     private final AlgaeIntakeSubsystem a_AlgaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     private final CoralIntakeSubsystem c_CoralIntakeSubsystem = new CoralIntakeSubsystem();
-    private final Elevator e_ElevatorSubsytem = new Elevator(); 
+    private final ElevatorSubsystem e_ElevatorSubsytem = new ElevatorSubsystem(); 
 
     /**
      * The container for the robot. Contains subsystems, IO devices, and commands.

@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ElevatorPID extends Command {
@@ -20,10 +20,10 @@ public class ElevatorPID extends Command {
     Constants.ElevatorConstants.kD
   );
 
-  Elevator e_ElevatorSubsytem;
+  ElevatorSubsystem e_ElevatorSubsytem;
 
   /** Creates a new ElevatorPID. */
-  public ElevatorPID(Elevator a_Elevator, double setpoint) {
+  public ElevatorPID(ElevatorSubsystem a_Elevator, double setpoint) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.e_ElevatorSubsytem = a_Elevator;
     ElevatorPID.setSetpoint(setpoint);

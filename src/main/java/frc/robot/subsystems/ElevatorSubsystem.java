@@ -20,12 +20,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
 
-public class Elevator extends SubsystemBase {
+public class ElevatorSubsystem extends SubsystemBase {
   public TalonFX elevmotor1 = new TalonFX(Constants.ElevatorConstants.Motor1ID);
   public TalonFX elevmotor2 = new TalonFX(Constants.ElevatorConstants.Motor2ID);
       
   /** Creates a new Elevator. */
-  public Elevator() {
+  public ElevatorSubsystem() {
     // Elevator PID :D Will most likely be moved to Elevator PID later and errors will be fixed trust
     //Add current limits to constants??
     CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();

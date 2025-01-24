@@ -9,16 +9,15 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
-import com.studica.frc.jni.AHRSJNI;
+
 
 import java.io.IOException;
-import java.util.function.BooleanSupplier;
+
 
 import org.json.simple.parser.ParseException;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.RobotConfig;
-import com.pathplanner.lib.controllers.PPLTVController;
 
 
 import edu.wpi.first.math.geometry.Pose2d;
