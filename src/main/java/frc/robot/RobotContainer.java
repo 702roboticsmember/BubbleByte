@@ -16,8 +16,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AlgaeArmPID;
 import frc.robot.commands.AlignCommand;
 import frc.robot.commands.AutoFollowCommand;
+import frc.robot.commands.ClimbPID;
+import frc.robot.commands.ElevatorPID;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.subsystems.AlgaeArmSubsystem;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -53,7 +56,7 @@ public class RobotContainer {
     private final JoystickButton aButton = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton bButton = new JoystickButton(codriver, XboxController.Button.kB.value);
     private final JoystickButton xButton = new JoystickButton(codriver, XboxController.Button.kX.value);
-    private final JoystickButton yButton = new JoystickButton(codriver, XboxController.Button.kY.value);
+    private final JoystickButton NestButton = new JoystickButton(codriver, XboxController.Button.kY.value);
 
     
 
@@ -106,6 +109,13 @@ public class RobotContainer {
             turn);        
     }
 
+    public Command Nest() {
+        return new ParallelCommandGroup(
+            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.DefaultPose),
+            new ElevatorPID(e_ElevatorSubsytem, Constants.ElevatorConstants.DefaultPose),
+            new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.DefaultPose)
+        );
+    }
 
     public RobotContainer() {
         Field2d field = new Field2d();
@@ -136,7 +146,8 @@ public class RobotContainer {
         ()->robotCentric));
 
         
-      
+        c_ClimbSubsystem.setDefaultCommand(new InstantCommand(() -> c_ClimbSubsystem.setSpeed(codriver.getRawAxis(0))));
+        
 
         configureButtonBindings();
 
@@ -187,6 +198,8 @@ public class RobotContainer {
             new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AutoFollow_Driver(0.3)));
 
         follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
+
+        NestButton.whileTrue(Nest());
 
  
     }

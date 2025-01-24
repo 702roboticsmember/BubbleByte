@@ -17,7 +17,6 @@ import frc.robot.Constants;
 import frc.robot.Constants.ClimberConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
-  
   private TalonFX Motor = new TalonFX(Constants.ClimberConstants.MotorID);
 
   /** Creates a new ClimbSubsystem. */

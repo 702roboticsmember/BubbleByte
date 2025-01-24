@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class AlgaeArmSubsystem extends SubsystemBase {
-    Constants.AlgaeArmConstants constants = new Constants.AlgaeArmConstants();
     TalonFX Motor = new TalonFX(Constants.AlgaeArmConstants.MotorID);
 
     public AlgaeArmSubsystem(){

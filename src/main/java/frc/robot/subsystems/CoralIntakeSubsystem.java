@@ -11,12 +11,10 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.CoralIntakeConstants;
 
 public class CoralIntakeSubsystem extends SubsystemBase {
-  private CoralIntakeConstants constants = new CoralIntakeConstants();
-  private Spark LeftMotor = new Spark(constants.LeftMotorID);
-  private Spark RightMotor = new Spark(constants.RightMotorID);
+  private Spark LeftMotor = new Spark(Constants.CoralIntakeConstants.LeftMotorID);
+  private Spark RightMotor = new Spark(Constants.CoralIntakeConstants.RightMotorID);
 
   /** Creates a new ClimbSubsystem. */
   public CoralIntakeSubsystem() {
