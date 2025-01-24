@@ -322,6 +322,10 @@ public final class Constants {
         public static final double ForwardLimit = 0;
         public static final double ReverseLimit = 0;
         public static final double DefaultPose = 0;
+        public static final double L1Pose = 0;
+        public static final double L2Pose = 0;
+        public static final double L3Pose = 0;
+        public static final double L4Pose = 0;
     }
     public static final class AlgaeIntakeConstants{
 
@@ -361,9 +365,11 @@ public final class Constants {
         public static final double ForwardLimit = 0;
         public static final double ReverseLimit = 0;
         public static final double DefaultPose = 0;
-        public static final double IntakeSpeed = 0;
-        public static final double IntakePose = 0;
         public static final double ReefPose = 0;
+        public static final double IntakeSpeed = 0;
+        public static final double GroundPose = 0;
+        public static final double OuttakePose = 0;
+        public static final double OuttakeSpeed = 0;
     }
     public static final class AlignConstants{
 
