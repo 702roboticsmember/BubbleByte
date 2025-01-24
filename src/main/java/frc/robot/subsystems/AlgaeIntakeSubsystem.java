@@ -9,11 +9,8 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.AlgaeIntakeConstants;
-import frc.robot.Constants.ClimberConstants;
 
 public class AlgaeIntakeSubsystem extends SubsystemBase {
   private TalonFX Motor = new TalonFX(Constants.AlgaeIntakeConstants.MotorID);
