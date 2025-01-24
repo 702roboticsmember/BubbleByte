@@ -19,6 +19,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AlignCommand;
 import frc.robot.commands.AutoFollowCommand;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.subsystems.AlgaeArmSubsystem;
+import frc.robot.subsystems.AlgaeIntakeSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.CoralIntakeSubsystem;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
 
@@ -43,6 +48,7 @@ public class RobotContainer {
     private final JoystickButton follow = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton AutoAmp = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     
+
     /* CoDriver Buttons */
     private final JoystickButton aButton = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton bButton = new JoystickButton(codriver, XboxController.Button.kB.value);
@@ -68,6 +74,11 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final LimelightSubsystem l_LimelightSubsystem = new LimelightSubsystem();
+    private final ClimbSubsystem c_ClimbSubsystem = new ClimbSubsystem();
+    private final AlgaeArmSubsystem a_AlgaeArmSubsystem = new AlgaeArmSubsystem();
+    private final AlgaeIntakeSubsystem a_AlgaeIntakeSubsystem = new AlgaeIntakeSubsystem();
+    private final CoralIntakeSubsystem c_CoralIntakeSubsystem = new CoralIntakeSubsystem();
+    private final Elevator e_ElevatorSubsytem = new Elevator(); 
 
     /**
      * The container for the robot. Contains subsystems, IO devices, and commands.
@@ -124,6 +135,7 @@ public class RobotContainer {
         ()-> -driver.getRawAxis(4), 
         ()->robotCentric));
 
+        
       
 
         configureButtonBindings();
