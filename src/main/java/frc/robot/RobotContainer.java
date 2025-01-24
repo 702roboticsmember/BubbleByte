@@ -271,8 +271,7 @@ public class RobotContainer {
         
         alignLeft.onTrue(AlignLeft_Driver());
         alignRight.onTrue(AlignRight_Driver());
-        algaeReefIntakeButton.onTrue(AlgaeReefIntake_coDriver());
-        algaeReefIntakeButton.onFalse(AlgaeStow_coDriver());
+        
     }
         
 
