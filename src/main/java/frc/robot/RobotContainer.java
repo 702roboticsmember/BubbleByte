@@ -134,14 +134,14 @@ public class RobotContainer {
     public Command AlgaeReefIntake_coDriver(){
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.ReefPose),
-            new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(Constants.AlgaeArmConstants.IntakeSpeed))
+            new InstantCommand(()->a_AlgaeIntakeSubsystem.setSpeed(Constants.AlgaeIntakeConstants.IntakeSpeed))
         );
         
     }
     public Command AlgaeGroundIntake_coDriver(){
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.GroundPose),
-            new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(Constants.AlgaeArmConstants.IntakeSpeed))
+            new InstantCommand(()->a_AlgaeIntakeSubsystem.setSpeed(Constants.AlgaeIntakeConstants.IntakeSpeed))
         );
         
     }
@@ -175,7 +175,7 @@ public class RobotContainer {
     public Command AlgaeOuttake_coDriver(){
         return new SequentialCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.OuttakePose),
-            new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(Constants.AlgaeArmConstants.OuttakeSpeed))
+            new InstantCommand(()->a_AlgaeIntakeSubsystem.setSpeed(Constants.AlgaeIntakeConstants.OuttakeSpeed))
         );
         
     }
@@ -269,8 +269,8 @@ public class RobotContainer {
         algaeOuttake.onTrue(AlgaeOuttake_coDriver());
         algaeOuttake.onFalse(AlgaeStow_coDriver());
         
-        alignLeft.onTrue(AlignLeft_Driver());
-        alignRight.onTrue(AlignRight_Driver());
+        alignLeft.whileTrue(AlignLeft_Driver());
+        alignRight.whileTrue(AlignRight_Driver());
         
 
     }

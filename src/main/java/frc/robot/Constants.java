@@ -339,6 +339,9 @@ public final class Constants {
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
+        public static final double IntakeSpeed = 0;
+        public static final double DefaultPose = 0;
+        public static final double OuttakeSpeed = 0;
     }
     public static final class CoralIntakeConstants {
 
