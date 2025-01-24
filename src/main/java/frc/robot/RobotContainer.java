@@ -52,6 +52,7 @@ public class RobotContainer {
     private final JoystickButton alignLeft = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton alignRight = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
+
     
 
     /* CoDriver Buttons */
@@ -158,7 +159,6 @@ public class RobotContainer {
                         Constants.AlignConstants.leftZ, 
                         Constants.AlignConstants.leftRY, 
                         s_Swerve); 
-
     }
 
     public Command AlgaeOuttake_coDriver(){
@@ -257,6 +257,10 @@ public class RobotContainer {
         algaeGroundIntake.onFalse(AlgaeStow_coDriver());
         algaeGroundIntake.onTrue(AlgaeOuttake_coDriver());
         algaeGroundIntake.onFalse(AlgaeStow_coDriver());
+        
+        alignLeft.onTrue(AlignLeft_Driver());
+        alignRight.onTrue(AlignRight_Driver());
+        
     }
         
 
