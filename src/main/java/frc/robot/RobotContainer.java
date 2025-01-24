@@ -61,7 +61,7 @@ public class RobotContainer {
     private final JoystickButton coralOuttake = new JoystickButton(codriver, XboxController.Button.kX.value);
     private final JoystickButton nest = new JoystickButton(codriver, XboxController.Button.kY.value);
     private final JoystickButton algaeGroundIntake = new JoystickButton(codriver, XboxController.Button.kRightBumper.value);
-    private final JoystickButton algaeGroundOuttake = new JoystickButton(codriver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton algaeOuttake = new JoystickButton(codriver, XboxController.Button.kLeftBumper.value);
     
 
     // private final POVButton increaseTopSpeed = new POVButton(master, Direction.UP.direction);
@@ -266,12 +266,13 @@ public class RobotContainer {
         algaeReefIntake.onFalse(AlgaeStow_coDriver());
         algaeGroundIntake.onTrue(AlgaeGroundIntake_coDriver());
         algaeGroundIntake.onFalse(AlgaeStow_coDriver());
-        algaeGroundIntake.onTrue(AlgaeOuttake_coDriver());
-        algaeGroundIntake.onFalse(AlgaeStow_coDriver());
+        algaeOuttake.onTrue(AlgaeOuttake_coDriver());
+        algaeOuttake.onFalse(AlgaeStow_coDriver());
         
         alignLeft.onTrue(AlignLeft_Driver());
         alignRight.onTrue(AlignRight_Driver());
         
+
     }
         
 
