@@ -49,18 +49,18 @@ public class RobotContainer {
     private final JoystickButton slowMode = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton align = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton follow = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton allignLeft = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton allignRight = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton alignLeft = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton alignRight = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
     
 
     /* CoDriver Buttons */
-    private final JoystickButton algaeReefIntakeButton = new JoystickButton(codriver, XboxController.Button.kA.value);
+    private final JoystickButton algaeReefIntake = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton bButton = new JoystickButton(codriver, XboxController.Button.kB.value);
-    private final JoystickButton CoralOuttake = new JoystickButton(codriver, XboxController.Button.kX.value);
-    private final JoystickButton NestButton = new JoystickButton(codriver, XboxController.Button.kY.value);
-
-
+    private final JoystickButton coralOuttake = new JoystickButton(codriver, XboxController.Button.kX.value);
+    private final JoystickButton nest = new JoystickButton(codriver, XboxController.Button.kY.value);
+    private final JoystickButton algaeGroundIntake = new JoystickButton(codriver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton algaeGroundOuttake = new JoystickButton(codriver, XboxController.Button.kLeftBumper.value);
     
 
     // private final POVButton increaseTopSpeed = new POVButton(master, Direction.UP.direction);
@@ -250,9 +250,13 @@ public class RobotContainer {
             new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AutoFollow_Driver(0.3)));
 
         follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
-        NestButton.whileTrue(Nest());
-        algaeReefIntakeButton.onTrue(AlgaeReefIntake_coDriver());
-        algaeReefIntakeButton.onFalse(AlgaeStow_coDriver());
+        nest.whileTrue(Nest());
+        algaeReefIntake.onTrue(AlgaeReefIntake_coDriver());
+        algaeReefIntake.onFalse(AlgaeStow_coDriver());
+        algaeGroundIntake.onTrue(AlgaeGroundIntake_coDriver());
+        algaeGroundIntake.onFalse(AlgaeStow_coDriver());
+        algaeGroundIntake.onTrue(AlgaeOuttake_coDriver());
+        algaeGroundIntake.onFalse(AlgaeStow_coDriver());
     }
         
 
