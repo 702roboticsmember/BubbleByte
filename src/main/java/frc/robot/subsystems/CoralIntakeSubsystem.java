@@ -11,15 +11,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class CoralIntakeSubsystem extends SubsystemBase {
-  private Spark LeftMotor = new Spark(Constants.CoralIntakeConstants.LeftMotorID);
-  private Spark RightMotor = new Spark(Constants.CoralIntakeConstants.RightMotorID);
+  // private Spark LeftMotor = new Spark(Constants.CoralIntakeConstants.LeftMotorID);
+  // private Spark RightMotor = new Spark(Constants.CoralIntakeConstants.RightMotorID);
 
   /** Creates a new ClimbSubsystem. */
   public CoralIntakeSubsystem() {
-    LeftMotor.setInverted(Constants.CoralIntakeConstants.LeftMotorInverted);
-    RightMotor.setInverted(Constants.CoralIntakeConstants.RightMotorInverted);
+    // LeftMotor.setInverted(Constants.CoralIntakeConstants.LeftMotorInverted);
+    // RightMotor.setInverted(Constants.CoralIntakeConstants.RightMotorInverted);
 
-    
+   
     
 
     // TalonFXConfigurator LeftConfig = LeftMotor.se
@@ -42,8 +42,8 @@ public class CoralIntakeSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    LeftMotor.set(speed);
-    RightMotor.set(speed);
+    // LeftMotor.set(speed);
+    // RightMotor.set(speed);
   }
 
   public Command run(double speed){

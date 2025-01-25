@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import frc.robot.SwerveModule;
 import frc.robot.Constants;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.Kinematics;
+import edu.wpi.first.math.kinematics.Odometry;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -33,6 +35,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
+    
     public SwerveModule[] swerveModules;
     public AHRS gyro;
     public  RobotConfig config;
@@ -58,6 +61,7 @@ public class Swerve extends SubsystemBase {
     
         swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.KINEMATICS, getGyroYaw(), getModulePositions());
         
+
         AutoBuilder.configure(
             this::getPose, // Robot pose supplier
             this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
@@ -171,6 +175,20 @@ public class Swerve extends SubsystemBase {
                 : Rotation2d.fromDegrees(gyro.getYaw());
     }
 
+    // public Pose2d getRobotPose(){
+    //     Translation2d offset = new Translation2d(Constants.Swerve.NAVX_X, Constants.Swerve.NAVX_Y);
+    //     Rotation2d angleOffset = new Rotation2d(offset.getX(), offset.getY());
+    //     double angle = getGyroYaw().getRadians() + angleOffset.getRadians();
+        
+    //     double x = gyro.getDisplacementX() + (Math.cos(angle)* offset.getNorm());
+    //     double y = gyro.getDisplacementY()+ (Math.sin(angle)* offset.getNorm());
+    //     return new Pose2d(x, y, getGyroYaw());
+    // }
+
+    public void resetGyroPose(){
+        gyro.resetDisplacement();
+    }
+
     public double getAcc() {
         return gyro.getAccelFullScaleRangeG();
     }
@@ -185,6 +203,7 @@ public class Swerve extends SubsystemBase {
     public void periodic() {
         swerveOdometry.update(getGyroYaw(), getModulePositions());
         SmartDashboard.putNumber("Acc",this.getAcc());
+        
         for (SwerveModule mod : swerveModules) {
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " CANcoder", mod.getCANcoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Angle", mod.getPosition().angle.getDegrees());

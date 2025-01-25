@@ -13,6 +13,8 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 // import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.Kinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSTalonFXSwerveConstants;
@@ -67,6 +69,13 @@ public final class Constants {
                 new Translation2d(BASE_WIDTH / 2.0, -TRACK_WIDTH / 2.0),
                 new Translation2d(-BASE_WIDTH / 2.0, TRACK_WIDTH / 2.0),
                 new Translation2d(-BASE_WIDTH / 2.0, -TRACK_WIDTH / 2.0));
+                
+        public static final double NAVX_Y = 0;
+        public static final double NAVX_X = 0.17;
+                        
+        
+//         DifferentialDriveKinematics kinematics =
+//   new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
 
         /* Module Gear Ratios */
         public static final double DRIVE_GEAR_RATIO = FALCON_500_CONSTANTS.driveGearRatio;
@@ -167,6 +176,8 @@ public final class Constants {
                 // DRIVEBASE_RADIUS,
                 // new ReplanningConfig()
                 );
+
+        public static final Rotation2d NAVX_A = null;
 
     }
 

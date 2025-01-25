@@ -48,7 +48,8 @@ public class RobotContainer {
     private DigitalInput limitSwitch = new DigitalInput(Constants.LIMIT_SWITCH_INTAKE);
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(codriver, XboxController.Button.kY.value);
+    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton resetpose = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton fastMode = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton slowMode = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton align = new JoystickButton(driver, XboxController.Button.kX.value);
@@ -237,7 +238,7 @@ public class RobotContainer {
     public RobotContainer() {
         Field2d field = new Field2d();
         SmartDashboard.putData("Field", field);
-
+        field.setRobotPose(s_Swerve.getPose());
         // Logging callback for current robot pose
         PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
             field.setRobotPose(pose);
@@ -319,6 +320,7 @@ public class RobotContainer {
         follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
         alignLeft.whileTrue(AlignLeft_Driver());
         alignRight.whileTrue(AlignRight_Driver());
+        resetpose.onTrue(new InstantCommand(()-> s_Swerve.resetGyroPose()));
 
         /*CoDriver Buttons*/
         
