@@ -114,16 +114,6 @@ public class RobotContainer {
             turn);        
     }
 
-    public Command ToggleClimb() {
-        if(climbing) {
-            climbing = !climbing;
-            return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.DefaultPose);
-        }
-        climbing = !climbing;
-
-        return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.ClimbingPose);
-    }
-
     public Command Nest() {
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.DefaultPose),
@@ -134,22 +124,54 @@ public class RobotContainer {
     public Command AlgaeReefIntake_coDriver(){
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.ReefPose),
-            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
+            new a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
         );
         
     }
     public Command AlgaeGroundIntake_coDriver(){
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.GroundPose),
-            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
+            new a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
         );
         
     }
-    public Command AlgaeStow_coDriver(){
+    public Command AlgaeOuttake_coDriver(){
         return new SequentialCommandGroup(
-            a_AlgaeArmSubsystem.run(0),
+            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.OuttakePose),
+            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.OuttakeSpeed)
+        );
+        
+    }
+
+    public Command AlgaeReefIntake(){
+        return new ParallelCommandGroup(
+            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.ReefPose),
+            new InstantCommand(()->a_AlgaeIntakeSubsystem.setSpeed(Constants.AlgaeIntakeConstants.IntakeSpeed))
+        );
+        
+    }
+    public Command AlgaeGroundIntake(){
+        return new ParallelCommandGroup(
+            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.GroundPose),
+            new InstantCommand(()->a_AlgaeIntakeSubsystem.setSpeed(Constants.AlgaeIntakeConstants.IntakeSpeed))
+        );
+        
+    }
+    public Command AlgaeStow(){
+        return new SequentialCommandGroup(
+            new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(0)),
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.DefaultPose)
         );
+    }
+    public Command AlgaeOuttake(){
+        return new SequentialCommandGroup(
+            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.OuttakePose),
+            new InstantCommand(()->a_AlgaeIntakeSubsystem.setSpeed(Constants.AlgaeIntakeConstants.OuttakeSpeed))
+        );
+        
+    }
+    public Command AlgaeOuttakeOff(){
+        return new InstantCommand(()->a_AlgaeIntakeSubsystem.setSpeed(0));
     }
     public Command AlignRight_Driver(){
         return new AlignCommand(() -> l_LimelightSubsystem.getTargetPos(0),
@@ -160,7 +182,7 @@ public class RobotContainer {
                         Constants.AlignConstants.rightZ, 
                         Constants.AlignConstants.rightRY, 
                         s_Swerve); 
-    }
+                    }
     public Command AlignLeft_Driver(){
         return new AlignCommand(() -> l_LimelightSubsystem.getTargetPos(0),
                         () -> l_LimelightSubsystem.getTargetPos(2),
@@ -172,13 +194,6 @@ public class RobotContainer {
                         s_Swerve); 
     }
 
-    public Command AlgaeOuttake_coDriver(){
-        return new SequentialCommandGroup(
-            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.OuttakePose),
-            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.OuttakeSpeed)
-        );
-        
-    }
 
     public Command ClimbOutPID(){
         return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.OutPose);
@@ -187,9 +202,16 @@ public class RobotContainer {
     public Command ClimbInPID(){
         return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.InPose);
     }
+    public Command CoralOuttake_coDriver(){
+        return c_CoralIntakeSubsystem.run(Constants.CoralIntakeConstants.OuttakeSpeed);
+    }
 
     public Command CoralOuttake(){
-        return c_CoralIntakeSubsystem.run(Constants.CoralIntakeConstants.OuttakeSpeed);
+        return new InstantCommand(()-> c_CoralIntakeSubsystem.setSpeed(Constants.CoralIntakeConstants.OuttakeSpeed));
+    }
+
+    public Command Coraloff(){
+        return new InstantCommand(()-> c_CoralIntakeSubsystem.setSpeed(0));
     }
 
     public RobotContainer() {
@@ -280,15 +302,16 @@ public class RobotContainer {
         /*CoDriver Buttons*/
         
         nest.whileTrue(Nest());
-        algaeReefIntake.onTrue(AlgaeReefIntake_coDriver());
+        algaeReefIntake.whileTrue(AlgaeReefIntake_coDriver());
         algaeReefIntake.onFalse(AlgaeStow_coDriver());
-        algaeGroundIntake.onTrue(AlgaeGroundIntake_coDriver());
+        algaeGroundIntake.whileTrue(AlgaeGroundIntake_coDriver());
         algaeGroundIntake.onFalse(AlgaeStow_coDriver());
-        algaeOuttake.onTrue(AlgaeOuttake_coDriver());
+        algaeOuttake.whileTrue(AlgaeOuttake_coDriver());
         algaeOuttake.onFalse(AlgaeStow_coDriver());
         climbPID.toggleOnTrue(ClimbOutPID());
         climbPID.toggleOnFalse(ClimbInPID());
-        coralOuttake.whileTrue(CoralOuttake());
+        coralOuttake.whileTrue(CoralOuttake_coDriver());
+        
         
         
 
