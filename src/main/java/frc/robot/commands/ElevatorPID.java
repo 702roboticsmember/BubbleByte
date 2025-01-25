@@ -39,13 +39,13 @@ public class ElevatorPID extends Command {
   @Override
   public void execute() {
     double value = ElevatorPID.calculate(e_ElevatorSubsytem.getElevatorHeight());
-    e_ElevatorSubsytem.set(value);
+    e_ElevatorSubsytem.setSpeed(value);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    e_ElevatorSubsytem.set(0);
+    e_ElevatorSubsytem.setSpeed(0);
   }
 
   // Returns true when the command should end.
