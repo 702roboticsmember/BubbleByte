@@ -6,12 +6,14 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -42,6 +44,8 @@ import frc.robot.subsystems.Swerve;
 public class RobotContainer {
     private final XboxController driver = new XboxController(0);
     private final XboxController codriver = new XboxController(1);
+
+    private DigitalInput limitSwitch = new DigitalInput(Constants.LIMIT_SWITCH_INTAKE);
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(codriver, XboxController.Button.kY.value);
@@ -206,12 +210,28 @@ public class RobotContainer {
         return c_CoralIntakeSubsystem.run(Constants.CoralIntakeConstants.OuttakeSpeed);
     }
 
+    public Command CoralOuttake_coDriver(double speed){
+        return c_CoralIntakeSubsystem.run(speed);
+    }
+
     public Command CoralOuttake(){
         return new InstantCommand(()-> c_CoralIntakeSubsystem.setSpeed(Constants.CoralIntakeConstants.OuttakeSpeed));
     }
 
+    public Command CoralIntake(){
+        return Commands.either(CoralOuttake(), Coraloff(), ()-> !limitSwitch.get());
+    }
+
+    public Command CoralIntake_coDriver(double speed){
+        return Commands.either(CoralOuttake_coDriver(speed), Coraloff(), ()-> !limitSwitch.get());
+    }
+
     public Command Coraloff(){
         return new InstantCommand(()-> c_CoralIntakeSubsystem.setSpeed(0));
+    }
+
+    public Command LimitSwitchDeadline(){
+        return Commands.waitUntil(()-> !limitSwitch.get());
     }
 
     public RobotContainer() {
@@ -244,6 +264,7 @@ public class RobotContainer {
 
         
         c_ClimbSubsystem.setDefaultCommand(c_ClimbSubsystem.run(codriver.getRawAxis(0)));
+        c_CoralIntakeSubsystem.setDefaultCommand(CoralIntake_coDriver(codriver.getRawAxis(2)));
         e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(codriver.getRawAxis(5)));
         
 
