@@ -7,6 +7,7 @@ import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -45,6 +46,10 @@ public class AlgaeArmSubsystem extends SubsystemBase {
     public void setSpeed(double speed) {
         Motor.set(speed);
     }
+
+    public Command run(double speed){
+    return runEnd(()-> setSpeed(speed), ()-> setSpeed(0));
+  }
 
     public double getRawPose() {
         return Motor.getPosition().getValueAsDouble();

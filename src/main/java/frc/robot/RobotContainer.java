@@ -57,7 +57,7 @@ public class RobotContainer {
 
     /* CoDriver Buttons */
     private final JoystickButton algaeReefIntake = new JoystickButton(codriver, XboxController.Button.kA.value);
-    private final JoystickButton bButton = new JoystickButton(codriver, XboxController.Button.kB.value);
+    private final JoystickButton climbPID = new JoystickButton(codriver, XboxController.Button.kB.value);
     private final JoystickButton coralOuttake = new JoystickButton(codriver, XboxController.Button.kX.value);
     private final JoystickButton nest = new JoystickButton(codriver, XboxController.Button.kY.value);
     private final JoystickButton algaeGroundIntake = new JoystickButton(codriver, XboxController.Button.kRightBumper.value);
@@ -134,20 +134,20 @@ public class RobotContainer {
     public Command AlgaeReefIntake_coDriver(){
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.ReefPose),
-            new InstantCommand(()->a_AlgaeIntakeSubsystem.setSpeed(Constants.AlgaeIntakeConstants.IntakeSpeed))
+            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
         );
         
     }
     public Command AlgaeGroundIntake_coDriver(){
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.GroundPose),
-            new InstantCommand(()->a_AlgaeIntakeSubsystem.setSpeed(Constants.AlgaeIntakeConstants.IntakeSpeed))
+            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
         );
         
     }
     public Command AlgaeStow_coDriver(){
         return new SequentialCommandGroup(
-            new InstantCommand(()->a_AlgaeArmSubsystem.setSpeed(0)),
+            a_AlgaeArmSubsystem.run(0),
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.DefaultPose)
         );
     }
@@ -175,9 +175,21 @@ public class RobotContainer {
     public Command AlgaeOuttake_coDriver(){
         return new SequentialCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.OuttakePose),
-            new InstantCommand(()->a_AlgaeIntakeSubsystem.setSpeed(Constants.AlgaeIntakeConstants.OuttakeSpeed))
+            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.OuttakeSpeed)
         );
         
+    }
+
+    public Command ClimbOutPID(){
+        return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.OutPose);
+    }
+
+    public Command ClimbInPID(){
+        return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.InPose);
+    }
+
+    public Command CoralOuttake(){
+        return c_CoralIntakeSubsystem.run(Constants.CoralIntakeConstants.OuttakeSpeed);
     }
 
     public RobotContainer() {
@@ -209,7 +221,8 @@ public class RobotContainer {
         ()->robotCentric));
 
         
-        c_ClimbSubsystem.setDefaultCommand(new InstantCommand(() -> c_ClimbSubsystem.setSpeed(codriver.getRawAxis(0))));
+        c_ClimbSubsystem.setDefaultCommand(c_ClimbSubsystem.run(codriver.getRawAxis(0)));
+        e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(codriver.getRawAxis(5)));
         
 
         configureButtonBindings();
@@ -261,6 +274,11 @@ public class RobotContainer {
             new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AutoFollow_Driver(0.3)));
 
         follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
+        alignLeft.whileTrue(AlignLeft_Driver());
+        alignRight.whileTrue(AlignRight_Driver());
+
+        /*CoDriver Buttons*/
+        
         nest.whileTrue(Nest());
         algaeReefIntake.onTrue(AlgaeReefIntake_coDriver());
         algaeReefIntake.onFalse(AlgaeStow_coDriver());
@@ -268,9 +286,10 @@ public class RobotContainer {
         algaeGroundIntake.onFalse(AlgaeStow_coDriver());
         algaeOuttake.onTrue(AlgaeOuttake_coDriver());
         algaeOuttake.onFalse(AlgaeStow_coDriver());
+        climbPID.toggleOnTrue(ClimbOutPID());
+        climbPID.toggleOnFalse(ClimbInPID());
+        coralOuttake.whileTrue(CoralOuttake());
         
-        alignLeft.whileTrue(AlignLeft_Driver());
-        alignRight.whileTrue(AlignRight_Driver());
         
 
     }

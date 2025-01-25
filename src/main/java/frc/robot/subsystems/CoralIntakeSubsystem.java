@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -43,6 +44,10 @@ public class CoralIntakeSubsystem extends SubsystemBase {
   public void setSpeed(double speed) {
     LeftMotor.set(speed);
     RightMotor.set(speed);
+  }
+
+  public Command run(double speed){
+    return runEnd(()-> setSpeed(speed), ()-> setSpeed(0));
   }
 
 }

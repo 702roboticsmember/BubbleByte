@@ -206,6 +206,10 @@ public final class Constants {
 
         public static final double ClimbingPose = 0;
 
+        public static final double OutPose = 0;
+
+        public static final double InPose = 0;
+
         // public static final int CURRENT_THRESHOLD = 35;
         // public static final double CURRENT_THRESHOLD_TIME = 0.1;
     }
@@ -355,6 +359,7 @@ public final class Constants {
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
+        public static final double OuttakeSpeed = 0;
     }
     public static final class AlgaeArmConstants{
 
