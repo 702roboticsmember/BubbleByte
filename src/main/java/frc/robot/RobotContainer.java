@@ -124,14 +124,14 @@ public class RobotContainer {
     public Command AlgaeReefIntake_coDriver(){
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.ReefPose),
-            new a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
+            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
         );
         
     }
     public Command AlgaeGroundIntake_coDriver(){
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.GroundPose),
-            new a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
+            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
         );
         
     }
@@ -303,11 +303,11 @@ public class RobotContainer {
         
         nest.whileTrue(Nest());
         algaeReefIntake.whileTrue(AlgaeReefIntake_coDriver());
-        algaeReefIntake.onFalse(AlgaeStow_coDriver());
+        algaeReefIntake.onFalse(AlgaeStow());
         algaeGroundIntake.whileTrue(AlgaeGroundIntake_coDriver());
-        algaeGroundIntake.onFalse(AlgaeStow_coDriver());
+        algaeGroundIntake.onFalse(AlgaeStow());
         algaeOuttake.whileTrue(AlgaeOuttake_coDriver());
-        algaeOuttake.onFalse(AlgaeStow_coDriver());
+        algaeOuttake.onFalse(AlgaeStow());
         climbPID.toggleOnTrue(ClimbOutPID());
         climbPID.toggleOnFalse(ClimbInPID());
         coralOuttake.whileTrue(CoralOuttake_coDriver());
