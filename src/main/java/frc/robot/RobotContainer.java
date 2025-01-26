@@ -2,8 +2,17 @@ package frc.robot;
 
 
 
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.pathfinding.Pathfinder;
+import com.pathplanner.lib.pathfinding.Pathfinding;
+import com.pathplanner.lib.util.FileVersionException;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -81,6 +90,7 @@ public class RobotContainer {
 
     private final SendableChooser<Command> autoChooser;
     private final SendableChooser<Command> teamChooser;
+  
 
     //private static final Orchestra orchestra = new Orchestra("mario.chrp");
 
@@ -235,7 +245,16 @@ public class RobotContainer {
         return Commands.waitUntil(()-> !limitSwitch.get());
     }
 
+    
+
+// Create the constraints to use while pathfinding. The constraints defined in the path will only be used for the path.
+
+
+// Since AutoBuilder is configured, we can use it to build pathfinding commands
+
+
     public RobotContainer() {
+        Pathfinding.setDynamicObstacles(null, null);
         Field2d field = new Field2d();
         SmartDashboard.putData("Field", field);
         field.setRobotPose(s_Swerve.getPose());
@@ -278,6 +297,28 @@ public class RobotContainer {
 
         SmartDashboard.putData("Auto Chooser", autoChooser);
         SmartDashboard.putData("Team Chooser", teamChooser);
+    }
+
+    public Command followpath(){
+        PathPlannerPath path;
+        
+        try {
+            path = PathPlannerPath.fromPathFile("Example Path");
+            
+            return AutoBuilder.pathfindThenFollowPath(
+            path,
+            Constants.Swerve.constraints);
+        } catch (FileVersionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

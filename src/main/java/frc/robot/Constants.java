@@ -7,6 +7,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathConstraints;
 
 //import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 //import com.pathplanner.lib.util.PIDConstants;
@@ -119,6 +120,10 @@ public final class Constants {
         public static final double DRIVE_KS = 0.32;
         public static final double DRIVE_KV = 1.51;
         public static final double DRIVE_KA = 0.27;
+
+        public static final PathConstraints constraints = new PathConstraints(
+        3.0, 2.5,
+        Units.degreesToRadians(540), Units.degreesToRadians(540));
 
         /** Units: m/s */
         public static final double MAX_SPEED = 10;
