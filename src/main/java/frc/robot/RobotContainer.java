@@ -254,7 +254,7 @@ public class RobotContainer {
 
 
     public RobotContainer() {
-        Pathfinding.setDynamicObstacles(null, null);
+        //Pathfinding.setDynamicObstacles(null, null);
         Field2d field = new Field2d();
         SmartDashboard.putData("Field", field);
         field.setRobotPose(s_Swerve.getPose());
