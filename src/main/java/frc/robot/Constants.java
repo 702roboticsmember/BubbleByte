@@ -1,6 +1,8 @@
 package frc.robot;
 
 import static frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.Falcon500;
+import static frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.KrakenX60;
+
 
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -41,17 +43,18 @@ public final class Constants {
         /**
          * Constants for the motor setup that we're using.
          */
-        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = Falcon500(driveRatios.L2);
+        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = KrakenX60(driveRatios.L3);
+        //
 
         /**
          * Units: Meters
          */
-        public static final double TRACK_WIDTH = Units.inchesToMeters(23.5);
+        public static final double TRACK_WIDTH = Units.inchesToMeters(23.5);//bubble byte 21.75 
 
         /**
          * Units: Meters
          */
-        public static final double BASE_WIDTH = Units.inchesToMeters(23.5);
+        public static final double BASE_WIDTH = Units.inchesToMeters(23.5);//bubble byte 21.75 
 
         /**
          * Units: Meters
