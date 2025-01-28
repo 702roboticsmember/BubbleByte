@@ -43,7 +43,7 @@ public final class Constants {
         /**
          * Constants for the motor setup that we're using.
          */
-        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = KrakenX60(driveRatios.L3);
+        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = KrakenX60(driveRatios.L2);
         //
 
         /**
