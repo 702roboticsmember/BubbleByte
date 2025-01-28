@@ -39,8 +39,10 @@ public class Swerve extends SubsystemBase {
     public SwerveModule[] swerveModules;
     public AHRS gyro;
     public  RobotConfig config;
+    public LimelightSubsystem l_LimelightSubsystem;
 
-    public Swerve() {
+    public Swerve(LimelightSubsystem l_LimelightSubsystem) {
+        this.l_LimelightSubsystem = l_LimelightSubsystem;
         gyro = new AHRS( NavXComType.kMXP_SPI);
         gyro.reset();
         try {
@@ -198,10 +200,18 @@ public class Swerve extends SubsystemBase {
             mod.resetToAbsolute();
         }
     }
+    public void updatePoseLimelight(){
+        Pose2d pose = l_LimelightSubsystem.getBotPose2d();
+        if(pose != null){
+            setPose(l_LimelightSubsystem.getBotPose2d());
+        }
+        
+    }
 
     @Override
     public void periodic() {
         swerveOdometry.update(getGyroYaw(), getModulePositions());
+        updatePoseLimelight();
         SmartDashboard.putNumber("Acc",this.getAcc());
         
         for (SwerveModule mod : swerveModules) {

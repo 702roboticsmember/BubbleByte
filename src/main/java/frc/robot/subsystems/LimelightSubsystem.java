@@ -4,11 +4,18 @@
 
 package frc.robot.subsystems;
 
+import java.lang.reflect.Array;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class LimelightSubsystem extends SubsystemBase {
   public NetworkTable table;
@@ -83,11 +90,24 @@ public class LimelightSubsystem extends SubsystemBase {
     return pose[1];
   }
 
-  // public double getBotPoseXTeamRelative() {
-  //   double pose[] = RobotContainer.color == Color.kRed ? botpose_wpired.getDoubleArray(new double[6])
-  //       : botpose_wpiblue.getDoubleArray(new double[6]);
-  //   return pose[0];
-  // }
+  public double[] getBotPoseTeamRelative() {
+    var alliance = DriverStation.getAlliance();
+      if (alliance.isPresent()) {
+        if(alliance.get() == DriverStation.Alliance.Red){
+          
+          return botpose_wpired.getDoubleArray(new double[6]);
+        }else{
+          return botpose_wpiblue.getDoubleArray(new double[6]);
+        }
+      }
+      return new double[6];
+  }
+
+  public Pose2d getBotPose2d(){
+    double[] pose = getBotPoseTeamRelative();
+    Pose2d botpose = pose.equals(new double[6])? null: new Pose2d(pose[0], pose[2], new Rotation2d(pose[5]));
+    return botpose;
+  }
 
   // public double getBotPoseYTeamRelative() {
   //   double pose[] = RobotContainer.color == Color.kRed ? botpose_wpired.getDoubleArray(new double[6])

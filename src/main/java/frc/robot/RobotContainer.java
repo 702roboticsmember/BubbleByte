@@ -95,8 +95,8 @@ public class RobotContainer {
     //private static final Orchestra orchestra = new Orchestra("mario.chrp");
 
     /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
     private final LimelightSubsystem l_LimelightSubsystem = new LimelightSubsystem();
+    private final Swerve s_Swerve = new Swerve(l_LimelightSubsystem);
     private final ClimbSubsystem c_ClimbSubsystem = new ClimbSubsystem();
     private final AlgaeArmSubsystem a_AlgaeArmSubsystem = new AlgaeArmSubsystem();
     private final AlgaeIntakeSubsystem a_AlgaeIntakeSubsystem = new AlgaeIntakeSubsystem();
