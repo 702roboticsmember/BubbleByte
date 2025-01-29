@@ -38,12 +38,12 @@ public final class Constants {
         /**
          * Whether gyroscope values should be inverted.
          */
-        public static final boolean INVERT_GYRO = true;
+        public static final boolean INVERT_GYRO = false;
 
         /**
          * Constants for the motor setup that we're using.
          */
-        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = KrakenX60(driveRatios.L2);
+        public static final COTSTalonFXSwerveConstants KRAKEN_X60_CONSTANTS = KrakenX60(driveRatios.L3);//Falcon500(driveRatios.L3);
         //
 
         /**
@@ -66,7 +66,7 @@ public final class Constants {
          */
         public static final double DRIVEBASE_RADIUS = DRIVEBASE_DIAMETER / 2f;
 
-        public static final double WHEEL_CIRCUMFERENCE = FALCON_500_CONSTANTS.wheelCircumference;
+        public static final double WHEEL_CIRCUMFERENCE = KRAKEN_X60_CONSTANTS.wheelCircumference;
 
         public static final SwerveDriveKinematics KINEMATICS = new SwerveDriveKinematics(
                 new Translation2d(BASE_WIDTH / 2.0, TRACK_WIDTH / 2.0),
@@ -82,13 +82,13 @@ public final class Constants {
 //   new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
 
         /* Module Gear Ratios */
-        public static final double DRIVE_GEAR_RATIO = FALCON_500_CONSTANTS.driveGearRatio;
-        public static final double ANGLE_GEAR_RATIO = FALCON_500_CONSTANTS.angleGearRatio;
+        public static final double DRIVE_GEAR_RATIO = KRAKEN_X60_CONSTANTS.driveGearRatio;
+        public static final double ANGLE_GEAR_RATIO = KRAKEN_X60_CONSTANTS.angleGearRatio;
 
-        public static final InvertedValue ANGLE_MOTOR_INVERT = FALCON_500_CONSTANTS.angleMotorInvert;
-        public static final InvertedValue DRIVE_MOTOR_INVERT = FALCON_500_CONSTANTS.driveMotorInvert;
+        public static final InvertedValue ANGLE_MOTOR_INVERT = KRAKEN_X60_CONSTANTS.angleMotorInvert;
+        public static final InvertedValue DRIVE_MOTOR_INVERT = KRAKEN_X60_CONSTANTS.driveMotorInvert;
 
-        public static final SensorDirectionValue CANCODER_INVERT = FALCON_500_CONSTANTS.cancoderInvert;
+        public static final SensorDirectionValue CANCODER_INVERT = KRAKEN_X60_CONSTANTS.cancoderInvert;
 
         /**
          * Units: Volts
@@ -115,8 +115,8 @@ public final class Constants {
         public static final double OPEN_LOOP_RAMP = 0.45;
         public static final double CLOSED_LOOP_RAMP = 0;
 
-        public static final PIDConstants ANGLE_PID = new PIDConstants(FALCON_500_CONSTANTS.angleKP,
-                FALCON_500_CONSTANTS.angleKI, FALCON_500_CONSTANTS.angleKD);
+        public static final PIDConstants ANGLE_PID = new PIDConstants(KRAKEN_X60_CONSTANTS.angleKP,
+                KRAKEN_X60_CONSTANTS.angleKI, KRAKEN_X60_CONSTANTS.angleKD);
         public static final PIDConstants DRIVE_PID = new PIDConstants(0.12, 0.0, 0.0);
 
         /* Drive Motor Characterization Values From SYSID */
@@ -184,8 +184,7 @@ public final class Constants {
                 // DRIVEBASE_RADIUS,
                 // new ReplanningConfig()
                 );
-
-        public static final Rotation2d NAVX_A = null;
+        //public static final Rotation2d NAVX_A = null;
 
     }
 
