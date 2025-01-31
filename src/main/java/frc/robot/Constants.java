@@ -1,6 +1,5 @@
 package frc.robot;
 
-import static frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.Falcon500;
 import static frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.KrakenX60;
 
 
@@ -16,8 +15,6 @@ import com.pathplanner.lib.path.PathConstraints;
 // import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.kinematics.Kinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSTalonFXSwerveConstants;
