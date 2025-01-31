@@ -66,6 +66,10 @@ public class SwerveModule {
         angleMotor.setControl(anglePosition.withPosition(rotations));
     }
 
+    public double getAngleSpeed() {
+        return angleMotor.get();
+    }
+
     private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop) {
         if (isOpenLoop) {
             double toOutput = desiredState.speedMetersPerSecond / Constants.Swerve.MAX_SPEED;

@@ -43,7 +43,7 @@ public final class Constants {
         /**
          * Constants for the motor setup that we're using.
          */
-        public static final COTSTalonFXSwerveConstants KRAKEN_X60_CONSTANTS = KrakenX60(driveRatios.L3);//Falcon500(driveRatios.L3);
+        public static final COTSTalonFXSwerveConstants KRAKEN_X60_CONSTANTS = Falcon500(driveRatios.L3);
         //
 
         /**
@@ -98,14 +98,14 @@ public final class Constants {
         public static final int ANGLE_CURRENT_THRESHOLD = 40;
         public static final double ANGLE_CURRENT_THRESHOLD_TIME = 0.1;
         public static final boolean ANGLE_ENABLE_CURRENT_LIMIT = true;
-        public static final boolean ANGLE_ENABLE_STATOR_CURRENT_LIMIT = false;
+        public static final boolean ANGLE_ENABLE_STATOR_CURRENT_LIMIT = true;
 
         public static final int DRIVE_STATOR_CURRENT_LIMIT = 50;
         public static final int DRIVE_CURRENT_LIMIT = 35;//35
         public static final int DRIVE_CURRENT_THRESHOLD = 50;//60
         public static final double DRIVE_CURRENT_THRESHOLD_TIME = 0.1;
         public static final boolean DRIVE_ENABLE_CURRENT_LIMIT = true;
-        public static final boolean DRIVE_ENABLE_STATOR_CURRENT_LIMIT = false;
+        public static final boolean DRIVE_ENABLE_STATOR_CURRENT_LIMIT = true;
 
         /*
          * These values are used by the drive falcon to ramp in open loop and closed
@@ -140,10 +140,10 @@ public final class Constants {
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
         public static final class Mod0 {
-            public static final int driveMotorID = 1;
-            public static final int angleMotorID = 2;
+            public static final int driveMotorID = 2;
+            public static final int angleMotorID = 1;
             public static final int canCoderID = 3;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-177.178);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-177.178 + 180);
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
                     canCoderID, angleOffset);
         }
