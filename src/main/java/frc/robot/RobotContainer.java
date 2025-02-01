@@ -12,6 +12,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.FileVersionException;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -99,6 +100,7 @@ public class RobotContainer {
     private final AlgaeIntakeSubsystem a_AlgaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     private final CoralIntakeSubsystem c_CoralIntakeSubsystem = new CoralIntakeSubsystem();
     private final ElevatorSubsystem e_ElevatorSubsytem = new ElevatorSubsystem(); 
+    public static Field2d field = new Field2d();
 
     /**
      * The container for the robot. Contains subsystems, IO devices, and commands.
@@ -252,10 +254,12 @@ public class RobotContainer {
 
     public RobotContainer() {
         //Pathfinding.setDynamicObstacles(null, null);
-        Field2d field = new Field2d();
+        
         SmartDashboard.putData("Field", field);
-        field.setRobotPose(s_Swerve.getPose());
-        // Logging callback for current robot pose
+        SmartDashboard.putNumber("robotposex", s_Swerve.getPose().getTranslation().getX());
+        SmartDashboard.putNumber("robotposey", s_Swerve.getPose().getTranslation().getY());
+        
+        //Logging callback for current robot pose
         PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
             field.setRobotPose(pose);
         });
@@ -274,9 +278,9 @@ public class RobotContainer {
 
       
         s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, 
-        ()-> -driver.getRawAxis(1), 
-        ()-> -driver.getRawAxis(0),
-        ()-> -driver.getRawAxis(4), 
+        ()-> -driver.getRawAxis(1) * power, 
+        ()-> -driver.getRawAxis(0)* power,
+        ()-> driver.getRawAxis(4)* power, 
         ()->robotCentric));
 
         
@@ -294,6 +298,7 @@ public class RobotContainer {
 
         SmartDashboard.putData("Auto Chooser", autoChooser);
         SmartDashboard.putData("Team Chooser", teamChooser);
+        //SmartDashboard.putNumber("gyroYaaaww", s_Swerve.getGyroYaw());
     }
 
     public Command followpath(){
@@ -355,7 +360,7 @@ public class RobotContainer {
         follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
         alignLeft.whileTrue(AlignLeft_Driver());
         alignRight.whileTrue(AlignRight_Driver());
-        resetpose.onTrue(new InstantCommand(()-> s_Swerve.resetGyroPose()));
+        //resetpose.onTrue(new InstantCommand(()->field.setRobotPose(0, 0, s_Swerve.getHeading())));
 
         /*CoDriver Buttons*/
         

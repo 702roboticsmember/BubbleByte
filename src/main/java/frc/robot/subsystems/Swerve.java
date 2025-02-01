@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.SwerveModule;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -208,8 +209,12 @@ public class Swerve extends SubsystemBase {
     @Override
     public void periodic() {
         swerveOdometry.update(getGyroYaw(), getModulePositions());
-        updatePoseLimelight();
+        //updatePoseLimelight();
         SmartDashboard.putNumber("Acc",this.getAcc());
+        SmartDashboard.putNumber("gyroYaw",this.getGyroYaw().getDegrees());
+        SmartDashboard.putNumber("heading", this.getPose().getRotation().getDegrees());
+        RobotContainer.field.setRobotPose(getPose());
+        //SmartDashboard.putNumber("posex", );
         
         for (SwerveModule mod : swerveModules) {
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " CANcoder", mod.getCANcoder().getDegrees());

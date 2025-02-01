@@ -92,17 +92,17 @@ public class LimelightSubsystem extends SubsystemBase {
       if (alliance.isPresent()) {
         if(alliance.get() == DriverStation.Alliance.Red){
           
-          return botpose_wpired.getDoubleArray(new double[6]);
+          return botpose_wpired.getDoubleArray(new double[7]);
         }else{
-          return botpose_wpiblue.getDoubleArray(new double[6]);
+          return botpose_wpiblue.getDoubleArray(new double[7]);
         }
       }
-      return new double[6];
+      return new double[7];
   }
 
   public Pose2d getBotPose2d(){
     double[] pose = getBotPoseTeamRelative();
-    Pose2d botpose = pose.equals(new double[6])? null: new Pose2d(pose[0], pose[2], new Rotation2d(pose[5]));
+    Pose2d botpose = pose.equals(new double[7]) || !IsTargetAvailable()? null: new Pose2d(pose[0], pose[2], new Rotation2d(pose[5]));
     return botpose;
   }
 
