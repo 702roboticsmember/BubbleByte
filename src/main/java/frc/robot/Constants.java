@@ -123,8 +123,8 @@ public final class Constants {
         public static final double DRIVE_KA = 0.27;
 
         public static final PathConstraints constraints = new PathConstraints(
-        3.0, 2.5,
-        Units.degreesToRadians(540), Units.degreesToRadians(540));
+        0.7, 0.5,
+        Units.degreesToRadians(0), Units.degreesToRadians(0));
 
         /** Units: m/s */
         public static final double MAX_SPEED = 10;

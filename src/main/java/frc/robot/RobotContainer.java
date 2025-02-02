@@ -13,6 +13,7 @@ import com.pathplanner.lib.util.FileVersionException;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -56,7 +57,7 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton resetpose = new JoystickButton(driver, XboxController.Button.kStart.value);
+    private final JoystickButton leftStation = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton fastMode = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton slowMode = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton align = new JoystickButton(driver, XboxController.Button.kX.value);
@@ -303,21 +304,23 @@ public class RobotContainer {
 
     public Command followpath(){
         PathPlannerPath path;
+        return AutoBuilder.pathfindToPose(
+            new Pose2d(0, 0, new Rotation2d(0)),Constants.Swerve.constraints);
         
-        try {
-            path = PathPlannerPath.fromPathFile("Example Path");
+        // try {
+        //     path = PathPlannerPath.fromPathFile("Example Path");
             
-            return AutoBuilder.pathfindThenFollowPath(
-            path,
-            Constants.Swerve.constraints);
-        } catch (FileVersionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        //     return AutoBuilder.pathfindToPose(
+        //     new Pose2d(0, 0, new Rotation2d(0)),
+        //     Constants.Swerve.constraints);
+        // } catch (FileVersionException e) {
+        //     e.printStackTrace();
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // } catch (ParseException e) {
+        //     e.printStackTrace();
+        // }
+        // return null;
     }
 
     /**
@@ -346,7 +349,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
 
         /* Driver Buttons */
-        zeroGyro.onTrue(new ParallelCommandGroup(new InstantCommand(() -> s_Swerve.zeroHeading()), new InstantCommand(()->s_Swerve.gyro.reset())));
+        zeroGyro.onTrue(new ParallelCommandGroup(new InstantCommand(()->s_Swerve.gyro.reset()), new InstantCommand(() -> s_Swerve.zeroHeading())));
         slowMode.onTrue(new InstantCommand(() -> RobotContainer.power = .333));
         fastMode.onTrue(new InstantCommand(() -> RobotContainer.power = 1));
 
@@ -361,6 +364,8 @@ public class RobotContainer {
         alignLeft.whileTrue(AlignLeft_Driver());
         alignRight.whileTrue(AlignRight_Driver());
         //resetpose.onTrue(new InstantCommand(()->field.setRobotPose(0, 0, s_Swerve.getHeading())));
+        //leftStation.whileTrue(followpath());
+        
 
         /*CoDriver Buttons*/
         
