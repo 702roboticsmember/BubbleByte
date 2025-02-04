@@ -43,8 +43,12 @@ public final class Constants {
          */
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         public static final COTSTalonFXSwerveConstants KRAKEN_X60_CONSTANTS = Falcon500(driveRatios.L3);
         //
+=======
+        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = Falcon500(driveRatios.L3);
+>>>>>>> Stashed changes
 =======
         public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = Falcon500(driveRatios.L3);
 >>>>>>> Stashed changes
@@ -151,7 +155,11 @@ public final class Constants {
             public static final int canCoderID = 3;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-0.178);
+=======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(90.58);
+>>>>>>> Stashed changes
 =======
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(90.58);
 >>>>>>> Stashed changes
@@ -169,7 +177,11 @@ public final class Constants {
             public static final int canCoderID = 6;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(12.39257);
+=======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(104.32);
+>>>>>>> Stashed changes
 =======
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(104.32);
 >>>>>>> Stashed changes
@@ -187,7 +199,11 @@ public final class Constants {
             public static final int canCoderID = 9;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-11.4257);
+=======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(79.28);
+>>>>>>> Stashed changes
 =======
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(79.28);
 >>>>>>> Stashed changes
@@ -205,7 +221,11 @@ public final class Constants {
             public static final int canCoderID = 12;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-51.24023);
+=======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(38.5);
+>>>>>>> Stashed changes
 =======
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(38.5);
 >>>>>>> Stashed changes
