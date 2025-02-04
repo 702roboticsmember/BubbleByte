@@ -46,6 +46,7 @@ public final class Constants {
         public static final COTSTalonFXSwerveConstants KRAKEN_X60_CONSTANTS = Falcon500(driveRatios.L3);
         //
 =======
+        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = Falcon500(driveRatios.L3);
 >>>>>>> Stashed changes
 =======
         public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = Falcon500(driveRatios.L3);
@@ -152,6 +153,7 @@ public final class Constants {
 <<<<<<< Updated upstream
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-0.178);
 =======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(90.58);
 >>>>>>> Stashed changes
 =======
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(90.58);
@@ -169,6 +171,7 @@ public final class Constants {
 <<<<<<< Updated upstream
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(12.39257);
 =======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(104.32);
 >>>>>>> Stashed changes
 =======
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(104.32);
@@ -186,6 +189,7 @@ public final class Constants {
 <<<<<<< Updated upstream
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-11.4257);
 =======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(79.28);
 >>>>>>> Stashed changes
 =======
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(79.28);
@@ -203,6 +207,7 @@ public final class Constants {
 <<<<<<< Updated upstream
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-51.24023);
 =======
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(38.5);
 >>>>>>> Stashed changes
 =======
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(38.5);
