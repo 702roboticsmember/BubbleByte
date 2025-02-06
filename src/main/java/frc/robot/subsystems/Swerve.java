@@ -43,6 +43,7 @@ public class Swerve extends SubsystemBase {
     public Swerve(LimelightSubsystem l_LimelightSubsystem) {
         this.l_LimelightSubsystem = l_LimelightSubsystem;
         gyro = new AHRS( NavXComType.kMXP_SPI);
+        
         gyro.reset();
         try {
             config = RobotConfig.fromGUISettings();
@@ -100,7 +101,8 @@ public class Swerve extends SubsystemBase {
 
     private void resetPose(Pose2d startingPosition) {
         swerveOdometry.resetPosition(
-                new Rotation2d(Math.toRadians(gyro.getAngle())),
+                //new Rotation2d(Math.toRadians(gyro.getAngle())),
+                getGyroYaw(),
                 this.getModulePositions(),
                 startingPosition);
     }
@@ -171,7 +173,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public Rotation2d getGyroYaw() {
-        return (Constants.Swerve.INVERT_GYRO) ? Rotation2d.fromDegrees(360 - gyro.getYaw())
+        return (Constants.Swerve.INVERT_GYRO) ? Rotation2d.fromDegrees((360- gyro.getYaw()))
                 : Rotation2d.fromDegrees(gyro.getYaw());
     }
 
@@ -211,7 +213,7 @@ public class Swerve extends SubsystemBase {
         swerveOdometry.update(getGyroYaw(), getModulePositions());
         //updatePoseLimelight();
         SmartDashboard.putNumber("Acc",this.getAcc());
-        SmartDashboard.putNumber("gyroYaw",this.getGyroYaw().getDegrees());
+        SmartDashboard.putNumber("gyroYaw", gyro.getYaw());
         SmartDashboard.putNumber("heading", this.getPose().getRotation().getDegrees());
         RobotContainer.field.setRobotPose(getPose());
         //SmartDashboard.putNumber("posex", );

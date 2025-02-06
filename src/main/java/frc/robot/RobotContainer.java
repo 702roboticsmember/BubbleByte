@@ -281,7 +281,7 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, 
         ()-> -driver.getRawAxis(1) * power, 
         ()-> -driver.getRawAxis(0)* power,
-        ()-> driver.getRawAxis(4)* power, 
+        ()-> -driver.getRawAxis(4)* power, 
         ()->robotCentric));
 
         
@@ -304,30 +304,23 @@ public class RobotContainer {
 
     public Command followpath(){
         PathPlannerPath path;
-        return AutoBuilder.pathfindToPose(
-            new Pose2d(0, 0, new Rotation2d(0)),Constants.Swerve.constraints);
-        
-        // try {
-        //     path = PathPlannerPath.fromPathFile("Example Path");
-            
-        //     return AutoBuilder.pathfindToPose(
-        //     new Pose2d(0, 0, new Rotation2d(0)),
-        //     Constants.Swerve.constraints);
-        // } catch (FileVersionException e) {
-        //     e.printStackTrace();
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // } catch (ParseException e) {
-        //     e.printStackTrace();
-        // }
-        // return null;
-    }
+        // return AutoBuilder.pathfindToPose(
+        //     new Pose2d(0, 0, new Rotation2d(0)),Constants.Swerve.constraints);
+        try {
+            path = PathPlannerPath.fromPathFile("Example");
 
-    /**
-     * If the limit switch is pressed, we can assume that the ring is inside!
-     * 
-     * @return the value of the limit switch.
-     */
+            // SmartDashboard.putString("path", path);
+            
+            return AutoBuilder.followPath(path);
+        } catch (FileVersionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     
 
@@ -349,7 +342,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
 
         /* Driver Buttons */
-        zeroGyro.onTrue(new ParallelCommandGroup(new InstantCommand(()->s_Swerve.gyro.reset()), new InstantCommand(() -> s_Swerve.zeroHeading())));
+        zeroGyro.onTrue(new SequentialCommandGroup(new InstantCommand(()->s_Swerve.gyro.reset()), new InstantCommand(() -> s_Swerve.zeroHeading())));
         slowMode.onTrue(new InstantCommand(() -> RobotContainer.power = .333));
         fastMode.onTrue(new InstantCommand(() -> RobotContainer.power = 1));
 
@@ -392,13 +385,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return new SequentialCommandGroup((new InstantCommand(() -> {
-            
-             s_Swerve.gyro.reset();
-            // s_Swerve.zeroHeading();
-        })), autoChooser.getSelected());
-        // An ExampleCommand will run in autonomous
-        // return new exampleAuto(s_Swerve);
-
+        return new SequentialCommandGroup(new InstantCommand(()-> s_Swerve.gyro.reset()), autoChooser.getSelected());
+        
     }
 }
