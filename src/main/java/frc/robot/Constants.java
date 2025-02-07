@@ -64,7 +64,7 @@ public final class Constants {
          */
         public static final double DRIVEBASE_RADIUS = DRIVEBASE_DIAMETER / 2f;
 
-        public static final double WHEEL_CIRCUMFERENCE = KRAKEN_X60_CONSTANTS.wheelCircumference;
+        public static final double WHEEL_CIRCUMFERENCE = 0.048 * Math.PI * 2;///KRAKEN_X60_CONSTANTS.wheelCircumference;
 
         public static final SwerveDriveKinematics KINEMATICS = new SwerveDriveKinematics(
                 new Translation2d(BASE_WIDTH / 2.0, TRACK_WIDTH / 2.0),
@@ -110,7 +110,7 @@ public final class Constants {
          * loop driving.
          * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc
          */
-        public static final double OPEN_LOOP_RAMP = 0.45;
+        public static final double OPEN_LOOP_RAMP = 0.25;
         public static final double CLOSED_LOOP_RAMP = 0;
 
         public static final PIDConstants ANGLE_PID = new PIDConstants(KRAKEN_X60_CONSTANTS.angleKP,
@@ -123,8 +123,8 @@ public final class Constants {
         public static final double DRIVE_KA = 0.27;
 
         public static final PathConstraints constraints = new PathConstraints(
-        0.7, 0.5,
-        Units.degreesToRadians(0), Units.degreesToRadians(360));
+        1, 2.5,
+        Units.degreesToRadians(360), Units.degreesToRadians(360));
 
         /** Units: m/s */
         public static final double MAX_SPEED = 10;
@@ -176,7 +176,7 @@ public final class Constants {
                     canCoderID, angleOffset);
         }
         public static final PPHolonomicDriveController PATHPLANNER_FOLLOWER_CONFIG = new PPHolonomicDriveController(
-                new PIDConstants(5, 0, 0), 
+                new PIDConstants(5, 3, 0), 
                 new PIDConstants(3, 0, 0)
                 // MAX_SPEED,
                 // DRIVEBASE_RADIUS,

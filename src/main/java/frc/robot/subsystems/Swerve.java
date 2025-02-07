@@ -1,33 +1,28 @@
 package frc.robot.subsystems;
 
-import frc.robot.SwerveModule;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
-
-import com.studica.frc.AHRS;
-import com.studica.frc.AHRS.NavXComType;
-
-
 import java.io.IOException;
-
 
 import org.json.simple.parser.ParseException;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.RobotConfig;
-
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.SwerveModule;
 
 /**
  * Our main drive subsystem
@@ -212,10 +207,14 @@ public class Swerve extends SubsystemBase {
     public void periodic() {
         swerveOdometry.update(getGyroYaw(), getModulePositions());
         //updatePoseLimelight();
+        
         SmartDashboard.putNumber("Acc",this.getAcc());
         SmartDashboard.putNumber("gyroYaw", gyro.getYaw());
         SmartDashboard.putNumber("heading", this.getPose().getRotation().getDegrees());
         RobotContainer.field.setRobotPose(getPose());
+        SmartDashboard.putNumber("SwervePoseX", swerveOdometry.getPoseMeters().getX());
+        SmartDashboard.putNumber("SwervePoseY", swerveOdometry.getPoseMeters().getY());
+
         //SmartDashboard.putNumber("posex", );
         
         for (SwerveModule mod : swerveModules) {

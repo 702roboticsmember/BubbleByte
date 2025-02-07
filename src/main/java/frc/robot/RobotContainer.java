@@ -276,7 +276,7 @@ public class RobotContainer {
         });
 
         NamedCommands.registerCommand("align", Align_Driver(0, .75, 0));
-
+        NamedCommands.registerCommand("Disconect", followpath());
       
         s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, 
         ()-> -driver.getRawAxis(1) * power, 
@@ -304,14 +304,15 @@ public class RobotContainer {
 
     public Command followpath(){
         PathPlannerPath path;
-        // return AutoBuilder.pathfindToPose(
-        //     new Pose2d(0, 0, new Rotation2d(0)),Constants.Swerve.constraints);
+        
+
+         
         try {
-            path = PathPlannerPath.fromPathFile("Example");
+            path = PathPlannerPath.fromPathFile("P3Disconect");
 
             // SmartDashboard.putString("path", path);
             
-            return AutoBuilder.followPath(path);
+            return AutoBuilder.pathfindThenFollowPath(path, Constants.Swerve.constraints);
         } catch (FileVersionException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -343,7 +344,7 @@ public class RobotContainer {
 
         /* Driver Buttons */
         zeroGyro.onTrue(new SequentialCommandGroup(new InstantCommand(()->s_Swerve.gyro.reset()), new InstantCommand(() -> s_Swerve.zeroHeading())));
-        slowMode.onTrue(new InstantCommand(() -> RobotContainer.power = .333));
+        slowMode.onTrue(new InstantCommand(() -> RobotContainer.power = .2));
         fastMode.onTrue(new InstantCommand(() -> RobotContainer.power = 1));
 
         align.whileTrue(new SequentialCommandGroup(
@@ -357,7 +358,7 @@ public class RobotContainer {
         alignLeft.whileTrue(AlignLeft_Driver());
         alignRight.whileTrue(AlignRight_Driver());
         //resetpose.onTrue(new InstantCommand(()->field.setRobotPose(0, 0, s_Swerve.getHeading())));
-        //leftStation.whileTrue(followpath());
+        leftStation.whileTrue(followpath());
         
 
         /*CoDriver Buttons*/
