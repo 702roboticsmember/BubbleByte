@@ -39,6 +39,7 @@ import frc.robot.subsystems.CoralIntakeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
+import com.revrobotics.CANSparkMax;
 
 /**
  * This class is where the bulk of the robot should be declared. Since

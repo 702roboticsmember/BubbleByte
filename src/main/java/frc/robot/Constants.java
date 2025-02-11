@@ -187,7 +187,7 @@ public final class Constants {
     }
 
     public static final class ClimberConstants {
-        public static final int MotorID = 0;
+        public static final int MotorID = 13;
 
         public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue LiftMotorMode = NeutralModeValue.Brake;
