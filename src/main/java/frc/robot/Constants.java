@@ -1,7 +1,6 @@
 package frc.robot;
 
 import static frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.Falcon500;
-import static frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.KrakenX60;
 
 
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -10,6 +9,8 @@ import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 
 //import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 //import com.pathplanner.lib.util.PIDConstants;
@@ -376,6 +377,9 @@ public final class Constants {
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
         public static final double OuttakeSpeed = 0;
+
+        public static final PersistMode Persist = PersistMode.kNoPersistParameters;
+        public static final ResetMode Reset = ResetMode.kResetSafeParameters;
     }
     public static final class AlgaeArmConstants{
 

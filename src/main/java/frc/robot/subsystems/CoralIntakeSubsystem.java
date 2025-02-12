@@ -5,20 +5,29 @@
 package frc.robot.subsystems;
 
 
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.*;
 
 public class CoralIntakeSubsystem extends SubsystemBase {
+  private SparkMax leftMotor = new SparkMax(Constants.CoralIntakeConstants.LeftMotorID, MotorType.kBrushless);
+  private SparkMax rightMotor = new SparkMax(Constants.CoralIntakeConstants.RightMotorID, MotorType.kBrushless);
   // private Spark LeftMotor = new Spark(Constants.CoralIntakeConstants.LeftMotorID);
   // private Spark RightMotor = new Spark(Constants.CoralIntakeConstants.RightMotorID);
 
   /** Creates a new ClimbSubsystem. */
   public CoralIntakeSubsystem() {
-    // LeftMotor.setInverted(Constants.CoralIntakeConstants.LeftMotorInverted);
-    // RightMotor.setInverted(Constants.CoralIntakeConstants.RightMotorInverted);
+    SparkMaxConfig leftConfig = new SparkMaxConfig();
+    SparkMaxConfig rightConfig = new SparkMaxConfig();
 
+    leftConfig.inverted(Constants.CoralIntakeConstants.LeftMotorInverted);
+    rightConfig.inverted(Constants.CoralIntakeConstants.RightMotorInverted);
+
+    leftMotor.configure(leftConfig, Constants.CoralIntakeConstants.Reset, Constants.CoralIntakeConstants.Persist);
+    rightMotor.configure(rightConfig, Constants.CoralIntakeConstants.Reset, Constants.CoralIntakeConstants.Persist);
    
     
 
@@ -42,8 +51,8 @@ public class CoralIntakeSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    // LeftMotor.set(speed);
-    // RightMotor.set(speed);
+    leftMotor.set(speed);
+    rightMotor.set(speed);
   }
 
   public Command run(double speed){
