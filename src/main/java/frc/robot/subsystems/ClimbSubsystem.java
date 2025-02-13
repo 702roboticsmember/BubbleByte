@@ -61,10 +61,13 @@ public class ClimbSubsystem extends SubsystemBase {
   public double getRawPose() {
     return Motor.getPosition().getValueAsDouble();
   }
+  public double tickToRev(double tick){
+    return tick * Constants.ClimberConstants.GearRatio;
+}
 
   public double tickToDeg(double tick){
-    return tick * 360;
-}
+      return tickToRev(tick) * 360;
+  }
 
   public double getAngle() {
     return tickToDeg(getRawPose());

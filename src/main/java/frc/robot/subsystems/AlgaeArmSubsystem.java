@@ -55,8 +55,12 @@ public class AlgaeArmSubsystem extends SubsystemBase {
         return Motor.getPosition().getValueAsDouble();
     }
 
+    public double tickToRev(double tick){
+        return tick * Constants.AlgaeArmConstants.GearRatio;
+    }
+
     public double tickToDeg(double tick){
-        return tick * 360;
+        return tickToRev(tick) * 360;
     }
 
     public double getAngle() {

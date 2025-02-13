@@ -69,8 +69,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
 
-  public double TickToDeg(double tick) {
-      return tick * 360;
+  public double tickToRev(double tick){
+    return tick * Constants.ElevatorConstants.GearRatio;
+}
+
+  public double tickToDeg(double tick){
+      return tickToRev(tick) * 360;
   }
 
   public double DegToTick(double tick) {
@@ -83,7 +87,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 // reserve this for smartdashboard
   public double getElevatorHeight(/*double tick*/) {
     double radius = Constants.ElevatorConstants.Radius;
-    double radians = Math.toRadians(TickToDeg(getRaw()));
+    double radians = Math.toRadians(tickToDeg(getRaw()));
     return radians * radius;
   }
 

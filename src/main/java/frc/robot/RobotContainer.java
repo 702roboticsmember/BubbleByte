@@ -25,11 +25,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.AlgaeArmPID;
 import frc.robot.commands.AlignCommand;
 import frc.robot.commands.AutoFollowCommand;
 import frc.robot.commands.ClimbPID;
 import frc.robot.commands.ElevatorPID;
+import frc.robot.commands.FollowPath;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.subsystems.AlgaeArmSubsystem;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -55,13 +57,13 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton leftStation = new JoystickButton(driver, XboxController.Button.kStart.value);
+    private final JoystickButton leftstation = new JoystickButton(driver, XboxController.Button.kBack.value);
+    private final JoystickButton rightstation = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton fastMode = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton slowMode = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton align = new JoystickButton(driver, XboxController.Button.kX.value);
-    private final JoystickButton follow = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton alignLeft = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton alignRight = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton alignRight = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
 
 
     
@@ -70,16 +72,16 @@ public class RobotContainer {
     private final JoystickButton algaeReefIntake = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton climbPID = new JoystickButton(codriver, XboxController.Button.kB.value);
     private final JoystickButton coralOuttake = new JoystickButton(codriver, XboxController.Button.kX.value);
+    private final JoystickButton coralIntake = new JoystickButton(codriver, XboxController.Button.kStart.value);
     private final JoystickButton nest = new JoystickButton(codriver, XboxController.Button.kY.value);
     private final JoystickButton algaeGroundIntake = new JoystickButton(codriver, XboxController.Button.kRightBumper.value);
     private final JoystickButton algaeOuttake = new JoystickButton(codriver, XboxController.Button.kLeftBumper.value);
     
 
-    // private final POVButton increaseTopSpeed = new POVButton(master, Direction.UP.direction);
-    // private final POVButton decreaseTopSpeed = new POVButton(master, Direction.DOWN.direction);
-
-    // private final POVButton increaseBottomSpeed = new POVButton(master, Direction.RIGHT.direction);
-    // private final POVButton decreaseBottomSpeed = new POVButton(master, Direction.LEFT.direction);
+    private final POVButton L1 = new POVButton(codriver, 90);
+    private final POVButton L2 = new POVButton(codriver, 0);
+    private final POVButton L3 = new POVButton(codriver, 270);
+    private final POVButton L4 = new POVButton(codriver, 180);
 
     public static double power = 1;
     public static boolean robotCentric = false;
@@ -243,7 +245,21 @@ public class RobotContainer {
         return Commands.waitUntil(()-> !limitSwitch.get());
     }
 
-    
+    public Command L1(){
+        return new ElevatorPID(e_ElevatorSubsytem, Constants.ElevatorConstants.L1Pose);
+    }
+
+    public Command L2(){
+        return new ElevatorPID(e_ElevatorSubsytem, Constants.ElevatorConstants.L2Pose);
+    }
+
+    public Command L3(){
+        return new ElevatorPID(e_ElevatorSubsytem, Constants.ElevatorConstants.L3Pose);
+    }
+
+    public Command L4(){
+        return new ElevatorPID(e_ElevatorSubsytem, Constants.ElevatorConstants.L4Pose);
+    }
 
 // Create the constraints to use while pathfinding. The constraints defined in the path will only be used for the path.
 
@@ -274,7 +290,7 @@ public class RobotContainer {
         });
 
         NamedCommands.registerCommand("align", Align_Driver(0, .75, 0));
-        NamedCommands.registerCommand("Disconect", followpath());
+        NamedCommands.registerCommand("Disconect", new FollowPath(s_Swerve, "P3Disconect"));
       
         s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, 
         ()-> -driver.getRawAxis(1) * power, 
@@ -300,26 +316,7 @@ public class RobotContainer {
         //SmartDashboard.putNumber("gyroYaaaww", s_Swerve.getGyroYaw());
     }
 
-    public Command followpath(){
-        PathPlannerPath path;
-        
-
-         
-        try {
-            path = PathPlannerPath.fromPathFile("P3Disconect");
-
-            // SmartDashboard.putString("path", path);
-            
-            return AutoBuilder.pathfindThenFollowPath(path, Constants.Swerve.constraints);
-        } catch (FileVersionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    
 
     
 
@@ -349,14 +346,15 @@ public class RobotContainer {
                  new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), Align_Driver(0, .75, 0)));
 
         align.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
-        follow.whileTrue(new SequentialCommandGroup(
-            new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AutoFollow_Driver(0.3)));
+        // follow.whileTrue(new SequentialCommandGroup(
+        //     new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AutoFollow_Driver(0.3)));
 
-        follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
+        // follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
         alignLeft.whileTrue(AlignLeft_Driver());
         alignRight.whileTrue(AlignRight_Driver());
         //resetpose.onTrue(new InstantCommand(()->field.setRobotPose(0, 0, s_Swerve.getHeading())));
-        leftStation.whileTrue(followpath());
+        leftstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "P3Disconnect")));
+        rightstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "P3Disconect")));
         
 
         /*CoDriver Buttons*/
@@ -371,9 +369,12 @@ public class RobotContainer {
         climbPID.toggleOnTrue(ClimbOutPID());
         climbPID.toggleOnFalse(ClimbInPID());
         coralOuttake.whileTrue(CoralOuttake_coDriver());
+        coralIntake.whileTrue(CoralIntake_coDriver(Constants.CoralIntakeConstants.IntakeSpeed));
         
-        
-        
+        L1.onTrue(L1());
+        L2.onTrue(L2());
+        L3.onTrue(L3());
+        L4.onTrue(L4());
 
     }
         
