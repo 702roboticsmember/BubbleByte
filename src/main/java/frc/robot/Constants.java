@@ -42,7 +42,7 @@ public final class Constants {
         /**
          * Constants for the motor setup that we're using.
          */
-        public static final COTSTalonFXSwerveConstants KRAKEN_X60_CONSTANTS = Falcon500(driveRatios.L3);
+        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = Falcon500(driveRatios.L3);
         //
 
         /**
@@ -81,18 +81,18 @@ public final class Constants {
 //   new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
 
         /* Module Gear Ratios */
-        public static final double DRIVE_GEAR_RATIO = KRAKEN_X60_CONSTANTS.driveGearRatio;
-        public static final double ANGLE_GEAR_RATIO = KRAKEN_X60_CONSTANTS.angleGearRatio;
+        public static final double DRIVE_GEAR_RATIO = FALCON_500_CONSTANTS.driveGearRatio;
+        public static final double ANGLE_GEAR_RATIO = FALCON_500_CONSTANTS.angleGearRatio;
 
-        public static final InvertedValue ANGLE_MOTOR_INVERT = KRAKEN_X60_CONSTANTS.angleMotorInvert;
-        public static final InvertedValue DRIVE_MOTOR_INVERT = KRAKEN_X60_CONSTANTS.driveMotorInvert;
+        public static final InvertedValue ANGLE_MOTOR_INVERT = FALCON_500_CONSTANTS.angleMotorInvert;
+        public static final InvertedValue DRIVE_MOTOR_INVERT = FALCON_500_CONSTANTS.driveMotorInvert;
 
-        public static final SensorDirectionValue CANCODER_INVERT = KRAKEN_X60_CONSTANTS.cancoderInvert;
+        public static final SensorDirectionValue CANCODER_INVERT = FALCON_500_CONSTANTS.cancoderInvert;
 
         /**
          * Units: Volts
          */
-        public static final int ANGLE_STATOR_CURRENT_LIMIT = 45;
+        public static final int ANGLE_STATOR_CURRENT_LIMIT = 40;
         public static final int ANGLE_CURRENT_LIMIT = 25;
         public static final int ANGLE_CURRENT_THRESHOLD = 40;
         public static final double ANGLE_CURRENT_THRESHOLD_TIME = 0.1;
@@ -114,8 +114,8 @@ public final class Constants {
         public static final double OPEN_LOOP_RAMP = 0.25;
         public static final double CLOSED_LOOP_RAMP = 0;
 
-        public static final PIDConstants ANGLE_PID = new PIDConstants(KRAKEN_X60_CONSTANTS.angleKP,
-                KRAKEN_X60_CONSTANTS.angleKI, KRAKEN_X60_CONSTANTS.angleKD);
+        public static final PIDConstants ANGLE_PID = new PIDConstants(FALCON_500_CONSTANTS.angleKP,
+                FALCON_500_CONSTANTS.angleKI, FALCON_500_CONSTANTS.angleKD);
         public static final PIDConstants DRIVE_PID = new PIDConstants(0.12, 0.0, 0.0);
 
         /* Drive Motor Characterization Values From SYSID */
@@ -213,19 +213,20 @@ public final class Constants {
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
 
-        public static final double ForwardLimit = 0;
+        public static final double ForwardLimit = 90;
 
         public static final boolean LimitEnable = true;
 
-        public static final double ReverseLimit = 0;
+        public static final double ReverseLimit = -80;
 
         public static final double DefaultPose = 0;
 
-        public static final double ClimbingPose = 0;
 
-        public static final double OutPose = 0;
+        public static final double OutPose = 90;
 
-        public static final double InPose = 0;
+        public static final double InPose = -80;
+
+        public static final double GearRatio = 1/338.5;
 
         // public static final int CURRENT_THRESHOLD = 35;
         // public static final double CURRENT_THRESHOLD_TIME = 0.1;
@@ -325,8 +326,8 @@ public final class Constants {
     }
     public static final class ElevatorConstants{
 
-        public static final int Motor1ID = 0;
-        public static final int Motor2ID = 0;
+        public static final int Motor1ID = 14;
+        public static final int Motor2ID = 15;
         public static final double ConversionConstant = 0.0;
         public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
@@ -349,10 +350,11 @@ public final class Constants {
         public static final double L2Pose = 0;
         public static final double L3Pose = 0;
         public static final double L4Pose = 0;
+        public static final double GearRatio = 1;//6.88:1
     }
     public static final class AlgaeIntakeConstants{
 
-        public static final int MotorID = 0;
+        public static final int MotorID = 16;
         public static final double ConversionConstant = 0.0;
         public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
@@ -360,14 +362,13 @@ public final class Constants {
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
-        public static final double IntakeSpeed = 0;
-        public static final double DefaultPose = 0;
-        public static final double OuttakeSpeed = 0;
+        public static final double IntakeSpeed = 0.3;
+        public static final double OuttakeSpeed = 0.3;
     }
     public static final class CoralIntakeConstants {
 
-        public static final int LeftMotorID = 0;
-        public static final int RightMotorID = 0;
+        public static final int LeftMotorID = 17;
+        public static final int RightMotorID = 18;
         public static final double ConversionConstant = 0.0;
         public static final boolean LeftMotorInverted = true;
         public static final boolean RightMotorInverted = false;
@@ -376,30 +377,31 @@ public final class Constants {
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
-        public static final double OuttakeSpeed = 0;
-
-        public static final PersistMode Persist = PersistMode.kNoPersistParameters;
-        public static final ResetMode Reset = ResetMode.kResetSafeParameters;
+        public static final double OuttakeSpeed = 0.3;
+        public static final ResetMode Reset = null;
+        public static final PersistMode Persist = null;
+        public static final double IntakeSpeed = 0.3;
     }
     public static final class AlgaeArmConstants{
 
-        public static final int MotorID = 0;
+        public static final int MotorID = 19;
         public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
-        public static final double EncoderConversion = 0.0;
+        public static final double EncoderConversion = 1;
         public static final int STATOR_CURRENT_LIMIT = 35;
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
         public static final boolean LimitEnable = false;
-        public static final double ForwardLimit = 0;
+        public static final double ForwardLimit = 120;
         public static final double ReverseLimit = 0;
         public static final double DefaultPose = 0;
-        public static final double ReefPose = 0;
-        public static final double IntakeSpeed = 0;
-        public static final double GroundPose = 0;
-        public static final double OuttakePose = 0;
-        public static final double OuttakeSpeed = 0;
+        public static final double ReefPose = 40;
+        public static final double IntakeSpeed = 0.4;
+        public static final double GroundPose = 110;
+        public static final double OuttakePose = 40;
+        public static final double OuttakeSpeed = 0.5;
+        public static final double GearRatio = 1/50;
     }
     public static final class AlignConstants{
 

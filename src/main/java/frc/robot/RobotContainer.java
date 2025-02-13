@@ -353,8 +353,8 @@ public class RobotContainer {
         alignLeft.whileTrue(AlignLeft_Driver());
         alignRight.whileTrue(AlignRight_Driver());
         //resetpose.onTrue(new InstantCommand(()->field.setRobotPose(0, 0, s_Swerve.getHeading())));
-        leftstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "P3Disconnect")));
-        rightstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "P3Disconect")));
+        leftstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "PathTest")));
+        rightstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "PathTest")));
         
 
         /*CoDriver Buttons*/
