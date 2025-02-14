@@ -46,7 +46,7 @@ public final class Constants {
         /**
          * Constants for the motor setup that we're using.
          */
-        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = Falcon500(driveRatios.L3);
+        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = Falcon500(5.36);
         //
 
         /**

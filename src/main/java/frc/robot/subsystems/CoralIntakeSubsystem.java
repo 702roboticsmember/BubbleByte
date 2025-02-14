@@ -26,6 +26,9 @@ public class CoralIntakeSubsystem extends SubsystemBase {
 
     leftConfig.inverted(Constants.CoralIntakeConstants.LeftMotorInverted);
     rightConfig.inverted(Constants.CoralIntakeConstants.RightMotorInverted);
+    leftConfig.smartCurrentLimit(20);
+    rightConfig.smartCurrentLimit(20);
+    //leftConfig.voltageCompensation(0);
 
     leftMotor.configure(leftConfig, Constants.CoralIntakeConstants.Reset, Constants.CoralIntakeConstants.Persist);
     rightMotor.configure(rightConfig, Constants.CoralIntakeConstants.Reset, Constants.CoralIntakeConstants.Persist);
@@ -52,8 +55,8 @@ public class CoralIntakeSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    leftMotor.set(speed);
-    rightMotor.set(speed);
+    leftMotor.setVoltage(speed * 12);
+    rightMotor.setVoltage(speed * 12);
   }
 
   public Command run(double speed){

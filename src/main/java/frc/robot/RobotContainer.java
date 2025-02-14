@@ -55,7 +55,7 @@ public class RobotContainer {
     private final XboxController codriver = new XboxController(1);
 
     private DigitalInput limitSwitch = new DigitalInput(Constants.LIMIT_SWITCH_INTAKE);
-    private DigitalOutput beamLED = new DigitalOutput(Constants.BEAM_LED_ID);
+
     
 
     /* Driver Buttons */
@@ -272,7 +272,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         //Pathfinding.setDynamicObstacles(null, null);
-        beamLED.set(true);
+        //beamLED.set(true);
         
         SmartDashboard.putData("Field", field);
         SmartDashboard.putNumber("robotposex", s_Swerve.getPose().getTranslation().getX());
