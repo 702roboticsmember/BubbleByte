@@ -14,6 +14,7 @@ import com.pathplanner.lib.util.PathPlannerLogging;
 
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -54,6 +55,8 @@ public class RobotContainer {
     private final XboxController codriver = new XboxController(1);
 
     private DigitalInput limitSwitch = new DigitalInput(Constants.LIMIT_SWITCH_INTAKE);
+    private DigitalOutput beamLED = new DigitalOutput(Constants.BEAM_LED_ID);
+    
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
@@ -269,6 +272,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         //Pathfinding.setDynamicObstacles(null, null);
+        beamLED.set(true);
         
         SmartDashboard.putData("Field", field);
         SmartDashboard.putNumber("robotposex", s_Swerve.getPose().getTranslation().getX());

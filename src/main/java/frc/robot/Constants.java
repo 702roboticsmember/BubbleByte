@@ -33,6 +33,10 @@ public final class Constants {
      */
     public static final int LIMIT_SWITCH_INTAKE = 0;
 
+
+
+    public static final int BEAM_LED_ID = 1;
+
     public static final class Swerve {
         /**
          * Whether gyroscope values should be inverted.
