@@ -27,7 +27,6 @@ public class FollowPath extends Command {
     try {
       path = PathPlannerPath.fromPathFile(name);
     } catch (FileVersionException | IOException | ParseException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
