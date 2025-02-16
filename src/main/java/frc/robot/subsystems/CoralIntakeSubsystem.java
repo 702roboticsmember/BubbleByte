@@ -5,11 +5,15 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.revrobotics.spark.SparkMax;
+
+import java.util.function.DoubleSupplier;
+
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.*;
 
@@ -59,8 +63,8 @@ public class CoralIntakeSubsystem extends SubsystemBase {
     rightMotor.setVoltage(speed * 12);
   }
 
-  public Command run(double speed){
-    return runEnd(()-> setSpeed(speed), ()-> setSpeed(0));
+  public Command run(DoubleSupplier input){
+    return this.runEnd(() -> this.setSpeed(MathUtil.clamp(input.getAsDouble(), -0.1, 0.1)), () -> this.setSpeed(0.0));
   }
 
 }

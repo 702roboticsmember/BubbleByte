@@ -3,6 +3,7 @@ package frc.robot;
 
 
 import java.io.IOException;
+import java.util.function.DoubleSupplier;
 
 import org.json.simple.parser.ParseException;
 
@@ -12,7 +13,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.FileVersionException;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
-
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -72,13 +73,14 @@ public class RobotContainer {
     
 
     /* CoDriver Buttons */
-    private final JoystickButton algaeReefIntake = new JoystickButton(codriver, XboxController.Button.kA.value);
-    private final JoystickButton climbPID = new JoystickButton(codriver, XboxController.Button.kB.value);
+    //private final JoystickButton algaeReefIntake = new JoystickButton(codriver, XboxController.Button.kA.value);
+    //private final JoystickButton climbPID = new JoystickButton(codriver, XboxController.Button.kB.value);
     private final JoystickButton coralOuttake = new JoystickButton(codriver, XboxController.Button.kX.value);
-    private final JoystickButton coralIntake = new JoystickButton(codriver, XboxController.Button.kStart.value);
+    //private final JoystickButton coralIntake = new JoystickButton(codriver, XboxController.Button.kStart.value);
     private final JoystickButton nest = new JoystickButton(codriver, XboxController.Button.kY.value);
-    private final JoystickButton algaeGroundIntake = new JoystickButton(codriver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton start = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton algaeOuttake = new JoystickButton(codriver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton back = new JoystickButton(codriver, XboxController.Button.kB.value);
     
 
     private final POVButton L1 = new POVButton(codriver, 90);
@@ -142,21 +144,21 @@ public class RobotContainer {
     public Command AlgaeReefIntake_coDriver(){
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.ReefPose),
-            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
+            a_AlgaeIntakeSubsystem.run(()->Constants.AlgaeIntakeConstants.IntakeSpeed)
         );
         
     }
     public Command AlgaeGroundIntake_coDriver(){
         return new ParallelCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.GroundPose),
-            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.IntakeSpeed)
+            a_AlgaeIntakeSubsystem.run(()-> Constants.AlgaeIntakeConstants.IntakeSpeed)
         );
         
     }
     public Command AlgaeOuttake_coDriver(){
         return new SequentialCommandGroup(
             new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.OuttakePose),
-            a_AlgaeIntakeSubsystem.run(Constants.AlgaeIntakeConstants.OuttakeSpeed)
+            a_AlgaeIntakeSubsystem.run(()-> Constants.AlgaeIntakeConstants.OuttakeSpeed)
         );
         
     }
@@ -221,10 +223,10 @@ public class RobotContainer {
         return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.InPose);
     }
     public Command CoralOuttake_coDriver(){
-        return c_CoralIntakeSubsystem.run(Constants.CoralIntakeConstants.OuttakeSpeed);
+        return c_CoralIntakeSubsystem.run(()->Constants.CoralIntakeConstants.OuttakeSpeed);
     }
 
-    public Command CoralOuttake_coDriver(double speed){
+    public Command CoralOuttake_coDriver(DoubleSupplier speed){
         return c_CoralIntakeSubsystem.run(speed);
     }
 
@@ -236,7 +238,7 @@ public class RobotContainer {
         return Commands.either(CoralOuttake(), Coraloff(), ()-> !limitSwitch.get());
     }
 
-    public Command CoralIntake_coDriver(double speed){
+    public Command CoralIntake_coDriver(DoubleSupplier speed){
         return Commands.either(CoralOuttake_coDriver(speed), Coraloff(), ()-> !limitSwitch.get());
     }
 
@@ -271,6 +273,7 @@ public class RobotContainer {
 
 
     public RobotContainer() {
+        
         //Pathfinding.setDynamicObstacles(null, null);
         //beamLED.set(true);
         
@@ -296,6 +299,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("align", Align_Driver(0, .75, 0));
         NamedCommands.registerCommand("Disconect", new FollowPath(s_Swerve, "P3Disconect"));
       
+
         s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, 
         ()-> -driver.getRawAxis(1) * power, 
         ()-> -driver.getRawAxis(0)* power,
@@ -304,8 +308,8 @@ public class RobotContainer {
 
         
         c_ClimbSubsystem.setDefaultCommand(c_ClimbSubsystem.run(codriver.getRawAxis(0)));
-        c_CoralIntakeSubsystem.setDefaultCommand(CoralIntake_coDriver(codriver.getRawAxis(2)));
-        e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(codriver.getRawAxis(5)));
+        c_CoralIntakeSubsystem.setDefaultCommand(CoralIntake_coDriver(()-> codriver.getRawAxis(2)));
+        e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(()-> (-codriver.getRawAxis(5) * 0.2) + 0.04));
         
 
         configureButtonBindings();
@@ -343,8 +347,12 @@ public class RobotContainer {
 
         /* Driver Buttons */
         zeroGyro.onTrue(new SequentialCommandGroup(new InstantCommand(()->s_Swerve.gyro.reset()), new InstantCommand(() -> s_Swerve.zeroHeading())));
-        slowMode.onTrue(new InstantCommand(() -> RobotContainer.power = .2));
-        fastMode.onTrue(new InstantCommand(() -> RobotContainer.power = 1));
+        //slowMode.onTrue(new InstantCommand(() -> RobotContainer.power = .2));
+        //fastMode.onTrue(new InstantCommand(() -> RobotContainer.power = 1));
+        back.onTrue(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set1(0.2)));
+        back.onFalse(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set1(0)));
+        start.whileTrue(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set2(0.2)));
+        start.whileFalse(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set2(0)));
 
         align.whileTrue(new SequentialCommandGroup(
                  new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), Align_Driver(0, .75, 0)));
@@ -364,16 +372,16 @@ public class RobotContainer {
         /*CoDriver Buttons*/
         
         nest.whileTrue(Nest());
-        algaeReefIntake.whileTrue(AlgaeReefIntake_coDriver());
-        algaeReefIntake.onFalse(AlgaeStow());
-        algaeGroundIntake.whileTrue(AlgaeGroundIntake_coDriver());
-        algaeGroundIntake.onFalse(AlgaeStow());
+        // algaeReefIntake.whileTrue(AlgaeReefIntake_coDriver());
+        // algaeReefIntake.onFalse(AlgaeStow());
+        //algaeGroundIntake.whileTrue(AlgaeGroundIntake_coDriver());
+        //algaeGroundIntake.onFalse(AlgaeStow());
         algaeOuttake.whileTrue(AlgaeOuttake_coDriver());
         algaeOuttake.onFalse(AlgaeStow());
-        climbPID.toggleOnTrue(ClimbOutPID());
-        climbPID.toggleOnFalse(ClimbInPID());
+        // climbPID.toggleOnTrue(ClimbOutPID());
+        // climbPID.toggleOnFalse(ClimbInPID());
         coralOuttake.whileTrue(CoralOuttake_coDriver());
-        coralIntake.whileTrue(CoralIntake_coDriver(Constants.CoralIntakeConstants.IntakeSpeed));
+        //coralIntake.whileTrue(CoralIntake_coDriver(Constants.CoralIntakeConstants.IntakeSpeed));
         
         L1.onTrue(L1());
         L2.onTrue(L2());

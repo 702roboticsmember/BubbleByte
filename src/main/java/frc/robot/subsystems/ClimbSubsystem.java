@@ -4,12 +4,16 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,12 +28,13 @@ public class ClimbSubsystem extends SubsystemBase {
     TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
     CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
     MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
-    HardwareLimitSwitchConfigs limitConfigs = new HardwareLimitSwitchConfigs();
-
-    limitConfigs.ForwardLimitAutosetPositionEnable = Constants.ClimberConstants.LimitEnable;
-    limitConfigs.ForwardLimitAutosetPositionValue = Constants.ClimberConstants.ForwardLimit;
-    limitConfigs.ReverseLimitAutosetPositionEnable = Constants.ClimberConstants.LimitEnable;
-    limitConfigs.ReverseLimitAutosetPositionValue = Constants.ClimberConstants.ReverseLimit;
+    SoftwareLimitSwitchConfigs limitConfigs = new SoftwareLimitSwitchConfigs();
+    
+    limitConfigs.ForwardSoftLimitThreshold = Constants.ClimberConstants.ForwardLimit;
+    limitConfigs.ForwardSoftLimitEnable = Constants.ClimberConstants.LimitEnable;
+    
+    limitConfigs.ReverseSoftLimitThreshold = Constants.ClimberConstants.ReverseLimit;
+    limitConfigs.ReverseSoftLimitEnable = Constants.ClimberConstants.LimitEnable;
     
     currentConfigs.StatorCurrentLimit = Constants.ClimberConstants.STATOR_CURRENT_LIMIT;
     currentConfigs.SupplyCurrentLimit = Constants.ClimberConstants.CURRENT_LIMIT;
@@ -54,8 +59,8 @@ public class ClimbSubsystem extends SubsystemBase {
     Motor.set(speed);
   }
 
-  public Command run(double speed){
-    return runEnd(()-> setSpeed(speed), ()-> setSpeed(0));
+  public Command run(DoubleSupplier input){
+    return this.runEnd(() -> this.setSpeed(MathUtil.clamp(input.getAsDouble(), -0.1, 0.1)), () -> this.setSpeed(0));
   }
 
   public double getRawPose() {

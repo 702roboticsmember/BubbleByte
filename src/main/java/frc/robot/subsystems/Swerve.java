@@ -209,7 +209,10 @@ public class Swerve extends SubsystemBase {
         //updatePoseLimelight();
         
         SmartDashboard.putNumber("Acc",this.getAcc());
-        SmartDashboard.putNumber("gyroYaw", gyro.getYaw());
+        SmartDashboard.putNumber("gyroYaw", gyro.getAngle());
+        SmartDashboard.putNumber("gyrorol", gyro.getRoll());
+        SmartDashboard.putNumber("gyropitch", gyro.getPitch());
+
         SmartDashboard.putNumber("heading", this.getPose().getRotation().getDegrees());
         RobotContainer.field.setRobotPose(getPose());
         SmartDashboard.putNumber("SwervePoseX", swerveOdometry.getPoseMeters().getX());

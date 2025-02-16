@@ -4,11 +4,14 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -45,8 +48,8 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     Motor.set(speed);
   }
 
-  public Command run(double speed){
-    return runEnd(()-> setSpeed(speed), ()-> setSpeed(0));
+  public Command run(DoubleSupplier input){
+    return this.runEnd(() -> this.setSpeed(MathUtil.clamp(input.getAsDouble(), -0.1, 0.1)), () -> this.setSpeed(0.0));
   }
 
   // public double getRawPose() {
