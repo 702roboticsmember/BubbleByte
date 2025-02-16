@@ -307,9 +307,9 @@ public class RobotContainer {
         ()->robotCentric));
 
         
-        c_ClimbSubsystem.setDefaultCommand(c_ClimbSubsystem.run(codriver.getRawAxis(0)));
-        c_CoralIntakeSubsystem.setDefaultCommand(CoralIntake_coDriver(()-> codriver.getRawAxis(2)));
-        e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(()-> (-codriver.getRawAxis(5) * 0.2) + 0.04));
+        c_ClimbSubsystem.setDefaultCommand(c_ClimbSubsystem.run(()-> codriver.getRawAxis(0)));
+        c_CoralIntakeSubsystem.setDefaultCommand(c_CoralIntakeSubsystem.run(()-> -codriver.getRawAxis(2)));
+        e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(()-> (codriver.getRawAxis(3) * 0.4)));
         
 
         configureButtonBindings();
@@ -347,8 +347,8 @@ public class RobotContainer {
 
         /* Driver Buttons */
         zeroGyro.onTrue(new SequentialCommandGroup(new InstantCommand(()->s_Swerve.gyro.reset()), new InstantCommand(() -> s_Swerve.zeroHeading())));
-        //slowMode.onTrue(new InstantCommand(() -> RobotContainer.power = .2));
-        //fastMode.onTrue(new InstantCommand(() -> RobotContainer.power = 1));
+        slowMode.onTrue(new InstantCommand(() -> RobotContainer.power = .2));
+        fastMode.onTrue(new InstantCommand(() -> RobotContainer.power = 1));
         back.onTrue(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set1(0.2)));
         back.onFalse(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set1(0)));
         start.whileTrue(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set2(0.2)));
@@ -383,10 +383,10 @@ public class RobotContainer {
         coralOuttake.whileTrue(CoralOuttake_coDriver());
         //coralIntake.whileTrue(CoralIntake_coDriver(Constants.CoralIntakeConstants.IntakeSpeed));
         
-        L1.onTrue(L1());
-        L2.onTrue(L2());
-        L3.onTrue(L3());
-        L4.onTrue(L4());
+        L1.whileTrue(L1());
+        L2.whileTrue(L2());
+        L3.whileTrue(L3());
+        L4.whileTrue(L4());
 
     }
         

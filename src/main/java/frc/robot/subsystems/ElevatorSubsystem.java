@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
+
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -33,6 +34,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     //Add current limits to constants??
     CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
     MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
+    
     SoftwareLimitSwitchConfigs limitConfigs = new SoftwareLimitSwitchConfigs();
     
     limitConfigs.ForwardSoftLimitThreshold = Constants.ElevatorConstants.ForwardLimit;
@@ -114,7 +116,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command run(DoubleSupplier input){
-    return this.runEnd(() -> this.setSpeed(MathUtil.clamp(input.getAsDouble(), -0.1, 0.1)), () -> this.setSpeed(0));
+    return this.runEnd(() -> this.setSpeed(MathUtil.applyDeadband(input.getAsDouble(), 0.1)), () -> this.setSpeed(0));
   }
 
   @Override

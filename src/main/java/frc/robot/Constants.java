@@ -337,26 +337,27 @@ public final class Constants {
         public static final double ConversionConstant = 0.0;
         public static final InvertedValue MotorInverted = InvertedValue.CounterClockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
-        public static final int STATOR_CURRENT_LIMIT = 150;
-        public static final int CURRENT_LIMIT = 150;
+        public static final int STATOR_CURRENT_LIMIT = 60;
+        public static final int CURRENT_LIMIT = 60;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
-        public static final int CURRENT_THRESHOLD = 150;
+        public static final int CURRENT_THRESHOLD = 60;
         public static final double CURRENT_THRESHOLD_TIME = 0.1;
         public static final double Radius = 1;
-        public static final double kP = 0;
+        public static final double kP = 0.05;
         public static final double kI = 0;
         public static final double kD = 0;
-        public static final double Tolerance = 0;
+        public static final double Tolerance = 0.2;
         public static final boolean LimitEnable = true;
-        public static final double ForwardLimit = 28.5;
-        public static final double ReverseLimit = 0;
+        public static final double ForwardLimit = 29.3;
+        public static final double ReverseLimit = 0.8;
         public static final double DefaultPose = 0;
-        public static final double L1Pose = 0;
-        public static final double L2Pose = 0;
-        public static final double L3Pose = 0;
-        public static final double L4Pose = 0;
+        public static final double L1Pose = 12;
+        public static final double L2Pose = 15;
+        public static final double L3Pose = 22;
+        public static final double L4Pose = 29.3;
         public static final double GearRatio = 1;//6.88:1
+        public static final double StallSpeed = 0.052;
     }
     public static final class AlgaeIntakeConstants{
 
@@ -384,8 +385,8 @@ public final class Constants {
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
         public static final double OuttakeSpeed = 0.3;
-        public static final ResetMode Reset = null;
-        public static final PersistMode Persist = null;
+        public static final ResetMode Reset = ResetMode.kResetSafeParameters;
+        public static final PersistMode Persist = PersistMode.kNoPersistParameters;
         public static final double IntakeSpeed = 0.3;
     }
     public static final class AlgaeArmConstants{

@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 
 import java.util.function.DoubleSupplier;
 
@@ -33,7 +35,7 @@ public class CoralIntakeSubsystem extends SubsystemBase {
     leftConfig.smartCurrentLimit(20);
     rightConfig.smartCurrentLimit(20);
     //leftConfig.voltageCompensation(0);
-
+    
     leftMotor.configure(leftConfig, Constants.CoralIntakeConstants.Reset, Constants.CoralIntakeConstants.Persist);
     rightMotor.configure(rightConfig, Constants.CoralIntakeConstants.Reset, Constants.CoralIntakeConstants.Persist);
    
@@ -59,12 +61,12 @@ public class CoralIntakeSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    leftMotor.setVoltage(speed * 12);
-    rightMotor.setVoltage(speed * 12);
+    leftMotor.set(speed);
+    rightMotor.set(speed);
   }
 
   public Command run(DoubleSupplier input){
-    return this.runEnd(() -> this.setSpeed(MathUtil.clamp(input.getAsDouble(), -0.1, 0.1)), () -> this.setSpeed(0.0));
+    return this.runEnd(() -> this.setSpeed(MathUtil.applyDeadband(input.getAsDouble(), 0.1)), () -> this.setSpeed(0.0));
   }
 
 }

@@ -39,7 +39,7 @@ public class ElevatorPID extends Command {
   @Override
   public void execute() {
     double value = ElevatorPID.calculate(e_ElevatorSubsytem.getElevatorHeight());
-    e_ElevatorSubsytem.setSpeed(value);
+    e_ElevatorSubsytem.setSpeed(value + Constants.ElevatorConstants.StallSpeed);
   }
 
   // Called once the command ends or is interrupted.
@@ -51,6 +51,6 @@ public class ElevatorPID extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ElevatorPID.atSetpoint();
+    return false;
   }
 }
