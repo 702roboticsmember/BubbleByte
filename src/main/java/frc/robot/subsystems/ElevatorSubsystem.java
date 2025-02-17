@@ -103,8 +103,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double value) {
-    elevmotor1.set(value);
-    elevmotor2.set(value);
+    elevmotor1.set(MathUtil.clamp(value, Constants.ElevatorConstants.MinSpeed, Constants.ElevatorConstants.MaxSpeed));
+    elevmotor2.set(MathUtil.clamp(value, Constants.ElevatorConstants.MinSpeed, Constants.ElevatorConstants.MaxSpeed));
   }
 
   public void set1(double speed){

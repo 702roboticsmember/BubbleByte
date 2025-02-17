@@ -199,11 +199,11 @@ public final class Constants {
         public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue LiftMotorMode = NeutralModeValue.Brake;
         
-        public static final double MaxLiftSpeed = 4.0;
+        public static final double MaxLiftSpeed = 0.3;
 
-        public static final double kP = 1.3;
-        public static final double kI = 0.0023;
-        public static final double kD = 0.00147;
+        public static final double kP = 0.07;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
 
         public static final double Tolerance = 0.1;
 
@@ -214,8 +214,8 @@ public final class Constants {
         // public static final double RightLiftPosInValue = -13;
         // public static final double RightLiftPosOutValue = 0;     
 
-        public static final int STATOR_CURRENT_LIMIT = 35;
-        public static final int CURRENT_LIMIT = 30;
+        public static final int STATOR_CURRENT_LIMIT = 50;
+        public static final int CURRENT_LIMIT = 50;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
 
@@ -223,14 +223,14 @@ public final class Constants {
 
         public static final boolean LimitEnable = true;
 
-        public static final double ReverseLimit = -80;
+        public static final double ReverseLimit = -90;
 
         public static final double DefaultPose = 0;
 
 
         public static final double OutPose = 90;
 
-        public static final double InPose = -80;
+        public static final double InPose = -66;
 
         public static final double GearRatio = 1/338.5;
 
@@ -352,12 +352,14 @@ public final class Constants {
         public static final double ForwardLimit = 29.3;
         public static final double ReverseLimit = 0.8;
         public static final double DefaultPose = 0;
-        public static final double L1Pose = 12;
-        public static final double L2Pose = 15;
-        public static final double L3Pose = 22;
+        public static final double L1Pose = 10;
+        public static final double L2Pose = 13.2;
+        public static final double L3Pose = 19.9;
         public static final double L4Pose = 29.3;
         public static final double GearRatio = 1;//6.88:1
         public static final double StallSpeed = 0.052;
+        public static final double MaxSpeed = 0.3;
+        public static final double MinSpeed = -0.1;
     }
     public static final class AlgaeIntakeConstants{
 
@@ -384,10 +386,10 @@ public final class Constants {
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
-        public static final double OuttakeSpeed = 0.3;
+        public static final double OuttakeSpeed = -0.4;
         public static final ResetMode Reset = ResetMode.kResetSafeParameters;
         public static final PersistMode Persist = PersistMode.kNoPersistParameters;
-        public static final double IntakeSpeed = 0.3;
+        public static final double IntakeSpeed = -0.4;
     }
     public static final class AlgaeArmConstants{
 

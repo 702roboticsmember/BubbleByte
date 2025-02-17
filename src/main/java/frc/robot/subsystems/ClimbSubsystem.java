@@ -56,11 +56,11 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    Motor.set(speed);
+    Motor.set(MathUtil.clamp(speed, -Constants.ClimberConstants.MaxLiftSpeed,  Constants.ClimberConstants.MaxLiftSpeed));
   }
 
   public Command run(DoubleSupplier input){
-    return this.runEnd(() -> this.setSpeed(MathUtil.clamp(input.getAsDouble(), -0.1, 0.1)), () -> this.setSpeed(0));
+    return this.runEnd(() -> this.setSpeed(MathUtil.clamp(input.getAsDouble(), -Constants.ClimberConstants.MaxLiftSpeed,  Constants.ClimberConstants.MaxLiftSpeed)), () -> this.setSpeed(0));
   }
 
   public double getRawPose() {
