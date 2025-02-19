@@ -20,8 +20,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSTalonFXSwerveConstants;
+import frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.driveRatios;
 import frc.lib.util.SwerveModuleConstants;
-
 public final class Constants {
     public static final double CONTROLLER_DEADBAND = 0.1;
 
