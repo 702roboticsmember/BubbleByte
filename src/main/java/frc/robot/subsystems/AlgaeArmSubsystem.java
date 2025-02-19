@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -18,12 +19,13 @@ public class AlgaeArmSubsystem extends SubsystemBase {
         TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
         CurrentLimitsConfigs configs = new CurrentLimitsConfigs();
         MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
-        HardwareLimitSwitchConfigs limitConfigs = new HardwareLimitSwitchConfigs();
-
-        limitConfigs.ForwardLimitAutosetPositionEnable = Constants.AlgaeArmConstants.LimitEnable;
-        limitConfigs.ForwardLimitAutosetPositionValue = Constants.AlgaeArmConstants.ForwardLimit;
-        limitConfigs.ReverseLimitAutosetPositionEnable = Constants.AlgaeArmConstants.LimitEnable;
-        limitConfigs.ReverseLimitAutosetPositionValue = Constants.AlgaeArmConstants.ReverseLimit;
+        SoftwareLimitSwitchConfigs limitConfigs = new SoftwareLimitSwitchConfigs();
+    
+    limitConfigs.ForwardSoftLimitThreshold = Constants.AlgaeArmConstants.ForwardLimit;
+    limitConfigs.ForwardSoftLimitEnable = Constants.AlgaeArmConstants.LimitEnable;
+    
+    limitConfigs.ReverseSoftLimitThreshold = Constants.AlgaeArmConstants.ReverseLimit;
+    limitConfigs.ReverseSoftLimitEnable = Constants.AlgaeArmConstants.LimitEnable;
         
         configs.StatorCurrentLimit = Constants.AlgaeArmConstants.STATOR_CURRENT_LIMIT;
         configs.SupplyCurrentLimit = Constants.AlgaeArmConstants.CURRENT_LIMIT;

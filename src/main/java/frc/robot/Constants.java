@@ -45,7 +45,9 @@ public final class Constants {
         /**
          * Constants for the motor setup that we're using.
          */
-        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = Falcon500(5.36);
+        public static final COTSTalonFXSwerveConstants FALCON_500_CONSTANTS = Falcon500(driveRatios.L1);
+
+        
         //
 
         /**
@@ -84,8 +86,8 @@ public final class Constants {
 //   new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
 
         /* Module Gear Ratios */
-        public static final double DRIVE_GEAR_RATIO = FALCON_500_CONSTANTS.driveGearRatio;
-        public static final double ANGLE_GEAR_RATIO = FALCON_500_CONSTANTS.angleGearRatio;
+        public static final double DRIVE_GEAR_RATIO = 5.9;//L1 7.13 - L2 5.9 - L3 5.36
+        public static final double ANGLE_GEAR_RATIO = 18.75;
 
         public static final InvertedValue ANGLE_MOTOR_INVERT = FALCON_500_CONSTANTS.angleMotorInvert;
         public static final InvertedValue DRIVE_MOTOR_INVERT = FALCON_500_CONSTANTS.driveMotorInvert;
@@ -142,10 +144,10 @@ public final class Constants {
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
         public static final class Mod0 {
-            public static final int driveMotorID = 2;
-            public static final int angleMotorID = 1;
+            public static final int driveMotorID = 1;
+            public static final int angleMotorID = 2;
             public static final int canCoderID = 3;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-0.178 + 180);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-1.49 +180);
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
                     canCoderID, angleOffset);
         }
@@ -155,7 +157,7 @@ public final class Constants {
             public static final int driveMotorID = 4;
             public static final int angleMotorID = 5;
             public static final int canCoderID = 6;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(12.39257 + 180);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(26.104);
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
                     canCoderID, angleOffset);
         }
@@ -165,7 +167,7 @@ public final class Constants {
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 8;
             public static final int canCoderID = 9;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-11.4257 + 180);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-122.6953 + 180);
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
                     canCoderID, angleOffset);
         }
@@ -175,7 +177,7 @@ public final class Constants {
             public static final int driveMotorID = 10;
             public static final int angleMotorID = 11;
             public static final int canCoderID = 12;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-51.24023 + 180);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(144.580);
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
                     canCoderID, angleOffset);
         }
@@ -196,11 +198,11 @@ public final class Constants {
         public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue LiftMotorMode = NeutralModeValue.Brake;
         
-        public static final double MaxLiftSpeed = 4.0;
+        public static final double MaxLiftSpeed = 0.3;
 
-        public static final double kP = 1.3;
-        public static final double kI = 0.0023;
-        public static final double kD = 0.00147;
+        public static final double kP = 0.07;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
 
         public static final double Tolerance = 0.1;
 
@@ -211,8 +213,8 @@ public final class Constants {
         // public static final double RightLiftPosInValue = -13;
         // public static final double RightLiftPosOutValue = 0;     
 
-        public static final int STATOR_CURRENT_LIMIT = 35;
-        public static final int CURRENT_LIMIT = 30;
+        public static final int STATOR_CURRENT_LIMIT = 50;
+        public static final int CURRENT_LIMIT = 50;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
 
@@ -220,14 +222,14 @@ public final class Constants {
 
         public static final boolean LimitEnable = true;
 
-        public static final double ReverseLimit = -80;
+        public static final double ReverseLimit = -90;
 
         public static final double DefaultPose = 0;
 
 
         public static final double OutPose = 90;
 
-        public static final double InPose = -80;
+        public static final double InPose = -66;
 
         public static final double GearRatio = 1/338.5;
 
@@ -322,38 +324,41 @@ public final class Constants {
         // kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 
-    public static final class LEDConstants {
+    // public static final class LEDConstants {
 
-        public static final int LED_1_PwmID = 0;
-        public static final int LED_1_Length = 0;
-    }
+    //     public static final int LED_1_PwmID = 0;
+    //     public static final int LED_1_Length = 0;
+    // }
     public static final class ElevatorConstants{
 
         public static final int Motor1ID = 14;
         public static final int Motor2ID = 15;
         public static final double ConversionConstant = 0.0;
-        public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
+        public static final InvertedValue MotorInverted = InvertedValue.CounterClockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
-        public static final int STATOR_CURRENT_LIMIT = 35;
-        public static final int CURRENT_LIMIT = 30;
+        public static final int STATOR_CURRENT_LIMIT = 60;
+        public static final int CURRENT_LIMIT = 60;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
-        public static final int CURRENT_THRESHOLD = 35;
+        public static final int CURRENT_THRESHOLD = 60;
         public static final double CURRENT_THRESHOLD_TIME = 0.1;
         public static final double Radius = 1;
-        public static final double kP = 0;
+        public static final double kP = 0.05;
         public static final double kI = 0;
         public static final double kD = 0;
-        public static final double Tolerance = 0;
-        public static final boolean LimitEnable = false;
-        public static final double ForwardLimit = 0;
-        public static final double ReverseLimit = 0;
+        public static final double Tolerance = 0.2;
+        public static final boolean LimitEnable = true;
+        public static final double ForwardLimit = 29.3;
+        public static final double ReverseLimit = 0.8;
         public static final double DefaultPose = 0;
-        public static final double L1Pose = 0;
-        public static final double L2Pose = 0;
-        public static final double L3Pose = 0;
-        public static final double L4Pose = 0;
+        public static final double L1Pose = 10;
+        public static final double L2Pose = 13.2;
+        public static final double L3Pose = 19.9;
+        public static final double L4Pose = 29.3;
         public static final double GearRatio = 1;//6.88:1
+        public static final double StallSpeed = 0.052;
+        public static final double MaxSpeed = 0.3;
+        public static final double MinSpeed = -0.1;
     }
     public static final class AlgaeIntakeConstants{
 
@@ -380,10 +385,10 @@ public final class Constants {
         public static final int CURRENT_LIMIT = 30;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
-        public static final double OuttakeSpeed = 0.3;
-        public static final ResetMode Reset = null;
-        public static final PersistMode Persist = null;
-        public static final double IntakeSpeed = 0.3;
+        public static final double OuttakeSpeed = -0.4;
+        public static final ResetMode Reset = ResetMode.kResetSafeParameters;
+        public static final PersistMode Persist = PersistMode.kNoPersistParameters;
+        public static final double IntakeSpeed = -0.4;
     }
     public static final class AlgaeArmConstants{
 

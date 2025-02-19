@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
@@ -14,9 +15,11 @@ import com.ctre.phoenix6.hardware.TalonFX;
 //unnescesary import, idk what it was
 
 import java.lang.Math;
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
@@ -31,12 +34,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     //Add current limits to constants??
     CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
     MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
-    HardwareLimitSwitchConfigs limitConfigs = new HardwareLimitSwitchConfigs();
-
-    limitConfigs.ForwardLimitAutosetPositionEnable = Constants.ElevatorConstants.LimitEnable;
-    limitConfigs.ForwardLimitAutosetPositionValue = Constants.ElevatorConstants.ForwardLimit;
-    limitConfigs.ReverseLimitAutosetPositionEnable = Constants.ElevatorConstants.LimitEnable;
-    limitConfigs.ReverseLimitAutosetPositionValue = Constants.ElevatorConstants.ReverseLimit;
+    
+    SoftwareLimitSwitchConfigs limitConfigs = new SoftwareLimitSwitchConfigs();
+    
+    limitConfigs.ForwardSoftLimitThreshold = Constants.ElevatorConstants.ForwardLimit;
+    limitConfigs.ForwardSoftLimitEnable = Constants.ElevatorConstants.LimitEnable;
+    
+    limitConfigs.ReverseSoftLimitThreshold = Constants.ElevatorConstants.ReverseLimit;
+    limitConfigs.ReverseSoftLimitEnable = Constants.ElevatorConstants.LimitEnable;
+    
+    
 
     currentConfigs.StatorCurrentLimit = Constants.ElevatorConstants.STATOR_CURRENT_LIMIT;
     currentConfigs.StatorCurrentLimitEnable = Constants.ElevatorConstants.ENABLE_STATOR_CURRENT_LIMIT;
@@ -86,27 +93,36 @@ public class ElevatorSubsystem extends SubsystemBase {
 // seems to work fine to me, it should return the height, but just in case I would use getRaw() for PIDs and
 // reserve this for smartdashboard
   public double getElevatorHeight(/*double tick*/) {
-    double radius = Constants.ElevatorConstants.Radius;
-    double radians = Math.toRadians(tickToDeg(getRaw()));
-    return radians * radius;
+    return getRaw();
   }
+
+  
 
   public double getRaw() {
     return elevmotor1.getPosition().getValueAsDouble();
   }
 
   public void setSpeed(double value) {
-    elevmotor1.set(value);
-    elevmotor2.set(value);
+    elevmotor1.set(MathUtil.clamp(value, Constants.ElevatorConstants.MinSpeed, Constants.ElevatorConstants.MaxSpeed));
+    elevmotor2.set(MathUtil.clamp(value, Constants.ElevatorConstants.MinSpeed, Constants.ElevatorConstants.MaxSpeed));
   }
 
-  public Command run(double speed){
-    return runEnd(()-> setSpeed(speed), ()-> setSpeed(0));
+  public void set1(double speed){
+    elevmotor1.set(speed);
+  }
+
+  public void set2(double speed){
+    elevmotor2.set(speed);
+  }
+
+  public Command run(DoubleSupplier input){
+    return this.runEnd(() -> this.setSpeed(MathUtil.applyDeadband(input.getAsDouble(), 0.1)), () -> this.setSpeed(0));
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Elevator Height", getElevatorHeight());
+    
     // This method will be called once per scheduler run
   }
 }
