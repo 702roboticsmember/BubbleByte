@@ -233,6 +233,8 @@ public final class Constants {
 
         public static final double GearRatio = 1/338.5;
 
+        public static final double ElevatorLimit = 1;
+
         // public static final int CURRENT_THRESHOLD = 35;
         // public static final double CURRENT_THRESHOLD_TIME = 0.1;
     }
@@ -359,6 +361,8 @@ public final class Constants {
         public static final double StallSpeed = 0.052;
         public static final double MaxSpeed = 0.3;
         public static final double MinSpeed = -0.1;
+        public static final double ClimbLimit = -1;
+        public static final double L0Pose = 0;
     }
     public static final class AlgaeIntakeConstants{
 

@@ -67,13 +67,14 @@ public class RobotContainer {
     
 
     /* CoDriver Buttons */
-    //private final JoystickButton algaeReefIntake = new JoystickButton(codriver, XboxController.Button.kA.value);
+    private final JoystickButton algaeReefIntake = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton climbIn = new JoystickButton(codriver, XboxController.Button.kB.value);
     private final JoystickButton climbOut = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton coralOuttake = new JoystickButton(codriver, XboxController.Button.kX.value);
     //private final JoystickButton coralIntake = new JoystickButton(codriver, XboxController.Button.kStart.value);
     private final JoystickButton nest = new JoystickButton(codriver, XboxController.Button.kY.value);
     //private final JoystickButton start = new JoystickButton(codriver, XboxController.Button.kA.value);
+    private final JoystickButton algaeGroundIntake = new JoystickButton(codriver, XboxController.Button.kRightBumper.value);
     private final JoystickButton algaeOuttake = new JoystickButton(codriver, XboxController.Button.kLeftBumper.value);
     //private final JoystickButton back = new JoystickButton(codriver, XboxController.Button.kB.value);
     
@@ -96,11 +97,12 @@ public class RobotContainer {
     /* Subsystems */
     private final LimelightSubsystem l_LimelightSubsystem = new LimelightSubsystem();
     private final Swerve s_Swerve = new Swerve(l_LimelightSubsystem);
-    private final ClimbSubsystem c_ClimbSubsystem = new ClimbSubsystem();
+    
     private final AlgaeArmSubsystem a_AlgaeArmSubsystem = new AlgaeArmSubsystem();
     private final AlgaeIntakeSubsystem a_AlgaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     private final CoralIntakeSubsystem c_CoralIntakeSubsystem = new CoralIntakeSubsystem();
-    private final ElevatorSubsystem e_ElevatorSubsytem = new ElevatorSubsystem(); 
+    private final ElevatorSubsystem e_ElevatorSubsytem = new ElevatorSubsystem(new ClimbSubsystem(null)); 
+    private final ClimbSubsystem c_ClimbSubsystem = new ClimbSubsystem(e_ElevatorSubsytem);
     public static Field2d field = new Field2d();
 
     /**
@@ -261,6 +263,9 @@ public class RobotContainer {
     public Command L4(){
         return new ElevatorPID(e_ElevatorSubsytem, Constants.ElevatorConstants.L4Pose);
     }
+    public Command L0(){
+        return new ElevatorPID(e_ElevatorSubsytem, Constants.ElevatorConstants.L0Pose);
+    }
 
 // Create the constraints to use while pathfinding. The constraints defined in the path will only be used for the path.
 
@@ -358,8 +363,8 @@ public class RobotContainer {
         //     new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AutoFollow_Driver(0.3)));
 
         // follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
-        alignLeft.whileTrue(AlignLeft_Driver());
-        alignRight.whileTrue(AlignRight_Driver());
+        alignLeft.whileTrue(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AlignLeft_Driver(), L0()));
+        alignRight.whileTrue(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AlignRight_Driver(), L0()));
         //resetpose.onTrue(new InstantCommand(()->field.setRobotPose(0, 0, s_Swerve.getHeading())));
         leftstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "PathTest")));
         rightstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "PathTest")));
@@ -368,14 +373,14 @@ public class RobotContainer {
         /*CoDriver Buttons*/
         
         nest.whileTrue(Nest());
-        // algaeReefIntake.whileTrue(AlgaeReefIntake_coDriver());
-        // algaeReefIntake.onFalse(AlgaeStow());
-        //algaeGroundIntake.whileTrue(AlgaeGroundIntake_coDriver());
-        //algaeGroundIntake.onFalse(AlgaeStow());
+        algaeReefIntake.whileTrue(AlgaeReefIntake_coDriver());
+        algaeReefIntake.onFalse(AlgaeStow());
+        algaeGroundIntake.whileTrue(AlgaeGroundIntake_coDriver());
+        algaeGroundIntake.onFalse(AlgaeStow());
         algaeOuttake.whileTrue(AlgaeOuttake_coDriver());
         algaeOuttake.onFalse(AlgaeStow());
-        //climbOut.whileTrue(ClimbOutPID());
-        //climbIn.whileTrue(Commands.either(new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.InPose), new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.InPose), ()-> (e_ElevatorSubsytem.getElevatorHeight() < 5)));
+        climbOut.whileTrue(ClimbOutPID());
+        climbIn.whileTrue(Commands.either(new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.InPose), new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.InPose), ()-> (e_ElevatorSubsytem.getElevatorHeight() < 5)));
         coralOuttake.whileTrue(CoralOuttake_coDriver());
         //coralIntake.whileTrue(CoralIntake_coDriver(Constants.CoralIntakeConstants.IntakeSpeed));
         

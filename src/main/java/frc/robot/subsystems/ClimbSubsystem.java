@@ -7,10 +7,12 @@ package frc.robot.subsystems;
 import java.util.function.DoubleSupplier;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.ReverseLimitSourceValue;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,15 +21,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimbSubsystem extends SubsystemBase {
+  ElevatorSubsystem e_ElevatorSubsystem;
   private TalonFX Motor = new TalonFX(Constants.ClimberConstants.MotorID);
 
   /** Creates a new ClimbSubsystem. */
-  public ClimbSubsystem() {
-    
+  public ClimbSubsystem(ElevatorSubsystem e_ElevatorSubsystem) {
+    this.e_ElevatorSubsystem = e_ElevatorSubsystem;
     TalonFXConfigurator talonFXConfigurator = Motor.getConfigurator();
     CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
     MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
     SoftwareLimitSwitchConfigs limitConfigs = new SoftwareLimitSwitchConfigs();
+    HardwareLimitSwitchConfigs dumbConfigs = new HardwareLimitSwitchConfigs();
+
+    
+    
     
     limitConfigs.ForwardSoftLimitThreshold = Constants.ClimberConstants.ForwardLimit;
     limitConfigs.ForwardSoftLimitEnable = Constants.ClimberConstants.LimitEnable;
@@ -55,7 +62,11 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
+    if(e_ElevatorSubsystem.getElevatorHeight() < Constants.ClimberConstants.ElevatorLimit){
     Motor.set(MathUtil.clamp(speed, -Constants.ClimberConstants.MaxLiftSpeed,  Constants.ClimberConstants.MaxLiftSpeed));
+    }else{
+      Motor.set(MathUtil.clamp(speed, 0,  Constants.ClimberConstants.MaxLiftSpeed));
+    }
   }
 
   public Command run(DoubleSupplier input){

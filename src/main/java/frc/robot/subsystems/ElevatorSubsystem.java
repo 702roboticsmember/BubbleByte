@@ -24,11 +24,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class ElevatorSubsystem extends SubsystemBase {
+  ClimbSubsystem c_ClimbSubsystem;
   public TalonFX elevmotor1 = new TalonFX(Constants.ElevatorConstants.Motor1ID);
   public TalonFX elevmotor2 = new TalonFX(Constants.ElevatorConstants.Motor2ID);
       
   /** Creates a new Elevator. */
-  public ElevatorSubsystem() {
+  public ElevatorSubsystem(ClimbSubsystem c_ClimbSubsystem) {
+    this.c_ClimbSubsystem = c_ClimbSubsystem;
     // Elevator PID :D Will most likely be moved to Elevator PID later and errors will be fixed trust
     //Add current limits to constants??
     CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
@@ -102,8 +104,13 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double value) {
+    if(c_ClimbSubsystem.getAngle() > Constants.ElevatorConstants.ClimbLimit){
     elevmotor1.set(MathUtil.clamp(value, Constants.ElevatorConstants.MinSpeed, Constants.ElevatorConstants.MaxSpeed));
     elevmotor2.set(MathUtil.clamp(value, Constants.ElevatorConstants.MinSpeed, Constants.ElevatorConstants.MaxSpeed));
+    }else{
+      elevmotor1.set(MathUtil.clamp(value, Constants.ElevatorConstants.MinSpeed, 0));
+      elevmotor2.set(MathUtil.clamp(value, Constants.ElevatorConstants.MinSpeed, 0));
+    }
   }
 
   public void set1(double speed){

@@ -25,6 +25,7 @@ public class AlgaeArmSubsystem extends SubsystemBase {
     
     limitConfigs.ReverseSoftLimitThreshold = Constants.AlgaeArmConstants.ReverseLimit;
     limitConfigs.ReverseSoftLimitEnable = Constants.AlgaeArmConstants.LimitEnable;
+    
         
         configs.StatorCurrentLimit = Constants.AlgaeArmConstants.STATOR_CURRENT_LIMIT;
         configs.SupplyCurrentLimit = Constants.AlgaeArmConstants.CURRENT_LIMIT;
