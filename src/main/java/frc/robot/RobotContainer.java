@@ -311,7 +311,7 @@ public class RobotContainer {
         
         c_ClimbSubsystem.setDefaultCommand(c_ClimbSubsystem.run(()-> codriver.getRawAxis(0) * Constants.ClimberConstants.MaxLiftSpeed));
         c_CoralIntakeSubsystem.setDefaultCommand(c_CoralIntakeSubsystem.run(()-> -codriver.getRawAxis(2)));
-        a_AlgaeIntakeSubsystem.setDefaultCommand(a_AlgaeIntakeSubsystem.run(()-> codriver.getRawAxis(3)));
+        a_AlgaeIntakeSubsystem.setDefaultCommand(a_AlgaeIntakeSubsystem.run(()-> -codriver.getRawAxis(3)));
         e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(()-> (-codriver.getRawAxis(5) * 0.4)));
         
 

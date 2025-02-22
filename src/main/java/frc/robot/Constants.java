@@ -375,7 +375,7 @@ public final class Constants {
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
         public static final double IntakeSpeed = 0.3;
-        public static final double OuttakeSpeed = -0.3;
+        public static final double OuttakeSpeed = -0.5;
         public static final double MinSpeed = -0.5;
         public static final double MaxSpeed = 0.5;
     }
@@ -429,7 +429,7 @@ public final class Constants {
 
         public static final double leftRY = 0;
         public static final double leftX = 0;
-        public static final double leftZ = 0;
+        public static final double leftZ = 1;
     }
 
 
