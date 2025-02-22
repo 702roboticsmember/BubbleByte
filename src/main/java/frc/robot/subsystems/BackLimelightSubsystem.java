@@ -32,7 +32,7 @@ public class BackLimelightSubsystem extends SubsystemBase {
 
   /** Creates a new LimelightSubsystem. */
   public BackLimelightSubsystem() {
-    table = NetworkTableInstance.getDefault().getTable("limelight");
+    table = NetworkTableInstance.getDefault().getTable("limelight-back");
     tx = table.getEntry("tx");
     ty = table.getEntry("ty");
     ta = table.getEntry("ta");
