@@ -138,7 +138,7 @@ public final class Constants {
         public static final double MAX_ANGULAR_VELOCITY = 10.0;
 
         /* Neutral Modes */
-        public static final NeutralModeValue ANGLE_NEUTRAL_MODE = NeutralModeValue.Coast;
+        public static final NeutralModeValue ANGLE_NEUTRAL_MODE = NeutralModeValue.Brake;
         public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
 
         /* Module Specific Constants */
@@ -213,8 +213,8 @@ public final class Constants {
         // public static final double RightLiftPosInValue = -13;
         // public static final double RightLiftPosOutValue = 0;     
 
-        public static final int STATOR_CURRENT_LIMIT = 50;
-        public static final int CURRENT_LIMIT = 50;
+        public static final int STATOR_CURRENT_LIMIT = 60;
+        public static final int CURRENT_LIMIT = 60;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
 
@@ -229,7 +229,7 @@ public final class Constants {
 
         public static final double OutPose = 90;
 
-        public static final double InPose = -66;
+        public static final double InPose = -80;
 
         public static final double GearRatio = 1/338.5;
 
@@ -351,7 +351,7 @@ public final class Constants {
         public static final double Tolerance = 0.2;
         public static final boolean LimitEnable = true;
         public static final double ForwardLimit = 29.3;
-        public static final double ReverseLimit = 0.8;
+        public static final double ReverseLimit = 1.2;
         public static final double DefaultPose = 0;
         public static final double L1Pose = 10;
         public static final double L2Pose = 13.2;
@@ -362,7 +362,7 @@ public final class Constants {
         public static final double MaxSpeed = 0.3;
         public static final double MinSpeed = -0.1;
         public static final double ClimbLimit = -1;
-        public static final double L0Pose = 0;
+        public static final double L0Pose = 5;
     }
     public static final class AlgaeIntakeConstants{
 
@@ -370,12 +370,14 @@ public final class Constants {
         public static final double ConversionConstant = 0.0;
         public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
-        public static final int STATOR_CURRENT_LIMIT = 35;
-        public static final int CURRENT_LIMIT = 30;
+        public static final int STATOR_CURRENT_LIMIT = 60;
+        public static final int CURRENT_LIMIT = 60;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
         public static final double IntakeSpeed = 0.3;
-        public static final double OuttakeSpeed = 0.3;
+        public static final double OuttakeSpeed = -0.3;
+        public static final double MinSpeed = -0.5;
+        public static final double MaxSpeed = 0.5;
     }
     public static final class CoralIntakeConstants {
 
@@ -397,7 +399,7 @@ public final class Constants {
     public static final class AlgaeArmConstants{
 
         public static final int MotorID = 19;
-        public static final InvertedValue MotorInverted = InvertedValue.Clockwise_Positive;
+        public static final InvertedValue MotorInverted = InvertedValue.CounterClockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
         public static final double EncoderConversion = 1;
         public static final int STATOR_CURRENT_LIMIT = 35;
@@ -405,15 +407,19 @@ public final class Constants {
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
         public static final boolean LimitEnable = false;
-        public static final double ForwardLimit = 120;
-        public static final double ReverseLimit = 0;
-        public static final double DefaultPose = 0;
-        public static final double ReefPose = 40;
+        public static final double ForwardLimit = 14;
+        public static final double ReverseLimit = 2.0;
+        public static final double DefaultPose = 2.0;
+        public static final double ReefPose = 4.8;
         public static final double IntakeSpeed = 0.4;
-        public static final double GroundPose = 110;
-        public static final double OuttakePose = 40;
+        public static final double GroundPose = 14;
+        public static final double OuttakePose = 2;
         public static final double OuttakeSpeed = 0.5;
         public static final double GearRatio = 1/50;
+        public static double kP = 0.07;
+        public static double kI = 0.0;
+        public static double kD = 0.0;
+        
     }
     public static final class AlignConstants{
 

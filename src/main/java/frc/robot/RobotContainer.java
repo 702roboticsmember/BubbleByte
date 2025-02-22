@@ -67,7 +67,7 @@ public class RobotContainer {
     
 
     /* CoDriver Buttons */
-    private final JoystickButton algaeReefIntake = new JoystickButton(codriver, XboxController.Button.kA.value);
+    private final JoystickButton algaeReefIntake = new JoystickButton(codriver, XboxController.Button.kStart.value);
     private final JoystickButton climbIn = new JoystickButton(codriver, XboxController.Button.kB.value);
     private final JoystickButton climbOut = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton coralOuttake = new JoystickButton(codriver, XboxController.Button.kX.value);
@@ -213,7 +213,7 @@ public class RobotContainer {
 
 
     public Command ClimbOutPID(){
-        return new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.OutPose);
+        return new ParallelCommandGroup(new ClimbPID(c_ClimbSubsystem, Constants.ClimberConstants.OutPose));
     }
 
     public Command ClimbInPID(){
@@ -274,6 +274,7 @@ public class RobotContainer {
 
 
     public RobotContainer() {
+        //Nest();
         
         //Pathfinding.setDynamicObstacles(null, null);
         //beamLED.set(true);
@@ -310,6 +311,7 @@ public class RobotContainer {
         
         c_ClimbSubsystem.setDefaultCommand(c_ClimbSubsystem.run(()-> codriver.getRawAxis(0) * Constants.ClimberConstants.MaxLiftSpeed));
         c_CoralIntakeSubsystem.setDefaultCommand(c_CoralIntakeSubsystem.run(()-> -codriver.getRawAxis(2)));
+        a_AlgaeIntakeSubsystem.setDefaultCommand(a_AlgaeIntakeSubsystem.run(()-> codriver.getRawAxis(3)));
         e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(()-> (-codriver.getRawAxis(5) * 0.4)));
         
 

@@ -49,7 +49,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public Command run(DoubleSupplier input){
-    return this.runEnd(() -> this.setSpeed(MathUtil.clamp(input.getAsDouble(), -0.1, 0.1)), () -> this.setSpeed(0.0));
+    return this.runEnd(() -> this.setSpeed(MathUtil.clamp(input.getAsDouble(), Constants.AlgaeIntakeConstants.MinSpeed, Constants.AlgaeIntakeConstants.MaxSpeed)), () -> this.setSpeed(0.0));
   }
 
   // public double getRawPose() {

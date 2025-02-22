@@ -66,7 +66,7 @@ public class AlgaeArmSubsystem extends SubsystemBase {
     }
 
     public double getAngle() {
-        return tickToDeg(getRawPose());
+        return getRawPose();
     }
     
 }

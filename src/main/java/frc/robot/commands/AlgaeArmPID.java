@@ -15,9 +15,9 @@ public class AlgaeArmPID extends Command {
   
   private AlgaeArmSubsystem a_AlgaeArmSubsystem;
   private PIDController pid = new PIDController(
-      Constants.ClimberConstants.kP, 
-      Constants.ClimberConstants.kI, 
-      Constants.ClimberConstants.kD);
+      Constants.AlgaeArmConstants.kP, 
+      Constants.AlgaeArmConstants.kI, 
+      Constants.AlgaeArmConstants.kD);
   /** Creates a new ClimbPID. */
   public AlgaeArmPID(AlgaeArmSubsystem subsytem, double Setpoint) {
     this.a_AlgaeArmSubsystem = subsytem;
