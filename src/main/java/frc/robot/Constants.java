@@ -338,14 +338,14 @@ public final class Constants {
         public static final double ConversionConstant = 0.0;
         public static final InvertedValue MotorInverted = InvertedValue.CounterClockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
-        public static final int STATOR_CURRENT_LIMIT = 60;
-        public static final int CURRENT_LIMIT = 60;
+        public static final int STATOR_CURRENT_LIMIT = 100;
+        public static final int CURRENT_LIMIT = 40;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
-        public static final int CURRENT_THRESHOLD = 60;
+        public static final int CURRENT_THRESHOLD = 40;
         public static final double CURRENT_THRESHOLD_TIME = 0.1;
         public static final double Radius = 1;
-        public static final double kP = 0.05;
+        public static final double kP = 0.09;
         public static final double kI = 0;
         public static final double kD = 0;
         public static final double Tolerance = 0.2;
@@ -363,6 +363,7 @@ public final class Constants {
         public static final double MinSpeed = -0.1;
         public static final double ClimbLimit = -1;
         public static final double L0Pose = 5;
+        public static final double MaxVelocity = 20;
     }
     public static final class AlgaeIntakeConstants{
 

@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -21,10 +22,12 @@ public class ElevatorPID extends Command {
   );
 
   ElevatorSubsystem e_ElevatorSubsytem;
+  TrapezoidProfile profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(5, 10));
 
   /** Creates a new ElevatorPID. */
   public ElevatorPID(ElevatorSubsystem a_Elevator, double setpoint) {
     // Use addRequirements() here to declare subsystem dependencies.
+    profile.calculate(5, new TrapezoidProfile.State(0, 0), new TrapezoidProfile.State(5, 0));
     this.e_ElevatorSubsytem = a_Elevator;
     ElevatorPID.setSetpoint(setpoint);
     ElevatorPID.setTolerance(Constants.ElevatorConstants.Tolerance);
@@ -40,6 +43,7 @@ public class ElevatorPID extends Command {
   public void execute() {
     double value = ElevatorPID.calculate(e_ElevatorSubsytem.getElevatorHeight());
     e_ElevatorSubsytem.setSpeed(value + Constants.ElevatorConstants.StallSpeed);
+    
   }
 
   // Called once the command ends or is interrupted.
