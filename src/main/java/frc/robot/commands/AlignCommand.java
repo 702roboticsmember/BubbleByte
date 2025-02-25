@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
 
 public class AlignCommand extends Command {
@@ -41,6 +42,7 @@ public class AlignCommand extends Command {
   DoubleSupplier RY;
   BooleanSupplier tv;
   Swerve s_Swerve;
+  LimelightSubsystem l_LimelightSubsystem;
   Rotation2d headingprev;
   final double x;
   final double z;
@@ -48,12 +50,13 @@ public class AlignCommand extends Command {
   
 
   /** Creates a new AutoAim. */
-  public AlignCommand(DoubleSupplier TX, DoubleSupplier TZ,DoubleSupplier RY, BooleanSupplier tv, double x, double z, double ry, Swerve s_Swerve) {
-    this.TX = TX;
-    this.TZ = TZ;
-    this.RY = RY;
-    this.tv = tv;
+  public AlignCommand(LimelightSubsystem l_LimelightSubsystem, double x, double z, double ry, Swerve s_Swerve) {
+    this.TX = ()-> l_LimelightSubsystem.getTargetPos(0);
+    this.TZ = ()-> l_LimelightSubsystem.getTargetPos(2);
+    this.RY = ()-> l_LimelightSubsystem.getTargetPos(4);
+    this.tv = ()-> l_LimelightSubsystem.IsTargetAvailable();
     this.s_Swerve = s_Swerve;
+    this.l_LimelightSubsystem = l_LimelightSubsystem;
     
 
     this.x = x;
@@ -61,6 +64,7 @@ public class AlignCommand extends Command {
     this.ry = ry;
 
     addRequirements(s_Swerve);
+    addRequirements(l_LimelightSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -81,22 +85,22 @@ public class AlignCommand extends Command {
     RotatePID.setTolerance(1);
     
 
-    double x = TX.getAsDouble();
-    boolean Target = tv.getAsBoolean();
+    double x =  l_LimelightSubsystem.getTargetPos(0);
+    boolean Target =  l_LimelightSubsystem.IsTargetAvailable();
     double value = TranslatePID.calculate(x);
     //double result = Math.copySign(Math.abs(value) + 0.01, value); 
     double Tranlate = (Target && !TranslatePID.atSetpoint()  ? MathUtil.clamp(value, -0.87, 0.87) : 0);
     SmartDashboard.putNumber("TPID", value);
     SmartDashboard.putNumber("TTX", x);
 
-    double z = TZ.getAsDouble();
+    double z =  l_LimelightSubsystem.getTargetPos(2);
     double value1 = StrafePID.calculate(z);
     //double result1 = Math.copySign(Math.abs(value1) + 0.0955, value1); 
     double Strafe = (Target && !StrafePID.atSetpoint()? MathUtil.clamp(value1, -0.87, 0.87) : 0);
     SmartDashboard.putNumber("SPID", value1);
     SmartDashboard.putNumber("STZ", z);
 
-    double a = RY.getAsDouble();
+    double a =  l_LimelightSubsystem.getTargetPos(4);
     double value2 = RotatePID.calculate(a);
     //double result2 = Math.copySign(Math.abs(value2) + 0.0955, value2); 
     double Rotate = (Target && !RotatePID.atSetpoint() ? MathUtil.clamp(value2, -0.57, 0.57) : 0);

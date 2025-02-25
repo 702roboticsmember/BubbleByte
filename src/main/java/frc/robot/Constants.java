@@ -19,6 +19,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Time;
 import frc.lib.util.COTSTalonFXSwerveConstants;
 import frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.driveRatios;
 import frc.lib.util.SwerveModuleConstants;
@@ -358,11 +359,16 @@ public final class Constants {
         public static final double L3Pose = 19.9;
         public static final double L4Pose = 29.3;
         public static final double GearRatio = 1;//6.88:1
-        public static final double StallSpeed = 0.052;
+        public static final double StallSpeed = 0.12;
         public static final double MaxSpeed = 0.3;
         public static final double MinSpeed = -0.1;
         public static final double ClimbLimit = -1;
         public static final double L0Pose = 5;
+        public static final double A1Pose = 4;
+        public static final double A2Pose = 12;
+        public static final double A1Timeout = 1.2;
+        public static final double A2Timeout = 2;
+
         public static final double MaxVelocity = 20;
     }
     public static final class AlgaeIntakeConstants{
@@ -414,10 +420,11 @@ public final class Constants {
         public static final double ReefPose = 4.8;
         public static final double IntakeSpeed = 0.4;
         public static final double GroundPose = 14;
-        public static final double OuttakePose = 2;
+        public static final double OuttakePose = 3;
         public static final double OuttakeSpeed = 0.5;
         public static final double GearRatio = 1/50;
-        public static double kP = 0.07;
+        public static final double GroundOuttakePose = 13;
+        public static double kP = 0.04;
         public static double kI = 0.0;
         public static double kD = 0.0;
         
@@ -426,7 +433,7 @@ public final class Constants {
 
         public static final double rightRY = 0;
         public static final double rightX = 0;
-        public static final double rightZ = 0;
+        public static final double rightZ = 1;
 
         public static final double leftRY = 0;
         public static final double leftX = 0;

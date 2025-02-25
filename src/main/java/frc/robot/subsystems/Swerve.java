@@ -33,10 +33,10 @@ public class Swerve extends SubsystemBase {
     public SwerveModule[] swerveModules;
     public AHRS gyro;
     public  RobotConfig config;
-    public LimelightSubsystem l_LimelightSubsystem;
+    public BackLimelightSubsystem l_LimelightBackSubsystem;
 
-    public Swerve(LimelightSubsystem l_LimelightSubsystem) {
-        this.l_LimelightSubsystem = l_LimelightSubsystem;
+    public Swerve(BackLimelightSubsystem l_LimelightBackSubsystem) {
+        this.l_LimelightBackSubsystem = l_LimelightBackSubsystem;
         gyro = new AHRS( NavXComType.kMXP_SPI);
         
         gyro.reset();
@@ -196,9 +196,9 @@ public class Swerve extends SubsystemBase {
         }
     }
     public void updatePoseLimelight(){
-        Pose2d pose = l_LimelightSubsystem.getBotPose2d();
+        Pose2d pose = l_LimelightBackSubsystem.getBotPose2d();
         if(pose != null){
-            setPose(l_LimelightSubsystem.getBotPose2d());
+            setPose(l_LimelightBackSubsystem.getBotPose2d());
         }
         
     }
