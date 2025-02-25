@@ -338,14 +338,14 @@ public final class Constants {
         public static final double ConversionConstant = 0.0;
         public static final InvertedValue MotorInverted = InvertedValue.CounterClockwise_Positive;
         public static final NeutralModeValue MotorMode = NeutralModeValue.Brake;
-        public static final int STATOR_CURRENT_LIMIT = 100;
+        public static final int STATOR_CURRENT_LIMIT = 50;
         public static final int CURRENT_LIMIT = 40;
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
         public static final int CURRENT_THRESHOLD = 40;
         public static final double CURRENT_THRESHOLD_TIME = 0.1;
         public static final double Radius = 1;
-        public static final double kP = 0.09;
+        public static final double kP = 0.13;
         public static final double kI = 0;
         public static final double kD = 0;
         public static final double Tolerance = 0.2;

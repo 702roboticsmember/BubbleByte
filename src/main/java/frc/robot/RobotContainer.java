@@ -49,7 +49,7 @@ public class RobotContainer {
     private final XboxController driver = new XboxController(0);
     private final XboxController codriver = new XboxController(1);
 
-    private DigitalInput limitSwitch = new DigitalInput(Constants.LIMIT_SWITCH_INTAKE);
+    
 
     
 
@@ -233,11 +233,11 @@ public class RobotContainer {
     }
 
     public Command CoralIntake(){
-        return Commands.either(CoralOuttake(), Coraloff(), ()-> !limitSwitch.get());
+        return Commands.either(CoralOuttake(), Coraloff(), ()-> !c_CoralIntakeSubsystem.getSensor());
     }
 
     public Command CoralIntake_coDriver(DoubleSupplier speed){
-        return Commands.either(CoralOuttake_coDriver(speed), Coraloff(), ()-> !limitSwitch.get());
+        return Commands.either(CoralOuttake_coDriver(speed), Coraloff(), ()-> !c_CoralIntakeSubsystem.getSensor());
     }
 
     public Command Coraloff(){
@@ -245,7 +245,7 @@ public class RobotContainer {
     }
 
     public Command LimitSwitchDeadline(){
-        return Commands.waitUntil(()-> !limitSwitch.get());
+        return Commands.waitUntil(()-> !c_CoralIntakeSubsystem.getSensor());
     }
 
     public Command L1(){
@@ -282,7 +282,7 @@ public class RobotContainer {
         SmartDashboard.putData("Field", field);
         SmartDashboard.putNumber("robotposex", s_Swerve.getPose().getTranslation().getX());
         SmartDashboard.putNumber("robotposey", s_Swerve.getPose().getTranslation().getY());
-        SmartDashboard.putBoolean("Beam", limitSwitch.get());
+      
         
         //Logging callback for current robot pose
         PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {

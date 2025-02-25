@@ -56,8 +56,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     slot0Configs.kP = 0.11; // An error of 1 rps results in 0.11 V output
     slot0Configs.kI = 0; // no output for integrated error
     slot0Configs.kD = 0; // no output for error derivative
-    slot0Configs.kG = 0;
-    slot0Configs.GravityType = GravityTypeValue.Elevator_Static;
+    // slot0Configs.kG = 0;
+    // slot0Configs.GravityType = GravityTypeValue.Elevator_Static;
     
 
     // set Motion Magic Velocity settings

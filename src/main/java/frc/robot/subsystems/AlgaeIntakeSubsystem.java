@@ -12,13 +12,14 @@ import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class AlgaeIntakeSubsystem extends SubsystemBase {
   private TalonFX Motor = new TalonFX(Constants.AlgaeIntakeConstants.MotorID);
-
+ 
   /** Creates a new ClimbSubsystem. */
   public AlgaeIntakeSubsystem() {
     
@@ -47,6 +48,8 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public void setSpeed(double speed) {
     Motor.set(speed);
   }
+
+  
 
   public Command run(DoubleSupplier input){
     return this.runEnd(() -> this.setSpeed(MathUtil.clamp(input.getAsDouble(), Constants.AlgaeIntakeConstants.MinSpeed, Constants.AlgaeIntakeConstants.MaxSpeed)), () -> this.setSpeed(0.0));

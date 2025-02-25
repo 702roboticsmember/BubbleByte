@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -22,11 +24,12 @@ public class CoralIntakeSubsystem extends SubsystemBase {
   private SparkMax rightMotor = new SparkMax(Constants.CoralIntakeConstants.RightMotorID, MotorType.kBrushless);
   // private Spark LeftMotor = new Spark(Constants.CoralIntakeConstants.LeftMotorID);
   // private Spark RightMotor = new Spark(Constants.CoralIntakeConstants.RightMotorID);
-
+  private DigitalInput sensor = new DigitalInput(Constants.LIMIT_SWITCH_INTAKE);
   /** Creates a new ClimbSubsystem. */
   public CoralIntakeSubsystem() {
     SparkMaxConfig leftConfig = new SparkMaxConfig();
     SparkMaxConfig rightConfig = new SparkMaxConfig();
+    
 
     leftConfig.inverted(Constants.CoralIntakeConstants.LeftMotorInverted);
     rightConfig.inverted(Constants.CoralIntakeConstants.RightMotorInverted);
@@ -55,7 +58,12 @@ public class CoralIntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     //SmartDashboard.putNumber("ClimbPose", getDegrees());
-    // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("beam", getSensor());
+    // This method will be called once per schedule.putr run
+  }
+
+  public boolean getSensor(){
+    return sensor.get();
   }
 
   public void setSpeed(double speed) {
