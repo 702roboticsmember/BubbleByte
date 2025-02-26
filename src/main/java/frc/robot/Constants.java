@@ -433,12 +433,12 @@ public final class Constants {
     public static final class AlignConstants{
 
         public static final double rightRY = 0;
-        public static final double rightX = -.3;
-        public static final double rightZ = 1;
+        public static final double rightX = 0.2;
+        public static final double rightZ = .55;
 
         public static final double leftRY = 0;
-        public static final double leftX = 0;
-        public static final double leftZ = 0.70;
+        public static final double leftX = -0.12;
+        public static final double leftZ = 0.55;
     }
 
 

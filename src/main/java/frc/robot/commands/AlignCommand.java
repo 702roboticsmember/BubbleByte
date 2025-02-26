@@ -107,7 +107,7 @@ public class AlignCommand extends Command {
     SmartDashboard.putNumber("RRY", a);
     SmartDashboard.putNumber("RPID", Rotate);
     s_Swerve.drive(
-                new Translation2d(-Strafe, Tranlate).times(Constants.Swerve.MAX_SPEED),
+                new Translation2d(-Strafe, -Tranlate).times(Constants.Swerve.MAX_SPEED),
                 Rotate * Constants.Swerve.MAX_ANGULAR_VELOCITY,
                 !true,
                 true);
