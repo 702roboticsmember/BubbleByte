@@ -40,12 +40,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     
     // Elevator PID :D Will most likely be moved to Elevator PID later and errors will be fixed trust
     //Add current limits to constants??
-    CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
-    MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
+    //CurrentLimitsConfigs currentConfigs = new CurrentLimitsConfigs();
+    
     
   
 
     var talonFXConfigs = new TalonFXConfiguration();
+
+    var currentConfigs = talonFXConfigs.CurrentLimits;
+    var motorConfigs = talonFXConfigs.MotorOutput;
 
     var limitConfigs = talonFXConfigs.SoftwareLimitSwitch;
 // set slot 0 gains
@@ -159,6 +162,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Elevator Height", getElevatorHeight());
+    SmartDashboard.putNumber("ElevatorHeight2", elevmotor2.getPosition().getValueAsDouble());
     
     // This method will be called once per scheduler run
   }
