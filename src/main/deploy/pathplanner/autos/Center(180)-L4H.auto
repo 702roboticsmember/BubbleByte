@@ -7,19 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "P1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "P2"
+            "pathName": "Center-HG"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Disconect"
+            "name": "AlignRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralOuttake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L0"
           }
         }
       ]
