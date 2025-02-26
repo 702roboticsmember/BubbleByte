@@ -346,7 +346,7 @@ public final class Constants {
         public static final int CURRENT_THRESHOLD = 30;
         public static final double CURRENT_THRESHOLD_TIME = 0.1;
         public static final double Radius = 1;
-        public static final double kP = 0.1;
+        public static final double kP = 0.2;
         public static final double kI = 0;
         public static final double kD = 0;
         public static final double Tolerance = 0.2;
@@ -356,16 +356,16 @@ public final class Constants {
         public static final double DefaultPose = 0;
         public static final double L1Pose = 10;
         public static final double L2Pose = 13.2;
-        public static final double L3Pose = 19.9;
+        public static final double L3Pose = 20.5;
         public static final double L4Pose = 29.3;
         public static final double GearRatio = 1;//6.88:1
         public static final double StallSpeed = 0.12;
         public static final double MaxSpeed = 0.3;
-        public static final double MinSpeed = -0.1;
+        public static final double MinSpeed = -0.37;
         public static final double ClimbLimit = -1;
-        public static final double L0Pose = 5;
+        public static final double L0Pose = 6.2;
         public static final double A1Pose = 4;
-        public static final double A2Pose = 12;
+        public static final double A2Pose = 11;
         public static final double A1Timeout = 1.2;
         public static final double A2Timeout = 2;
 
@@ -416,8 +416,8 @@ public final class Constants {
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
         public static final boolean LimitEnable = false;
         public static final double ForwardLimit = 14;
-        public static final double ReverseLimit = 2.0;
-        public static final double DefaultPose = 2.0;
+        public static final double ReverseLimit = 1.5;
+        public static final double DefaultPose = 1.5;
         public static final double ReefPose = 4.8;
         public static final double IntakeSpeed = 0.4;
         public static final double GroundPose = 14;
@@ -425,7 +425,7 @@ public final class Constants {
         public static final double OuttakeSpeed = 0.5;
         public static final double GearRatio = 1/50;
         public static final double GroundOuttakePose = 13;
-        public static double kP = 0.04;
+        public static double kP = 0.042;
         public static double kI = 0.0;
         public static double kD = 0.0;
         
@@ -436,8 +436,8 @@ public final class Constants {
         public static final double rightX = 0.2;
         public static final double rightZ = .55;
 
-        public static final double leftRY = 0;
-        public static final double leftX = -0.12;
+        public static final double leftRY = 2;
+        public static final double leftX = -0.14;
         public static final double leftZ = 0.55;
     }
 

@@ -367,8 +367,8 @@ public class RobotContainer {
         // start.whileTrue(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set2(0.2)));
         // start.whileFalse(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set2(0)));
 
-        align.whileTrue(new SequentialCommandGroup(
-                 new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), Align_Driver(0, .75, 0)));
+        align.whileTrue(new ParallelCommandGroup(
+                 new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), L0(), Align_Driver(0.07, .55, 0)));
 
         align.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
         // follow.whileTrue(new SequentialCommandGroup(
@@ -378,8 +378,8 @@ public class RobotContainer {
         alignLeft.whileTrue(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AlignLeft_Driver(), L0()));
         alignRight.whileTrue(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AlignRight_Driver(), L0()));
         //resetpose.onTrue(new InstantCommand(()->field.setRobotPose(0, 0, s_Swerve.getHeading())));
-        leftstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "PathTest")));
-        rightstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "PathTest")));
+        // leftstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "PathTest")));
+        // rightstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "PathTest")));
         
 
         /*CoDriver Buttons*/
