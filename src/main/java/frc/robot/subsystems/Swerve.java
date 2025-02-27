@@ -197,10 +197,9 @@ public class Swerve extends SubsystemBase {
     }
     public void updatePoseLimelight(){
         Pose2d pose = l_LimelightBackSubsystem.getBotPose2d();
-        if(pose != null){
+        if(pose != null && pose.getX() != 0 && pose.getX() != 0){
             setPose(l_LimelightBackSubsystem.getBotPose2d());
         }
-        
     }
 
     @Override
