@@ -9,6 +9,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -62,6 +63,16 @@ public class CoralIntakeSubsystem extends SubsystemBase {
     // This method will be called once per schedule.putr run
   }
 
+  /**
+   * @return true if the beam is broken, false if otherwise
+   * @deprecated
+   * This sensor was improperly wired. Do not use.
+   * This method won't work at Hueneme. Talk to James or Aleph to
+   * wire this properly for LAR.
+   * 
+   * <img src="https://docs.wpilib.org/en/stable/_images/ir-beam-break-sensor-to-roborio.svg" alt="proper wiring" />
+   */
+  @Deprecated
   public boolean getSensor(){
     return sensor.get();
   }
