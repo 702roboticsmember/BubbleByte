@@ -86,7 +86,7 @@ public class RobotContainer {
     private final POVButton L3 = new POVButton(codriver, 270);
     private final POVButton L4 = new POVButton(codriver, 180);
 
-    public static double power = 1;
+    public static double power = 0.70;
     public static boolean robotCentric = false;
     public static boolean climbing = false;
 
@@ -161,7 +161,7 @@ public class RobotContainer {
     }
     public Command AlgaeGroundOuttake_coDriver(){
         return new SequentialCommandGroup(
-            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.GroundOuttakePose).withTimeout(2),
+            new AlgaeArmPID(a_AlgaeArmSubsystem, Constants.AlgaeArmConstants.GroundOuttakePose).withTimeout(Constants.AlgaeArmConstants.timeout),
             a_AlgaeIntakeSubsystem.run(()-> Constants.AlgaeIntakeConstants.OuttakeSpeed)
         );
         
@@ -335,7 +335,7 @@ public class RobotContainer {
         c_ClimbSubsystem.setDefaultCommand(c_ClimbSubsystem.run(()-> -codriver.getRawAxis(0) * Constants.ClimberConstants.MaxLiftSpeed));
         c_CoralIntakeSubsystem.setDefaultCommand(c_CoralIntakeSubsystem.run(()-> -codriver.getRawAxis(2)));
         a_AlgaeIntakeSubsystem.setDefaultCommand(a_AlgaeIntakeSubsystem.run(()-> -codriver.getRawAxis(3)));
-        e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(()-> (-codriver.getRawAxis(5) )));
+        e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(()-> (-codriver.getRawAxis(5) + Constants.ElevatorConstants.StallSpeed)));
         
 
         configureButtonBindings();
@@ -376,22 +376,22 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new SequentialCommandGroup(new InstantCommand(()->s_Swerve.gyro.reset()), new InstantCommand(() -> s_Swerve.zeroHeading())));
         slowMode.onTrue(new InstantCommand(() -> RobotContainer.power = .2));
-        fastMode.onTrue(new InstantCommand(() -> RobotContainer.power = 1));
+        fastMode.onTrue(new InstantCommand(() -> RobotContainer.power = 0.7));
         // back.onTrue(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set1(0.2)));
         // back.onFalse(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set1(0)));
         // start.whileTrue(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set2(0.2)));
         // start.whileFalse(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set2(0)));
 
         align.whileTrue(new ParallelCommandGroup(
-                 new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), L0(), Align_Driver(Constants.AlignConstants.centerTX, Constants.AlignConstants.centerTZ, Constants.AlignConstants.centerRY)));
+                 new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), Align_Driver(Constants.AlignConstants.centerTX, Constants.AlignConstants.centerTZ, Constants.AlignConstants.centerRY)));
 
         align.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
         // follow.whileTrue(new SequentialCommandGroup(
         //     new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AutoFollow_Driver(0.3)));
 
         // follow.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
-        alignLeft.whileTrue(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AlignLeft_Driver(), L0()));
-        alignRight.whileTrue(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AlignRight_Driver(), L0()));
+        alignLeft.whileTrue(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AlignLeft_Driver()));
+        alignRight.whileTrue(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), AlignRight_Driver()));
         //resetpose.onTrue(new InstantCommand(()->field.setRobotPose(0, 0, s_Swerve.getHeading())));
         // leftstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "PathTest")));
         // rightstation.whileTrue(new SequentialCommandGroup(new FollowPath(s_Swerve, "PathTest")));

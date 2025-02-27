@@ -22,7 +22,7 @@ public class AlgaeArmPID extends Command {
   public AlgaeArmPID(AlgaeArmSubsystem subsytem, double Setpoint) {
     this.a_AlgaeArmSubsystem = subsytem;
     this.pid.setSetpoint(Setpoint);
-    this.pid.setTolerance(Constants.ClimberConstants.Tolerance);
+    this.pid.setTolerance(Constants.AlgaeArmConstants.Tolerance );
     addRequirements(a_AlgaeArmSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }

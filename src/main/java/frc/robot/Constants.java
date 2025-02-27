@@ -19,11 +19,12 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Time;
 import frc.lib.util.COTSTalonFXSwerveConstants;
 import frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.driveRatios;
 import frc.lib.util.SwerveModuleConstants;
 public final class Constants {
-    public static final double CONTROLLER_DEADBAND = 0.1;
+    public static final double CONTROLLER_DEADBAND = 0.08;
 
     
 
@@ -133,9 +134,9 @@ public final class Constants {
         Units.degreesToRadians(360), Units.degreesToRadians(360));
 
         /** Units: m/s */
-        public static final double MAX_SPEED = 10;
+        public static final double MAX_SPEED = 8;
         /** Units: radians/s */
-        public static final double MAX_ANGULAR_VELOCITY = 10.0;
+        public static final double MAX_ANGULAR_VELOCITY = 8.0;
 
         /* Neutral Modes */
         public static final NeutralModeValue ANGLE_NEUTRAL_MODE = NeutralModeValue.Brake;
@@ -350,17 +351,17 @@ public final class Constants {
         public static final double kD = 0;
         public static final double Tolerance = 0.2;
         public static final boolean LimitEnable = true;
-        public static final double ForwardLimit = 29.3;
+        public static final double ForwardLimit = 29.8;
         public static final double ReverseLimit = 1.2;
         public static final double DefaultPose = 0;
-        public static final double L1Pose = 10;
+        public static final double L1Pose = 5;
         public static final double L2Pose = 13.7;
         public static final double L3Pose = 20.5;
-        public static final double L4Pose = 29.3;
+        public static final double L4Pose = 29.5;
         public static final double GearRatio = 1;//6.88:1
-        public static final double StallSpeed = 0.12;
+        public static final double StallSpeed = 0.15;
         public static final double MaxSpeed = 0.3;
-        public static final double MinSpeed = -0.37;
+        public static final double MinSpeed = -0.45;
         public static final double ClimbLimit = -1;
         public static final double L0Pose = 6.2;
         public static final double A1Pose = 4;
@@ -414,16 +415,18 @@ public final class Constants {
         public static final boolean ENABLE_CURRENT_LIMIT = true;
         public static final boolean ENABLE_STATOR_CURRENT_LIMIT = true;
         public static final boolean LimitEnable = false;
-        public static final double ForwardLimit = 14;
-        public static final double ReverseLimit = 1.5;
-        public static final double DefaultPose = 1.5;
+        public static final double ForwardLimit = 15;
+        public static final double ReverseLimit = 1.8;
+        public static final double DefaultPose = 1.8;
         public static final double ReefPose = 4.8;
         public static final double IntakeSpeed = 0.4;
-        public static final double GroundPose = 14;
+        public static final double GroundPose = 15;
         public static final double OuttakePose = 3;
         public static final double OuttakeSpeed = 0.5;
         public static final double GearRatio = 1/50;
-        public static final double GroundOuttakePose = 13;
+        public static final double GroundOuttakePose = 14;
+        public static final double Tolerance = 0.03;
+        public static final double timeout = 0.8;
         public static double kP = 0.042;
         public static double kI = 0.0;
         public static double kD = 0.0;
