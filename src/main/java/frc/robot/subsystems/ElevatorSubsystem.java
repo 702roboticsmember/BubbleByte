@@ -61,12 +61,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     slot0Configs.kD = 0; // no output for error derivative
     // slot0Configs.kG = 0;
     // slot0Configs.GravityType = GravityTypeValue.Elevator_Static;
-    
 
     // set Motion Magic Velocity settings
     var motionMagicConfigs = talonFXConfigs.MotionMagic;
     motionMagicConfigs.MotionMagicCruiseVelocity = Constants.ElevatorConstants.MaxVelocity;
-    motionMagicConfigs.MotionMagicAcceleration = 20; // Target acceleration of 400 rps/s (0.25 seconds to max)
+    motionMagicConfigs.MotionMagicAcceleration = Constants.ElevatorConstants.MaxAcceleration; // Target acceleration of 400 rps/s (0.25 seconds to max)
     motionMagicConfigs.MotionMagicJerk = 0; // Target jerk of 4000 rps/s/s (0.1 seconds)
 
     

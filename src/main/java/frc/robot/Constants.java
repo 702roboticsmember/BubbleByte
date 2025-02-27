@@ -19,7 +19,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.measure.Time;
 import frc.lib.util.COTSTalonFXSwerveConstants;
 import frc.lib.util.COTSTalonFXSwerveConstants.SDS.MK4i.driveRatios;
 import frc.lib.util.SwerveModuleConstants;
@@ -31,7 +30,7 @@ public final class Constants {
     /**
      * Corresponds to port zero on the Roborio DIO. 
      */
-    public static final int LIMIT_SWITCH_INTAKE = 0;
+    public static final int LIMIT_SWITCH_INTAKE = 9;
 
 
 
@@ -355,7 +354,7 @@ public final class Constants {
         public static final double ReverseLimit = 1.2;
         public static final double DefaultPose = 0;
         public static final double L1Pose = 10;
-        public static final double L2Pose = 13.2;
+        public static final double L2Pose = 13.7;
         public static final double L3Pose = 20.5;
         public static final double L4Pose = 29.3;
         public static final double GearRatio = 1;//6.88:1
@@ -370,7 +369,7 @@ public final class Constants {
         public static final double A2Timeout = 2;
 
         public static final double MaxVelocity = 20;
-        public static final double MaxAcceleration = 20;
+        public static final double MaxAcceleration = 40;
     }
     public static final class AlgaeIntakeConstants{
 
@@ -432,13 +431,16 @@ public final class Constants {
     }
     public static final class AlignConstants{
 
-        public static final double rightRY = 0;
-        public static final double rightX = 0.2;
+        public static final double rightRY = 3;
+        public static final double rightX = -0.14;;
         public static final double rightZ = .55;
 
-        public static final double leftRY = 2;
-        public static final double leftX = -0.14;
+        public static final double leftRY = 0;
+        public static final double leftX = 0.2;
         public static final double leftZ = 0.55;
+        public static double centerRY = 1;
+        public static double centerTX = 0;
+        public static double centerTZ = 0.55;
     }
 
 

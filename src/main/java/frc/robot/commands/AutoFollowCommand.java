@@ -52,7 +52,7 @@ public class AutoFollowCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.robotCentric = true;
+    // RobotContainer.robotCentric = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -90,7 +90,7 @@ public class AutoFollowCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   RobotContainer.robotCentric = false;
+  //  RobotContainer.robotCentric = false;
   }
 
   // Returns true when the command should end.

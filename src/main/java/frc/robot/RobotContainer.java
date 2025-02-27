@@ -288,6 +288,10 @@ public class RobotContainer {
         //Pathfinding.setDynamicObstacles(null, null);
         //beamLED.set(true);
         
+        SmartDashboard.putData(new InstantCommand(() -> {
+            s_Swerve.gyro.reset();
+        }));
+
         SmartDashboard.putData("Field", field);
         SmartDashboard.putNumber("robotposex", s_Swerve.getPose().getTranslation().getX());
         SmartDashboard.putNumber("robotposey", s_Swerve.getPose().getTranslation().getY());
@@ -310,7 +314,16 @@ public class RobotContainer {
 
         NamedCommands.registerCommand("align", Align_Driver(0, .75, 0));
         NamedCommands.registerCommand("Disconect", new FollowPath(s_Swerve, "P3Disconect"));
-      
+
+        NamedCommands.registerCommand("AlignRight", AlignRight_Driver());
+        NamedCommands.registerCommand("AlignLeft", AlignLeft_Driver());
+        NamedCommands.registerCommand("L0", L0());
+        NamedCommands.registerCommand("L1", L1());
+        NamedCommands.registerCommand("L2", L2());
+        NamedCommands.registerCommand("L3", L3());
+        NamedCommands.registerCommand("L4", L4());
+        NamedCommands.registerCommand("CoralOuttake", CoralOuttake());
+        NamedCommands.registerCommand("CoralIntake", CoralIntake());
 
         s_Swerve.setDefaultCommand(new TeleopSwerve(s_Swerve, 
         ()-> -driver.getRawAxis(1) * power, 
@@ -319,13 +332,15 @@ public class RobotContainer {
         ()->robotCentric));
 
         
-        c_ClimbSubsystem.setDefaultCommand(c_ClimbSubsystem.run(()-> codriver.getRawAxis(0) * Constants.ClimberConstants.MaxLiftSpeed));
+        c_ClimbSubsystem.setDefaultCommand(c_ClimbSubsystem.run(()-> -codriver.getRawAxis(0) * Constants.ClimberConstants.MaxLiftSpeed));
         c_CoralIntakeSubsystem.setDefaultCommand(c_CoralIntakeSubsystem.run(()-> -codriver.getRawAxis(2)));
         a_AlgaeIntakeSubsystem.setDefaultCommand(a_AlgaeIntakeSubsystem.run(()-> -codriver.getRawAxis(3)));
         e_ElevatorSubsytem.setDefaultCommand(e_ElevatorSubsytem.run(()-> (-codriver.getRawAxis(5) )));
         
 
         configureButtonBindings();
+        
+        
 
         // Build an auto chooser. This will use Commands.none() as the default option.
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -368,7 +383,7 @@ public class RobotContainer {
         // start.whileFalse(e_ElevatorSubsytem.run(() -> e_ElevatorSubsytem.set2(0)));
 
         align.whileTrue(new ParallelCommandGroup(
-                 new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), L0(), Align_Driver(0.07, .55, 0)));
+                 new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0)), L0(), Align_Driver(Constants.AlignConstants.centerTX, Constants.AlignConstants.centerTZ, Constants.AlignConstants.centerRY)));
 
         align.onFalse(new ParallelCommandGroup(new InstantCommand(()-> l_LimelightSubsystem.setCamMode(0))));
         // follow.whileTrue(new SequentialCommandGroup(
